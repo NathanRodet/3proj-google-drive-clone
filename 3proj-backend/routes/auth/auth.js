@@ -25,7 +25,7 @@ router.post('/login', async (req, res) => {
           if (result) {
             try {
               const accessToken = jwt.generateAccessToken(foundUser);
-              res.status(200).json("Logged in succesfully, access token: " + "{" + accessToken + "}" + " expire in : " + process.env.SECRET_TOKEN_DURATION);
+              res.status(200).json({ token: accessToken, duration: process.env.SECRET_TOKEN_DURATION });
             } catch (error) {
               res.status(500).json("Cannot generate token : " + error);
             }
@@ -60,7 +60,7 @@ router.post('/register', async (req, res) => {
     try {
       const foundUser = await User.findOne({ username: req.body.username });
       if (foundUser) {
-        res.status(400).json("The username " + req.body.username + " is already used, choose a different username.");
+        res.status(400).json("The username " + req.body.username + " is already used, choose a new one.");
       } else {
         try {
           const hashedPassword = await bcrypt.hash(req.body.password, 16);
