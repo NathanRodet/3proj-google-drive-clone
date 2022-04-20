@@ -8,7 +8,7 @@ pool:
 # Terraform
 
 jobs:
-- job: terraform
+- job: Terraform
   steps:
 
   - task: CopyFiles@2
@@ -26,26 +26,28 @@ jobs:
 
 # App
 
-- job: nodejs
+- job: Backend
   steps:
   - task: NodeTool@0
+    displayName: 'Install Nodejs'
     inputs:
       versionSpec: '16.x'
 
   - task: CopyFiles@2
+    displayName: 'Copy Backend files to artifacts'
     inputs:
       SourceFolder: 3proj-backend
-      TargetFolder: '$(Build.ArtifactStagingDirectory)/backend'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/Backend'
 
   - task: PublishBuildArtifacts@1
+    displayName: 'Publish Backend Artifacts'
     inputs: 
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)/backend'
-      ArtifactName: 'backend'
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/Backend'
+      ArtifactName: 'Backend'
       publishLocation: 'Container'
 
-- job: backend
-  steps:
   - task: Npm@1
+    displayName: 'npm install'
     inputs:
       command: 'install'
-      workingDir: '3proj/3proj-backend'
+      workingDir: '$(Build.ArtifactStagingDirectory)/Backend'
