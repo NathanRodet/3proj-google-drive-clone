@@ -5,6 +5,8 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+# Terraform
+
 jobs:
 - job: terraform
   steps:
@@ -22,13 +24,24 @@ jobs:
       ArtifactName: 'Terraform'
       publishLocation: 'Container'
 
-# Node.js tool installer
-# Finds or downloads and caches the specified version spec of Node.js and adds it to the PATH
+# App
+
 - job: nodejs
   steps:
   - task: NodeTool@0
     inputs:
       versionSpec: '16.x'
+
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: 3proj-backend
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/backend'
+
+  - task: PublishBuildArtifacts@1
+    inputs: 
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/backend'
+      ArtifactName: 'backend'
+      publishLocation: 'Container'
 
 - job: backend
   steps:
