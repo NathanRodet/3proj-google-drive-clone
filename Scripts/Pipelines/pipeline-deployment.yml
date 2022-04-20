@@ -1,9 +1,9 @@
-pool:
-  vmImage: 'ubuntu-latest'
-
 trigger:
   - develop
   - main
+
+pool:
+  vmImage: 'ubuntu-latest'
 
 jobs:
 - job: terraform
