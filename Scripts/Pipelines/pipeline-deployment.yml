@@ -15,9 +15,9 @@ jobs:
       SourceFolder: Scripts/Terraform
       TargetFolder: '$(Build.ArtifactStagingDirectory)/Terraform'
 
-  # - task: PublishBuildArtifacts@1
-  #   displayName: 'Make Terraform Artifacts'
-  #   inputs:
-  #     PathtoPublish: '$(Build.ArtifactStagingDirectory)/Terraform'
-  #     ArtifactName: 'Terraform'
-  #     publishLocation: 'Container'
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Terraform Artifacts'
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/Terraform'
+      ArtifactName: 'Terraform'
+      publishLocation: 'Container'
