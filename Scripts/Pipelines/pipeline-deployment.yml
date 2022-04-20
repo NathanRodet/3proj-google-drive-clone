@@ -8,9 +8,16 @@ pool:
 jobs:
 - job: terraform
   steps:
-  - task: PublishBuildArtifacts@1
-    displayName: 'Make Terraform Artifacts'
+
+  - task: CopyFiles@2
+    displayName: 'Copy Terraform files to artifacts'
     inputs:
-      PathtoPublish: 'Terraform'
-      ArtifactName: 'Terraform'
-      publishLocation: 'Container'
+      SourceFolder: Scripts/Terraform
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/Terraform'
+
+  # - task: PublishBuildArtifacts@1
+  #   displayName: 'Make Terraform Artifacts'
+  #   inputs:
+  #     PathtoPublish: '$(Build.ArtifactStagingDirectory)/Terraform'
+  #     ArtifactName: 'Terraform'
+  #     publishLocation: 'Container'
