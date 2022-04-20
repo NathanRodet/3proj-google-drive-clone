@@ -1,0 +1,16 @@
+pool:
+  vmImage: 'ubuntu-16.04'
+
+trigger:
+  - develop
+  - main
+
+jobs:
+- job: terraform
+  steps:
+  - task: PublishBuildArtifacts@1
+    displayName: 'Make Terraform Artifacts'
+    inputs:
+      PathtoPublish: 'Terraform'
+      ArtifactName: 'Terraform'
+      publishLocation: 'Container'
