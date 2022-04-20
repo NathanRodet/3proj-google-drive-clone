@@ -15,6 +15,14 @@ const DocumentSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  shared_read_id: {
+    type: Array,
+    required: false
+  },
+  shared_write_id: {
+    type: Array,
+    required: false
+  },
   upload_date_unix: {
     type: String,
     required: true

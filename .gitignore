@@ -1,2 +1,11 @@
+
+# Dev
+
+## Commons
 *node_modules
 *.env
+
+# Terraform
+*provider.tf
+.idea*
+*.terraform*
