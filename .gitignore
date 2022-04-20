@@ -6,7 +6,6 @@
 *.env
 
 # Terraform
-*provider.tf
 .idea*
 *.terraform*
 *tfplan
