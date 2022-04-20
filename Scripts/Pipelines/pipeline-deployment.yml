@@ -21,3 +21,18 @@ jobs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)/Terraform'
       ArtifactName: 'Terraform'
       publishLocation: 'Container'
+
+# Node.js tool installer
+# Finds or downloads and caches the specified version spec of Node.js and adds it to the PATH
+- job: nodejs
+  steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '16.x'
+
+- job: backend
+  steps:
+  - task: Npm@1
+    inputs:
+      command: 'install'
+      workingDir: '/3proj-backend'
