@@ -42,7 +42,7 @@ jobs:
   - task: CopyFiles@2
     displayName: 'Copy Backend files to artifacts'
     inputs:
-      SourceFolder: 3proj-backend
+      SourceFolder: '3proj-backend'
       TargetFolder: '$(Build.ArtifactStagingDirectory)/Backend'
 
   - task: PublishBuildArtifacts@1
