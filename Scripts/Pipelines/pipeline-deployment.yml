@@ -35,4 +35,4 @@ jobs:
   - task: Npm@1
     inputs:
       command: 'install'
-      workingDir: '/3proj-backend'
+      workingDir: '3proj/3proj-backend'
