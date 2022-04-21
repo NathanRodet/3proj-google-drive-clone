@@ -31,7 +31,7 @@ jobs:
   - task: NodeTool@0
     displayName: 'Install Nodejs'
     inputs:
-      versionSpec: '16.x'
+      versionSpec: '12.x'
 
   - task: Npm@1
     displayName: 'npm install'
