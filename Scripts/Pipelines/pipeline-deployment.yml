@@ -46,7 +46,7 @@ jobs:
         SERVER_PORT = $(SERVER_PORT)
         DB_CONNECTION_STRING = $(DB_CONNECTION_STRING)
         SECRET_TOKEN = $(SECRET_TOKEN)
-        SECRET_TOKEN_DURATION = $(SECRET_TOKEN_DURATION)'
+        SECRET_TOKEN_DURATION = $(SECRET_TOKEN_DURATION)
 
   - task: CopyFiles@2
     displayName: 'Copy Backend files to artifacts'
