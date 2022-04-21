@@ -39,22 +39,12 @@ jobs:
       command: 'install'
       workingDir: '3proj-backend'
 
-  - task: DownloadSecureFile@1
-    displayName: 'Download .env'
-    inputs:
-      secureFile: '.env'
-
-  - task: CopyFiles@2
-    inputs:
-      Contents: '.env'
-      sourceFolder: '.env'
-      targetFolder: '$(build.artifactStagingDirectory)/Backend'
-
   - task: CopyFiles@2
     displayName: 'Copy Backend files to artifacts'
     inputs:
       SourceFolder: '3proj-backend'
       TargetFolder: '$(Build.ArtifactStagingDirectory)/Backend'
+      
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Backend Artifacts'
     inputs: 
