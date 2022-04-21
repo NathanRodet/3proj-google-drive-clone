@@ -12,6 +12,8 @@ resource "azurerm_app_service_plan" "plan_supinfo_3proj_XXX" {
   name                = join("", ["plan", "-", "supinfo", "-", "3proj", "-", var.environment])
   location            = var.location
   resource_group_name = var.resource_group_name
+  kind                = "Linux"
+  reserved            = true
 
   sku {
     tier = "Standard"
@@ -26,7 +28,12 @@ resource "azurerm_app_service" "app_supinfo_3proj_XXX" {
   app_service_plan_id = azurerm_app_service_plan.plan_supinfo_3proj_XXX.id
 
   site_config {
-    always_on       = true
-    min_tls_version = "1.2"
+    always_on          = true
+    min_tls_version    = "1.2"
+    windows_fx_version = "NODE|16-lts"
   }
+
+  app_settings = {
+    "WEB_SITE_NODE_DEFAULT_VERSION" = "16.14.2"
+  }}
 }
