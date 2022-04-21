@@ -35,5 +35,5 @@ resource "azurerm_app_service" "app_supinfo_3proj_XXX" {
 
   app_settings = {
     "WEB_SITE_NODE_DEFAULT_VERSION" = "16.14.2"
-  }}
+  }
 }
