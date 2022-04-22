@@ -32,6 +32,7 @@ resource "azurerm_app_service" "app_supinfo_3proj_XXX" {
     min_tls_version    = "1.2"
     windows_fx_version = "NODE|16-lts"
     app_command_line   = "node app.js"
+    default_documents = ["app.js"]
   }
 
   app_settings = {
