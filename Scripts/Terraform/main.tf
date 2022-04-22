@@ -30,7 +30,8 @@ resource "azurerm_app_service" "app_supinfo_3proj_XXX" {
   site_config {
     always_on          = true
     min_tls_version    = "1.2"
-    windows_fx_version = "NODE|16-lts"
+    use_32_bit_worker_process = true
+    linux_fx_version = "NODE|12-lts"
     app_command_line   = "node app.js"
   }
 
