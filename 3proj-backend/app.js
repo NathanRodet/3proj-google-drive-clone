@@ -6,7 +6,7 @@ const app = express();
 require('dotenv/config');
 
 // Configuration variables
-const port = process.env.SERVER_PORT || 3001;
+const port = process.env.PORT || 3001;
 
 // App configuration
 app.use(bodyParser.json());
@@ -22,6 +22,6 @@ app.use('/auth', authRouter);
 
 
 app.listen(port, (error) => {
-  console.log('Server listening on port ' + port + " | http://localhost:" + port);
+  console.log('Server listening on port ' + port);
   (error) => console.log(error);
 });

@@ -17,7 +17,7 @@ resource "azurerm_app_service_plan" "plan_supinfo_3proj_XXX" {
 
   sku {
     tier = "Standard"
-    size = "S1"
+    size = "B1"
   }
 }
 
@@ -31,9 +31,20 @@ resource "azurerm_app_service" "app_supinfo_3proj_XXX" {
     always_on          = true
     min_tls_version    = "1.2"
     windows_fx_version = "NODE|16-lts"
+    app_command_line   = "node app.js"
   }
 
   app_settings = {
-    "WEB_SITE_NODE_DEFAULT_VERSION" = "16.14.2"
+    "WEB_SITE_NODE_DEFAULT_VERSION"         = "16.14.2"
+    "APPLICATIONINSIGHTS_CONNECTION_STRING" = azurerm_application_insights.ai_supinfo_3proj_XXX.connection_string
+    "APPINSIGHTS_INSTRUMENTATIONKEY"        = azurerm_application_insights.ai_supinfo_3proj_XXX.instrumentation_key
   }
+}
+
+resource "azurerm_application_insights" "ai_supinfo_3proj_XXX" {
+  name                = join("", ["ai", "-", "supinfo", "-", "3proj", "-", var.environment])
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  application_type    = "Node.JS"
+  retention_in_days   = "30"
 }
