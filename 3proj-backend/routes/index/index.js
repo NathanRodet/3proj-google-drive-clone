@@ -4,7 +4,7 @@ const router = express.Router();
 /* GET index */
 router.get('/', async (req, res) => {
   try {
-    res.sendStatus(204).json("index")
+    res.sendStatus(204)
   } catch (error) {
     console.error(error)
     res.status(500).json({ message: error });
