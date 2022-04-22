@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const db = require('./utils/db');
+const db = require('../utils/db');
 const app = express();
 require('dotenv/config');
 
@@ -14,14 +14,16 @@ app.use(cors());
 
 // Routes
 
-const indexRouter = require('./routes/index/index');
-const authRouter = require('./routes/auth/auth');
+const indexRouter = require('../routes/index/index');
+const authRouter = require('../routes/auth/auth');
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 
-
 app.listen(port, (error) => {
   console.log('Server listening on port ' + port);
-  (error) => console.log(error);
+  if (error) {
+    console.log('Failed to listen on port ' + port);
+    console.error(error);
+  }
 });
