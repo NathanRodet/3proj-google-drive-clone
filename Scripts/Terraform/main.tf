@@ -16,7 +16,7 @@ resource "azurerm_app_service_plan" "plan_supinfo_3proj_XXX" {
   reserved            = true
 
   sku {
-    tier = "Standard"
+    tier = "Basic"
     size = "B1"
   }
 }
