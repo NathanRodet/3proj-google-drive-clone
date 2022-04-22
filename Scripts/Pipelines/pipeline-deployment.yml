@@ -43,7 +43,6 @@ jobs:
     inputs:
       filepath: '$(Build.ArtifactStagingDirectory)/Backend/.env'
       filecontent: |
-        SERVER_PORT = $(SERVER_PORT)
         DB_CONNECTION_STRING = $(DB_CONNECTION_STRING)
         SECRET_TOKEN = $(SECRET_TOKEN)
         SECRET_TOKEN_DURATION = $(SECRET_TOKEN_DURATION)
