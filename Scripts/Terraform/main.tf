@@ -28,11 +28,11 @@ resource "azurerm_app_service" "app_supinfo_3proj_XXX" {
   app_service_plan_id = azurerm_app_service_plan.plan_supinfo_3proj_XXX.id
 
   site_config {
-    always_on          = true
-    min_tls_version    = "1.2"
-    use_32_bit_worker_process = true
-    linux_fx_version = "NODE|12-lts"
-    app_command_line   = "node app.js"
+    always_on                 = "true"
+    min_tls_version           = "1.2"
+    use_32_bit_worker_process = "true"
+    linux_fx_version          = "NODE|16-lts"
+    app_command_line          = "node app.js"
   }
 
   app_settings = {
