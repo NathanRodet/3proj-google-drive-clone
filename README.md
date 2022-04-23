@@ -47,6 +47,7 @@ The solution is supposed to run on both web or mobile plateform. You also need t
 
  - Delete a document if it belongs to the user.
  - Delete account and datas if it belongs to the user.
+ - Modify your datas.
 
 ## Admin features :
 
@@ -60,6 +61,8 @@ The solution is supposed to run on both web or mobile plateform. You also need t
 
  - Delete a document.
  - Delete accounts and datas.
+ - Count the users
+ - Get user by id
 
 # Supporting architecture :
 

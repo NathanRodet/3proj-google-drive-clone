@@ -24,7 +24,12 @@ const UserSchema = mongoose.Schema({
   is_admin: {
     type: Boolean,
     required: true,
-    default: false,
+    default: false
+  },
+  is_blocked: {
+    type: Boolean,
+    required: true,
+    default: false
   }
 });
 

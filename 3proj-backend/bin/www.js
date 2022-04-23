@@ -14,11 +14,16 @@ app.use(cors());
 
 // Routes
 
-const indexRouter = require('../routes/index/index');
-const authRouter = require('../routes/auth/auth');
+const indexRouter = require('../routes/index');
+const authRouter = require('../routes/auth');
+const usersRouter = require('../routes/users');
+const driveRouter = require('../routes/drive');
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
+app.use('/users', usersRouter);
+app.use('/drive', driveRouter);
+
 
 app.listen(port, (error) => {
   console.log('Server listening on port ' + port);

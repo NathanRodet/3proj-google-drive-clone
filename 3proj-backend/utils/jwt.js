@@ -7,7 +7,8 @@ function generateAccessToken(user) {
   const token = jwt.sign(
     {
       _id: user._id,
-      isAdmin: user.isAdmin
+      is_admin: user.is_admin,
+      is_blocked: user.is_blocked
     },
     process.env.SECRET_TOKEN,
     { expiresIn: process.env.SECRET_TOKEN_DURATION }

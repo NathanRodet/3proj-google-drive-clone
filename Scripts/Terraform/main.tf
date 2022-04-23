@@ -32,6 +32,7 @@ resource "azurerm_app_service" "app_supinfo_3proj_XXX" {
     min_tls_version           = "1.2"
     use_32_bit_worker_process = "true"
     linux_fx_version          = "NODE|16-lts"
+    health_check_path         = "/"
     //app_command_line          = "node app.js"
   }
 
