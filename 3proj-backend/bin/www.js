@@ -1,16 +1,19 @@
 const express = require('express');
+const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const compression = require('compression');
 const db = require('../utils/db');
-const app = express();
 require('dotenv/config');
 
 // Configuration variables
 const port = process.env.PORT || 3001;
 
 // App configuration
+
 app.use(bodyParser.json());
 app.use(cors());
+app.use(compression());
 
 // Routes
 
@@ -24,6 +27,7 @@ app.use('/auth', authRouter);
 app.use('/users', usersRouter);
 app.use('/drive', driveRouter);
 
+// Listener
 
 app.listen(port, (error) => {
   console.log('Server listening on port ' + port);

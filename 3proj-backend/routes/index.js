@@ -5,7 +5,8 @@ const indexController = require('../controllers/indexController');
 
 // Path : /index
 
-router.get('/', indexController.indexNoContent);
-router.get('/teapot', indexController.indexTeapot);
+router
+  .get('/', indexController.indexNoContent)
+  .get('/teapot', indexController.indexTeapot);
 
 module.exports = router;
