@@ -3,6 +3,7 @@ var router = express.Router();
 const jwt = require('../utils/jwt');
 
 const usersController = require('../controllers/usersController');
+const driveController = require('../controllers/driveController');
 
 // Path : /users
 
@@ -11,8 +12,8 @@ router
   .get('/specific/user/:userId', jwt.authenticateToken, usersController.getUserById)
   .get('/count', usersController.getCount)
   .post('/', usersController.postUser)
-  .delete('/specific/user/:userId', jwt.authenticateToken, usersController.deleteById)
-  .delete('/specific/user/self', jwt.authenticateToken, usersController.deleteSelf)
+  .delete('/specific/user/:userId', jwt.authenticateToken, usersController.deleteUserById)
+  .delete('/self', jwt.authenticateToken, usersController.deleteSelfUser)
   .patch('/username', jwt.authenticateToken, usersController.patchUsername)
   .patch('/first_name', jwt.authenticateToken, usersController.patchFirstName)
   .patch('/last_name', jwt.authenticateToken, usersController.patchLastName)

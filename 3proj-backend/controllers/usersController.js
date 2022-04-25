@@ -75,7 +75,7 @@ const postUser = async (req, res) => {
   }
 };
 
-const deleteSelf = async (req, res) => {
+const deleteSelfUser = async (req, res) => {
   const userJWT = req.user
 
   try {
@@ -91,7 +91,7 @@ const deleteSelf = async (req, res) => {
   }
 }
 
-const deleteById = async (req, res) => {
+const deleteUserById = async (req, res) => {
   const userJWT = req.user
 
   if (userJWT.is_admin && (userJWT._id != req.params.userId)) {
@@ -238,7 +238,7 @@ const patchIsBlocked = async (req, res) => {
 }
 
 module.exports = {
-  getUsers, postUser, getUserById, getCount, deleteSelf,
-  deleteById, patchUsername, patchFirstName, patchLastName,
+  getUsers, postUser, getUserById, getCount, deleteSelfUser,
+  deleteUserById, patchUsername, patchFirstName, patchLastName,
   patchMail, patchPassword, patchIsBlocked
 };

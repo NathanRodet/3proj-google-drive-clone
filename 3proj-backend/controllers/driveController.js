@@ -24,7 +24,7 @@ dbConnection.once('open', () => {
 const postDocument = async (req, res) => {
   try {
     if (!req.file || req.file === undefined || req.file.length === 0) {
-      res.status(400).json({ message: 'File : cannot upload a file that does not exist.' });
+      res.status(400).json({ message: "Cannot post the file : " + error });
     } else {
       res.status(200).json(req.file)
     }
@@ -36,21 +36,19 @@ const postDocument = async (req, res) => {
 const getDocumentById = async (req, res) => {
   try {
     if (mongoose.isValidObjectId(req.params.fileId)) {
+      const userJWT = req.user;
       const file = await gfs.files.findOne({ _id: ObjectId(req.params.fileId) })
-      if (!file || file === undefined || file.length === 0) {
-        res.status(404).json({ message: 'File : does not exist.' });
-      } else {
-        // res.status(200).json(file);
-        console.log(file._id)
-        res.send(file)
-        var readStream = gfsBucket.openDownloadStream(file._id);
-        readStream.on("error"), (error) => {
-          console.log(error);
+      if (userJWT.is_admin || (userJWT._id === file.metadata.owner_id)) {
+        if (!file || file === undefined || file.length === 0) {
+          res.status(404).json({ message: 'File : does not exist.' });
+        } else {
+          res.send(file)
         }
-        readStream.pipe(res);
+      } else {
+        res.status(401).json({ message: "Cannot get the file : You must be an administrator or the owner of the file" });
       }
     } else {
-      res.status(400).json({ message: "BSONTypeError : Argument passed in must be a string of 12 bytes or a string of 24 hex characters or an integer" });
+      res.status(400).json({ message: "Cannot get the file : " + error });
     }
   } catch (error) {
     res.status(500).json({ message: "File : cannot get file : " + error });
@@ -62,7 +60,7 @@ const downloadDocumentById = async (req, res) => {
     if (mongoose.isValidObjectId(req.params.fileId)) {
       const userJWT = req.user;
       const file = await gfs.files.find({ _id: ObjectId(req.params.fileId) }).toArray();
-      if (userJWT.is_admin || (userJWT.owner_id === file[0].metadata.owner_id)) {
+      if (userJWT.is_admin || (userJWT._id === file[0].metadata.owner_id)) {
         var readStream = gfsBucket.openDownloadStream(ObjectId(req.params.fileId));
         readStream.on("error", (error) => {
           console.log(error);
@@ -72,7 +70,7 @@ const downloadDocumentById = async (req, res) => {
         res.status(401).json({ message: "Cannot download : You must be an administrator or the owner of the file" });
       }
     } else {
-      res.status(400).json({ message: "BSONTypeError : Argument passed in must be a string of 12 bytes or a string of 24 hex characters or an integer" });
+      res.status(400).json({ message: "Cannot download the file : " + error });
     }
   }
   catch (error) {
@@ -95,16 +93,37 @@ const getUserDocuments = async (req, res) => {
   };
 };
 
+const getCountUserDocuments = async (req, res) => {
+  try {
+    const userJWT = req.user;
+    const files = await gfs.files.find(({ 'metadata.owner_id': userJWT._id })).toArray();
+    res.status(200).json(files.length);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "File : cannot get files : " + error });
+  };
+};
+
 const deleteDocumentById = async (req, res) => {
   try {
     if (mongoose.isValidObjectId(req.params.fileId)) {
-      await gfsBucket.delete(ObjectId(req.params.fileId), (error) => {
-        if (error) {
-          res.status(404).json({ message: "File : remove failure." });
+      const userJWT = req.user;
+      const file = await gfs.files.find({ _id: ObjectId(req.params.fileId) }).toArray();
+      if (!file || file === undefined || file.length === 0) {
+        res.status(400).json({ message: "File : remove failure, no files." });
+      } else {
+        if (userJWT.is_admin || (userJWT._id === file[0].metadata.owner_id)) {
+          await gfsBucket.delete(ObjectId(req.params.fileId), (error) => {
+            if (error) {
+              res.status(404).json({ message: "File : remove failure. : " + error });
+            } else {
+              res.status(200).json({ message: "File : remove success." });
+            }
+          });
         } else {
-          res.status(200).json({ message: "File : remove success." });
+          res.status(401).json({ message: "Cannot delete file : You must be an administrator or the owner of the file" });
         }
-      });
+      }
     } else {
       res.status(400).json({ message: "BSONTypeError : Argument passed in must be a string of 12 bytes or a string of 24 hex characters or an integer" });
     }
@@ -114,6 +133,29 @@ const deleteDocumentById = async (req, res) => {
   }
 };
 
+const deleteUserDocuments = async (req, res) => {
+  try {
+    const userJWT = req.user;
+
+    const files = await gfs.files.find({ 'metadata.owner_id': userJWT._id }).toArray();
+    if (!files || files === undefined || files.length === 0) {
+      res.status(400).json({ message: "File : remove failure, no files." });
+    } else {
+      files.forEach(item => {
+        gfsBucket.delete(ObjectId(item._id), (error) => {
+          if (error) {
+            res.status(404).json({ message: "File : remove failure. : " + error });
+          }
+          console.log(item._id + " deleted ")
+        });
+      })
+      res.status(200).json({ message: "File : remove success." });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "File : cannot delete file : " + error });
+  }
+};
+
 module.exports = {
-  postDocument, getDocumentById, getDocumentById, getUserDocuments, deleteDocumentById, downloadDocumentById
+  postDocument, getDocumentById, getDocumentById, getUserDocuments, deleteDocumentById, downloadDocumentById, deleteUserDocuments, getCountUserDocuments
 };
