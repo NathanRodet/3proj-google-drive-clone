@@ -33,6 +33,7 @@ resource "azurerm_app_service" "app_supinfo_3proj_XXX" {
     use_32_bit_worker_process = "true"
     linux_fx_version          = "NODE|16-lts"
     health_check_path         = "/"
+    ftps_state                = "Disabled"
   }
 
   app_settings = {
