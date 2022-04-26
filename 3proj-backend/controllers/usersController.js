@@ -5,11 +5,16 @@ const jwt = require('../utils/jwt');
 
 const getUsers = async (req, res) => {
   try {
-    const users = await User.find().select(['-password', '-is_admin', '-is_blocked', '-__v']);
-    if (users[0] === undefined) {
-      res.sendStatus(204)
+    const userJWT = req.user
+    if (userJWT.is_admin) {
+      const users = await User.find().select(['-password', '-is_admin', '-is_blocked', '-__v']);
+      if (users[0] === undefined) {
+        res.sendStatus(204)
+      } else {
+        res.json(users);
+      }
     } else {
-      res.json(users);
+      res.status(401).json({ message: "Users : You must be an administrator" })
     }
   } catch (error) {
     res.status(500).json({ message: "Users : error fetching users " + error });
@@ -18,11 +23,16 @@ const getUsers = async (req, res) => {
 
 const getUserById = async (req, res) => {
   try {
-    const user = await User.findOne({ _id: req.params.userId }).select(['-password', '-is_admin', '-is_blocked', '-__v']);
-    if (user) {
-      res.json(user);
+    const userJWT = req.user
+    if (userJWT.is_admin) {
+      const user = await User.findOne({ _id: req.params.userId }).select(['-password', '-is_admin', '-is_blocked', '-__v']);
+      if (user) {
+        res.json(user);
+      } else {
+        res.status(400).json({ message: "Users : no user found for this id." })
+      }
     } else {
-      res.status(400).json({ message: "Users : no user found for this id." })
+      res.status(401).json({ message: "Users : You must be an administrator" })
     }
   } catch (error) {
     res.status(500).json({ message: "Users : bad id or errors : " + error });

@@ -156,8 +156,6 @@ const deleteUserDocuments = async (req, res, next) => {
   }
 };
 
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY2YThkMDliMmRmNjgzYzI5NmU0YWUiLCJpc19hZG1pbiI6dHJ1ZSwiaXNfYmxvY2tlZCI6ZmFsc2UsImlhdCI6MTY1MDk1Nzc1MywiZXhwIjoxNjUwOTYxMzUzfQ.5WBwGx6u_nw27FmKU9ifNJoky-78uIdzEH8ZyyzfY5Q
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY0MmYyNjAzMzJkZGUzNjdjODFhZmUiLCJpc19hZG1pbiI6ZmFsc2UsImlzX2Jsb2NrZWQiOnRydWUsImlhdCI6MTY1MDk1Nzk0NCwiZXhwIjoxNjUwOTYxNTQ0fQ.LBx1d3fgnU9HygcEurOmsehsBLsJdooXYtAQbpq0JbE
 const deleteUserDocumentsById = async (req, res, next) => {
   try {
     const userJWT = req.user;

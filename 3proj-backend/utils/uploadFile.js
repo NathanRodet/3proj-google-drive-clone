@@ -10,7 +10,7 @@ const storage = new GridFsStorage({
     const userJWT = req.user;
     return new Promise((resolve, reject) => {
       const fileInfo = {
-        metadata: { filename: file.originalname, owner_id: userJWT._id },
+        metadata: { owner_id: userJWT._id },
         filename: file.originalname,
         bucketName: 'documents'
       };
