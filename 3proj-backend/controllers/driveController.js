@@ -63,7 +63,6 @@ const downloadDocumentById = async (req, res) => {
       if (userJWT.is_admin || (userJWT._id === file[0].metadata.owner_id)) {
         var readStream = gfsBucket.openDownloadStream(ObjectId(req.params.fileId));
         readStream.on("error", (error) => {
-          console.log(error);
         });
         readStream.pipe(res);
       } else {
@@ -133,23 +132,51 @@ const deleteDocumentById = async (req, res) => {
   }
 };
 
-const deleteUserDocuments = async (req, res) => {
+const deleteUserDocuments = async (req, res, next) => {
   try {
     const userJWT = req.user;
-
-    const files = await gfs.files.find({ 'metadata.owner_id': userJWT._id }).toArray();
-    if (!files || files === undefined || files.length === 0) {
-      res.status(400).json({ message: "File : remove failure, no files." });
+    if (!userJWT.is_admin) {
+      const files = await gfs.files.find({ 'metadata.owner_id': userJWT._id }).toArray();
+      if (!files || files === undefined || files.length === 0) {
+        res.status(400).json({ message: "File : remove failure, no files." });
+      } else {
+        files.forEach(item => {
+          gfsBucket.delete(ObjectId(item._id), (error) => {
+            if (error) {
+              res.status(404).json({ message: "File : remove failure. : " + error });
+            }
+          });
+        })
+      }
     } else {
-      files.forEach(item => {
-        gfsBucket.delete(ObjectId(item._id), (error) => {
-          if (error) {
-            res.status(404).json({ message: "File : remove failure. : " + error });
-          }
-          console.log(item._id + " deleted ")
-        });
-      })
-      res.status(200).json({ message: "File : remove success." });
+      next();
+    }
+  } catch (error) {
+    res.status(500).json({ message: "File : cannot delete file : " + error });
+  }
+};
+
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY2YThkMDliMmRmNjgzYzI5NmU0YWUiLCJpc19hZG1pbiI6dHJ1ZSwiaXNfYmxvY2tlZCI6ZmFsc2UsImlhdCI6MTY1MDk1Nzc1MywiZXhwIjoxNjUwOTYxMzUzfQ.5WBwGx6u_nw27FmKU9ifNJoky-78uIdzEH8ZyyzfY5Q
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY0MmYyNjAzMzJkZGUzNjdjODFhZmUiLCJpc19hZG1pbiI6ZmFsc2UsImlzX2Jsb2NrZWQiOnRydWUsImlhdCI6MTY1MDk1Nzk0NCwiZXhwIjoxNjUwOTYxNTQ0fQ.LBx1d3fgnU9HygcEurOmsehsBLsJdooXYtAQbpq0JbE
+const deleteUserDocumentsById = async (req, res, next) => {
+  try {
+    const userJWT = req.user;
+    const files = await gfs.files.find({ 'metadata.owner_id': req.params.userId }).toArray();
+    if (userJWT.is_admin) {
+      if (!files || files === undefined || files.length === 0) {
+        res.status(400).json({ message: "File : remove failure, no files." });
+      } else {
+        files.forEach(item => {
+          gfsBucket.delete(ObjectId(item._id), (error) => {
+            if (error) {
+              res.status(404).json({ message: "File : remove failure. : " + error });
+            }
+          });
+        })
+        next();
+      }
+    } else {
+      res.status(401).json({ message: "Cannot delete file : You must be an administrator." });
     }
   } catch (error) {
     res.status(500).json({ message: "File : cannot delete file : " + error });
@@ -157,5 +184,5 @@ const deleteUserDocuments = async (req, res) => {
 };
 
 module.exports = {
-  postDocument, getDocumentById, getDocumentById, getUserDocuments, deleteDocumentById, downloadDocumentById, deleteUserDocuments, getCountUserDocuments
+  postDocument, getDocumentById, getDocumentById, getUserDocuments, deleteDocumentById, downloadDocumentById, deleteUserDocuments, getCountUserDocuments, deleteUserDocumentsById
 };

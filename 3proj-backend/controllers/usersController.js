@@ -79,7 +79,6 @@ const deleteSelfUser = async (req, res) => {
   const userJWT = req.user
 
   try {
-    console.log(userJWT)
     if (userJWT.is_admin) {
       res.status(401).json("An administrator is not allowed to delete himself.");
     } else {

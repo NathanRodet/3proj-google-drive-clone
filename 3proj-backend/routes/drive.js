@@ -13,6 +13,5 @@ router
   .get('/specific/file/:fileId', jwt.authenticateToken, driveController.getDocumentById)
   .get('/specific/file/download/:fileId', jwt.authenticateToken, driveController.downloadDocumentById)
   .delete('/specific/file/:fileId', jwt.authenticateToken, driveController.deleteDocumentById)
-  .delete('/files', jwt.authenticateToken, driveController.deleteUserDocuments);
 
 module.exports = router;
