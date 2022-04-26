@@ -1,13 +1,16 @@
-const express = require('express');
+const express = require('express')
 const app = express();
 const bodyParser = require('body-parser');
-const cors = require('cors');
+const cors = require('cors');;
+const swaggerUI = require("swagger-ui-express");
+const YAML = require('yamljs');
 const compression = require('compression');
 const db = require('../utils/db');
 require('dotenv/config');
 
 // Configuration variables
 const port = process.env.PORT || 3001;
+const specs = YAML.load('./swagger/doc.yml');
 
 // App configuration
 
@@ -26,6 +29,7 @@ app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/users', usersRouter);
 app.use('/drive', driveRouter);
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 
 // Listener
 
