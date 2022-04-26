@@ -1,10 +1,8 @@
 const express = require('express')
 const app = express();
 const bodyParser = require('body-parser');
-const cors = require('cors');;
 const swaggerUI = require("swagger-ui-express");
 const YAML = require('yamljs');
-const compression = require('compression');
 const db = require('../utils/db');
 require('dotenv/config');
 
@@ -15,8 +13,6 @@ const specs = YAML.load('./swagger/doc.yml');
 // App configuration
 
 app.use(bodyParser.json());
-app.use(cors());
-app.use(compression());
 
 // Routes
 

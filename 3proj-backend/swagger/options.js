@@ -1,12 +1,6 @@
 require('dotenv/config');
 const port = process.env.PORT || 3001;
-var baseURL;
-
-if (port === 3001) {
-  baseURL = "http://localhost:" + port + "/"
-} else {
-  baseURL = process.env.BASEURL
-}
+const baseURL = process.env.BASEURL || "http://localhost:" + port + "/"
 
 const options = {
   definition: {
