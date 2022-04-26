@@ -90,5 +90,3 @@ The architecture is simple and affordable in terms of cost and size, we choose c
 - Database clean-up scripts.
 - User manual.
 - Video of presentation of the solution.
-
-> Written with [StackEdit](https://stackedit.io/).

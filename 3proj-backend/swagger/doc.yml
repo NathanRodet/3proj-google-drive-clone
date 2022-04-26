@@ -10,12 +10,14 @@ info:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 tags:
-- name: "pet"
-  description: "Everything about your Pets"
-- name: "store"
-  description: "Access to Petstore orders"
-- name: "user"
-  description: "Operations about user"
+- name: "Auth"
+  description: "Generate your token to authenticate."
+- name: "Drive"
+  description: "Operations on user documents."
+- name: "User"
+  description: "Operations about users."
+- name: "Index"
+  description: "Testing route and HTCPCP protocol management."
 schemes:
 - "https"
 - "http"
@@ -687,6 +689,3 @@ definitions:
         type: "string"
       message:
         type: "string"
-externalDocs:
-  description: "Find out more about Swagger"
-  url: "http://swagger.io"
