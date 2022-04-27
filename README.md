@@ -6,7 +6,7 @@ A Javascript Progressive Web App (PWA) made with Nodejs, Reactjs for frontend an
 ##  Topic : 
 
 X company hired you to develop a new solution to create, display, store and allow access to a storage solution. You will need to design both the backend and the frontend, but also the hardware or cloud architecture.
-The solution is supposed to run on both web or mobile plateform. You also need to explain the server architecture which support your solution based on prices, performances and sustainability over scalability.
+The solution is supposed to run on both web and mobile plateform. You also need to explain the server architecture which support your solution based on prices, performances and sustainability over scalability.
 
 #  Functionnal expression
 
