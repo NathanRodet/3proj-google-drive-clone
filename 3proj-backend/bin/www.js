@@ -2,6 +2,7 @@ const express = require('express')
 const app = express();
 const bodyParser = require('body-parser');
 const swaggerUI = require("swagger-ui-express");
+const cookieParser = require('cookie-parser');
 const YAML = require('yamljs');
 const db = require('../utils/db');
 require('dotenv/config');
@@ -13,6 +14,7 @@ const specs = YAML.load('./swagger/doc.yml');
 // App configuration
 
 app.use(bodyParser.json());
+app.use(cookieParser())
 
 // Routes
 

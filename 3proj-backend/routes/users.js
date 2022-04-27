@@ -8,7 +8,7 @@ const driveController = require('../controllers/driveController');
 // Path : /users
 
 router
-  .get('/', usersController.getUsers)
+  .get('/', jwt.authenticateToken, usersController.getUsers)
   .get('/specific/user/:userId', jwt.authenticateToken, usersController.getUserById)
   .get('/count', usersController.getCount)
   .post('/', usersController.postUser)
