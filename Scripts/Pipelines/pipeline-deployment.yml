@@ -1,6 +1,6 @@
-# trigger:
-#   - develop
-#   - main
+trigger:
+  - develop
+  - main
 
 pool:
   vmImage: 'ubuntu-latest'
