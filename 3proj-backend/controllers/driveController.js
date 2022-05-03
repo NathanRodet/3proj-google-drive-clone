@@ -24,12 +24,12 @@ dbConnection.once('open', () => {
 const postDocument = async (req, res) => {
   try {
     if (!req.file || req.file === undefined || req.file.length === 0) {
-      res.status(400).json({ message: "Cannot post the file : " + error });
+      res.status(400).json({ message: "Cannot post the file" });
     } else {
       res.status(200).json(req.file)
     }
   } catch (error) {
-    res.status(500).json({ message: "File : cannot post file : " + error });
+    res.status(500).json({ message: "Failure during the post file process" });
   }
 };
 
@@ -40,18 +40,18 @@ const getDocumentById = async (req, res) => {
       const file = await gfs.files.findOne({ _id: ObjectId(req.params.fileId) })
       if (userJWT.is_admin || (userJWT._id === file.metadata.owner_id)) {
         if (!file || file === undefined || file.length === 0) {
-          res.status(404).json({ message: 'File : does not exist.' });
+          res.status(404).json({ message: 'File does not exist.' });
         } else {
           res.send(file)
         }
       } else {
-        res.status(401).json({ message: "Cannot get the file : You must be an administrator or the owner of the file" });
+        res.status(401).json({ message: "Cannot get the file, you must be an administrator or the owner of the file" });
       }
     } else {
-      res.status(400).json({ message: "Cannot get the file : " + error });
+      res.status(400).json({ message: "Cannot get the file" });
     }
   } catch (error) {
-    res.status(500).json({ message: "File : cannot get file : " + error });
+    res.status(500).json({ message: "Failure fetching file informations" });
   }
 };
 
@@ -66,14 +66,14 @@ const downloadDocumentById = async (req, res) => {
         });
         readStream.pipe(res);
       } else {
-        res.status(401).json({ message: "Cannot download : You must be an administrator or the owner of the file" });
+        res.status(401).json({ message: "Cannot download the file, you must be an administrator or the owner of the file" });
       }
     } else {
-      res.status(400).json({ message: "Cannot download the file : " + error });
+      res.status(400).json({ message: "Cannot download the file" });
     }
   }
   catch (error) {
-    res.status(500).json({ message: error });
+    res.status(500).json({ message: "Failure during the download process" });
   }
 }
 
@@ -88,7 +88,7 @@ const getUserDocuments = async (req, res) => {
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "File : cannot get files : " + error });
+    res.status(500).json({ message: "Failure fetching user documents" });
   };
 };
 
@@ -99,7 +99,7 @@ const getCountUserDocuments = async (req, res) => {
     res.status(200).json(files.length);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "File : cannot get files : " + error });
+    res.status(500).json({ message: "Failure counting the file " });
   };
 };
 
@@ -109,26 +109,26 @@ const deleteDocumentById = async (req, res) => {
       const userJWT = req.user;
       const file = await gfs.files.find({ _id: ObjectId(req.params.fileId) }).toArray();
       if (!file || file === undefined || file.length === 0) {
-        res.status(400).json({ message: "File : remove failure, no files." });
+        res.status(400).json({ message: "Remove file failure, no files." });
       } else {
         if (userJWT.is_admin || (userJWT._id === file[0].metadata.owner_id)) {
           await gfsBucket.delete(ObjectId(req.params.fileId), (error) => {
             if (error) {
-              res.status(404).json({ message: "File : remove failure. : " + error });
+              res.status(404).json({ message: "Cannot remove the file" });
             } else {
-              res.status(200).json({ message: "File : remove success." });
+              res.status(200).json({ message: "The file has been removed" });
             }
           });
         } else {
-          res.status(401).json({ message: "Cannot delete file : You must be an administrator or the owner of the file" });
+          res.status(401).json({ message: "Cannot delete file, you must be an administrator or the owner of the file" });
         }
       }
     } else {
-      res.status(400).json({ message: "BSONTypeError : Argument passed in must be a string of 12 bytes or a string of 24 hex characters or an integer" });
+      res.status(400).json({ message: "Bad request, An argument passed in must be a string of 12 bytes or a string of 24 hex characters or an integer" });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "File : cannot delete file : " + error });
+    res.status(500).json({ message: "Failure during delete file process" });
   }
 };
 
@@ -138,12 +138,12 @@ const deleteUserDocuments = async (req, res, next) => {
     if (!userJWT.is_admin) {
       const files = await gfs.files.find({ 'metadata.owner_id': userJWT._id }).toArray();
       if (!files || files === undefined || files.length === 0) {
-        res.status(400).json({ message: "File : remove failure, no files." });
+        res.status(400).json({ message: "Remove file failure, no files." });
       } else {
         files.forEach(item => {
           gfsBucket.delete(ObjectId(item._id), (error) => {
             if (error) {
-              res.status(404).json({ message: "File : remove failure. : " + error });
+              res.status(404).json({ message: "Cannot remove files" });
             }
           });
         })
@@ -152,7 +152,7 @@ const deleteUserDocuments = async (req, res, next) => {
       next();
     }
   } catch (error) {
-    res.status(500).json({ message: "File : cannot delete file : " + error });
+    res.status(500).json({ message: "Failure during delete files process by user" });
   }
 };
 
@@ -162,22 +162,22 @@ const deleteUserDocumentsById = async (req, res, next) => {
     const files = await gfs.files.find({ 'metadata.owner_id': req.params.userId }).toArray();
     if (userJWT.is_admin) {
       if (!files || files === undefined || files.length === 0) {
-        res.status(400).json({ message: "File : remove failure, no files." });
+        res.status(400).json({ message: "Remove failure, no files." });
       } else {
         files.forEach(item => {
           gfsBucket.delete(ObjectId(item._id), (error) => {
             if (error) {
-              res.status(404).json({ message: "File : remove failure. : " + error });
+              res.status(404).json({ message: "Remove files failure. " });
             }
           });
         })
         next();
       }
     } else {
-      res.status(401).json({ message: "Cannot delete file : You must be an administrator." });
+      res.status(401).json({ message: "Cannot delete file, you must be an administrator." });
     }
   } catch (error) {
-    res.status(500).json({ message: "File : cannot delete file : " + error });
+    res.status(500).json({ message: "Failure during delete file process by id" });
   }
 };
 

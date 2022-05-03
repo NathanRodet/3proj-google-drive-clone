@@ -17,7 +17,7 @@ const getUsers = async (req, res) => {
       res.status(401).json({ message: "Users : You must be an administrator" })
     }
   } catch (error) {
-    res.status(500).json({ message: "Users : error fetching users " + error });
+    res.status(500).json({ message: "Users : error fetching users " });
   }
 };
 
@@ -35,7 +35,7 @@ const getUserById = async (req, res) => {
       res.status(401).json({ message: "Users : You must be an administrator" })
     }
   } catch (error) {
-    res.status(500).json({ message: "Users : bad id or errors : " + error });
+    res.status(500).json({ message: "Users : bad id or errors " });
   }
 }
 
@@ -44,7 +44,7 @@ const getCount = async (req, res) => {
     const usersCount = await User.count();
     res.json(usersCount);
   } catch (error) {
-    res.status(500).json({ message: "Users : cannot count users : " + error });
+    res.status(500).json({ message: "Users : cannot count users " });
   }
 }
 
@@ -80,7 +80,7 @@ const postUser = async (req, res) => {
       }
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: "Users : cannot post user : " + error });
+      res.status(500).json({ message: "Users : cannot post user" });
     }
   }
 };
@@ -96,7 +96,7 @@ const deleteSelfUser = async (req, res) => {
       res.json(removedUser);
     }
   } catch (error) {
-    res.status(500).json({ message: "Users : cannot delete self : " + error });
+    res.status(500).json({ message: "Users : cannot delete self " });
   }
 }
 
@@ -108,7 +108,7 @@ const deleteUserById = async (req, res) => {
       const removedUser = await User.deleteOne({ _id: req.params.userId });
       res.json(removedUser);
     } catch (error) {
-      res.status(500).json({ message: "Users : cannot delete by id : " + error });
+      res.status(500).json({ message: "Users : cannot delete by id " });
     }
   } else {
     res.status(401).json({ message: "Users : you must be an administrator, an administrator cannot delete his account." })
@@ -131,7 +131,7 @@ const patchUsername = async (req, res) => {
       );
       res.json(patchedUsername);
     } catch (error) {
-      res.status(500).json({ message: "Users : cannot patch : " + error });
+      res.status(500).json({ message: "Users : cannot patch" });
     }
   }
 }
@@ -152,7 +152,7 @@ const patchFirstName = async (req, res) => {
       );
       res.json(patchedFirstName);
     } catch (error) {
-      res.status(500).json({ message: "Users : cannot patch : " + error });
+      res.status(500).json({ message: "Users : cannot patch" });
     }
   }
 }
@@ -173,7 +173,7 @@ const patchLastName = async (req, res) => {
       );
       res.json(patchedLastName);
     } catch (error) {
-      res.status(500).json({ message: "Users : cannot patch : " + error });
+      res.status(500).json({ message: "Users : cannot patch " });
     }
   }
 }
@@ -194,7 +194,7 @@ const patchMail = async (req, res) => {
       );
       res.json(patchedMail);
     } catch (error) {
-      res.status(500).json({ message: "Users : cannot patch : " + error });
+      res.status(500).json({ message: "Users : cannot patch " });
     }
   }
 }
@@ -216,7 +216,7 @@ const patchPassword = async (req, res) => {
       );
       res.json(patchedPassword);
     } catch (error) {
-      res.status(500).json({ message: "Users : cannot patch : " + error });
+      res.status(500).json({ message: "Users : cannot patch " });
     }
   }
 }
@@ -238,7 +238,7 @@ const patchIsBlocked = async (req, res) => {
         );
         res.json(patchedPassword);
       } catch (error) {
-        res.status(500).json({ message: "Users : cannot patch : " + error });
+        res.status(500).json({ message: "Users : cannot patch " });
       }
     } else {
       res.status(401).json({ message: "Users : you must be an administrator." })

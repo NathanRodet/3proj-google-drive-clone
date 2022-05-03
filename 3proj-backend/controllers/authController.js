@@ -23,19 +23,19 @@ const authLogin = async (req, res) => {
               const accessToken = jwt.generateAccessToken(foundUser);
               res.status(200).json({ token: accessToken, duration: process.env.SECRET_TOKEN_DURATION });
             } catch (error) {
-              res.status(500).json({ message: "Auth : Cannot generate token" });
+              res.status(500).json({ message: "Generate token failure" });
             }
           } else {
-            res.status(400).json({ message: "Auth : bad password, try again" });
+            res.status(400).json({ message: "Bad login, try again" });
           }
         } catch (error) {
-          res.status(500).json({ message: "Auth : cannot compare password : " + error });
+          res.status(500).json({ message: "Cannot compare password" });
         };
       } else {
-        res.status(400).json({ message: "Auth : username, try again" });
+        res.status(400).json({ message: "Bad login, try again" });
       }
     } catch (error) {
-      res.status(500).json("Auth : failure fetching users : " + error);
+      res.status(500).json("Failure during authentication process");
     }
   }
 };
