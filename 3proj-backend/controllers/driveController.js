@@ -81,10 +81,22 @@ const getUserDocuments = async (req, res) => {
   try {
     const offset = parseInt(req.query.offset) || 0;
     const limit = parseInt(req.query.limit) || 0;
+    // // Sort : -1 (descending) 1 (ascending)
+    var sortQuery = -1;
+    // Sort by element "uploadDate"
+    var sortBy = "uploadDate";
+    // Accept user choice for sorting
+    if (req.query.sort === 'desc') {
+      sortQuery = -1;
+    } else if (req.query.sort === 'asc') {
+      sortQuery = 1;
+    }
+    console.log(sortQuery)
     const userJWT = req.user;
     const files = await gfs.files.find({ 'metadata.owner_id': userJWT._id })
       .skip(offset)
       .limit(limit)
+      .sort([[sortBy, sortQuery]])
       .toArray();
     if (!files || files === undefined || files.length === 0) {
       res.sendStatus(204);
