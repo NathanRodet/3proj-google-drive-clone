@@ -21,7 +21,6 @@ function generateAccessToken(user) {
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1] || authHeader && authHeader.split(' ')[0] || req.cookies.JSESSIONID;
-  console.log(token)
   if (!token) {
     return res.status(401).send("No token found");
   }

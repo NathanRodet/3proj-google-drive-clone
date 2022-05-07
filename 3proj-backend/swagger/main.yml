@@ -121,9 +121,13 @@ paths:
             properties:
               message:
                 type: string
-    #####################################################
-    # Users Admin
-    #####################################################
+  #####################################################
+  # Users
+  #####################################################
+
+  #####################################################
+  # Users Admin
+  #####################################################
   /users:
     get:
       tags:
@@ -175,9 +179,66 @@ paths:
                 type: string
       security:
         - JWT: [apiKey]
-  ###########
-  #
-  ###########
+    #####################################################
+    # Users
+    #####################################################
+    post:
+      tags:
+        - "Users"
+      summary: "Register your account"
+      description: "Register your account"
+      operationId: "postUser"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Your user informations"
+          required: true
+          schema:
+            properties:
+              username:
+                type: string
+              first_name:
+                type: string
+              last_name:
+                type: string
+              password:
+                type: string
+              mail:
+                type: string
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            properties:
+              _id:
+                type: string
+              username:
+                type: string
+              first_name:
+                type: string
+              last_name:
+                type: string
+              mail:
+                type: string
+        "400":
+          description: "Bad request"
+          schema:
+            properties:
+              message:
+                type: string
+        "500":
+          description: "Internal Server Error"
+          schema:
+            properties:
+              message:
+                type: string
+  #####################################################
+  # Users Admin
+  #####################################################
   /users/count:
     get:
       tags:
@@ -193,7 +254,7 @@ paths:
           schema:
             properties:
               message:
-                type: int
+                type: integer
         "500":
           description: "Internal Server Error"
           schema:
@@ -209,9 +270,9 @@ paths:
     get:
       tags:
         - "Users Admin"
-      summary: "Admin - Get the list of all users"
-      description: "Administrator request to get the users list, use the count users request to use the query properly."
-      operationId: "getUsers"
+      summary: "Admin - Delete a specific user"
+      description: "Administrator request to delete a specific user by id."
+      operationId: "deleteUsersById"
       parameters:
         - name: userId
           in: path
@@ -257,12 +318,101 @@ paths:
                 type: string
       security:
         - JWT: [apiKey]
+    delete:
+      tags:
+        - "Users Admin"
+      summary: "Admin - Delete a user and its files."
+      description: "Delete a user and its files."
+      operationId: "deleteUsersById"
+      parameters:
+        - name: userId
+          in: path
+          description: "User id"
+          required: true
+          type: string
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            properties:
+              acknowledged:
+                type: boolean
+              deletedCount:
+                type: integer
+                default: 1
+        "401":
+          description: "Unauthorized"
+          schema:
+            properties:
+              message:
+                type: string
+        "500":
+          description: "Internal Server Error"
+          schema:
+            properties:
+              message:
+                type: string
+      security:
+        - JWT: [apiKey]
   ###########
   #
   ###########
-
-  # - name: questionId
-  #   in: path
-  #   description: suvery's question id
-  #   required: true
-  #   type: string
+  /users/is_blocked/{userId}:
+    patch:
+      tags:
+        - "Users Admin"
+      summary: "Admin - Update the blocked state of a user"
+      description: "Administrator request to update the blocked state of a user"
+      operationId: "UpdateUserIsBlocked"
+      parameters:
+        - name: userId
+          in: path
+          description: "User id"
+          required: true
+          type: string
+        - in: "body"
+          name: "body"
+          description: "Is blocked state"
+          required: true
+          schema:
+            properties:
+              is_blocked:
+                type: boolean
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            properties:
+              ascknowledged:
+                type: boolean
+              modifiedCount:
+                type: integer
+              upsertedId:
+                type: boolean
+              upsertedCount:
+                type: integer
+              matchedCount:
+                type: integer
+        "401":
+          description: "Unauthorized"
+          schema:
+            properties:
+              message:
+                type: string
+        "500":
+          description: "Internal Server Error"
+          schema:
+            properties:
+              message:
+                type: string
+      security:
+        - JWT: [apiKey]
+  ###########
+  #
+  ###########

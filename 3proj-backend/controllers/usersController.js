@@ -23,7 +23,7 @@ const getUsers = async (req, res) => {
       res.status(401).json({ message: "Users : You must be an administrator" })
     }
   } catch (error) {
-    res.status(500).json({ message: "Users : error fetching users " });
+    res.status(500).json({ message: "Users : error fetching users" });
   }
 };
 

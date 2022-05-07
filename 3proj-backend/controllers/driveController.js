@@ -4,7 +4,7 @@ const jwt = require('../utils/jwt');
 const { ObjectId } = require('bson');
 require('dotenv/config');
 
-// Setup db connection for file transfer
+// Setup db connection for file transfers
 
 const dbConnectionString = process.env.DB_CONNECTION_STRING;
 const dbConnection = mongoose.createConnection(dbConnectionString);
@@ -156,12 +156,12 @@ const deleteUserDocuments = async (req, res, next) => {
     if (!userJWT.is_admin) {
       const files = await gfs.files.find({ 'metadata.owner_id': userJWT._id }).toArray();
       if (!files || files === undefined || files.length === 0) {
-        res.status(400).json({ message: "Remove file failure, no files." });
+        next();
       } else {
         files.forEach(item => {
           gfsBucket.delete(ObjectId(item._id), (error) => {
             if (error) {
-              res.status(404).json({ message: "Cannot remove files" });
+              res.status(500).json({ message: "Cannot remove files" });
             }
           });
         })
@@ -180,7 +180,7 @@ const deleteUserDocumentsById = async (req, res, next) => {
     const files = await gfs.files.find({ 'metadata.owner_id': req.params.userId }).toArray();
     if (userJWT.is_admin) {
       if (!files || files === undefined || files.length === 0) {
-        res.status(400).json({ message: "Remove failure, no files." });
+        next();
       } else {
         files.forEach(item => {
           gfsBucket.delete(ObjectId(item._id), (error) => {
