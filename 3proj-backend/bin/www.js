@@ -9,7 +9,7 @@ require('dotenv/config');
 
 // Configuration variables
 const port = process.env.PORT || 3001;
-const specs = YAML.load('./swagger/doc.yml');
+const specs = YAML.load('./swagger/main.yml');
 
 // App configuration
 

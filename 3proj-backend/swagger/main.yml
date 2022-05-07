@@ -1,0 +1,268 @@
+swagger: "2.0"
+info:
+  description: "3PROJ : REST API made with ExpressJS and documented with Swagger. HTTP scheme must be used for local test, HTTPS for production."
+  version: "1.0.0"
+  title: "3PROJ : BACKEND API DOCUMENTATION"
+  contact:
+    name: "RODET Nathan"
+    email: "rodetnathan.contact@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+tags:
+  - name: "Index"
+    description: "Testing routes and HTCPCP protocol management."
+  - name: "Auth"
+    description: "Generate your token with an account to authenticate."
+  - name: "Users"
+    description: "Operations about users."
+  - name: "Users Admin"
+    description: "Operations about users for administrators."
+  - name: "Drive"
+    description: "Operations on user documents."
+schemes:
+  - "https"
+  - "http"
+securityDefinitions:
+  JWT:
+    type: apiKey
+    in: header
+    name: Authorization
+    description: "The token describe if you're a normal user or an administrator."
+paths:
+  #####################################################
+  # Index
+  #####################################################
+  /:
+    get:
+      tags:
+        - "Index"
+      summary: "Index route"
+      description: "No content in here, 204 response."
+      operationId: "getIndex"
+      produces:
+        - "application/json"
+      responses:
+        "204":
+          description: "No content"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            properties:
+              message:
+                type: string
+  ###########
+  #
+  ###########
+  /teapot:
+    get:
+      tags:
+        - "Index"
+      summary: "HTCPCP/1.0 protocol management route"
+      description: "HTCPCP/1.0 protocol, RFC specs : https://www.ietf.org/rfc/rfc2324.txt"
+      operationId: "getTeapot"
+      produces:
+        - "application/json"
+      responses:
+        "418":
+          description: "I'm a Teapot"
+          schema:
+            properties:
+              Error:
+                type: string
+        "500":
+          description: "Internal Server Error"
+          schema:
+            properties:
+              message:
+                type: string
+  #####################################################
+  # Auth
+  #####################################################
+  /auth:
+    post:
+      tags:
+        - "Auth"
+      summary: "Authentication route"
+      description: "Generate your token."
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Credentials from your account"
+          required: true
+          schema:
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            properties:
+              token:
+                type: string
+              duration:
+                type: string
+        "400":
+          description: "Bad request"
+          schema:
+            properties:
+              message:
+                type: string
+        "500":
+          description: "Internal Server Error"
+          schema:
+            properties:
+              message:
+                type: string
+    #####################################################
+    # Users Admin
+    #####################################################
+  /users:
+    get:
+      tags:
+        - "Users Admin"
+      summary: "Admin - Get the list of all users"
+      description: "Administrator request to get the users list, use the count users request to use the query properly."
+      operationId: "getUsers"
+      parameters:
+        - in: query
+          name: offset
+          type: integer
+          required: false
+          description: "The number of items to skip before starting to collect the result set"
+        - in: query
+          name: limit
+          type: integer
+          required: false
+          description: "The numbers of items to return"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            properties:
+              _id:
+                type: string
+              username:
+                type: string
+              first_name:
+                type: string
+              last_name:
+                type: string
+              mail_name:
+                type: string
+        "204":
+          description: "No Content"
+        "401":
+          description: "Unauthorized"
+          schema:
+            properties:
+              message:
+                type: string
+        "500":
+          description: "Internal Server Error"
+          schema:
+            properties:
+              message:
+                type: string
+      security:
+        - JWT: [apiKey]
+  ###########
+  #
+  ###########
+  /users/count:
+    get:
+      tags:
+        - "Users Admin"
+      summary: "Admin - Get the users count"
+      description: "Administrator request to get the total of users"
+      operationId: "getUsersCount"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            properties:
+              message:
+                type: int
+        "500":
+          description: "Internal Server Error"
+          schema:
+            properties:
+              message:
+                type: string
+      security:
+        - JWT: [apiKey]
+  ###########
+  #
+  ###########
+  /users/specific/user/{userId}:
+    get:
+      tags:
+        - "Users Admin"
+      summary: "Admin - Get the list of all users"
+      description: "Administrator request to get the users list, use the count users request to use the query properly."
+      operationId: "getUsers"
+      parameters:
+        - name: userId
+          in: path
+          description: "User id"
+          required: true
+          type: string
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            properties:
+              _id:
+                type: string
+              username:
+                type: string
+              first_name:
+                type: string
+              last_name:
+                type: string
+              mail_name:
+                type: string
+        "204":
+          description: "No Content"
+        "401":
+          description: "Unauthorized"
+          schema:
+            properties:
+              message:
+                type: string
+        "404":
+          description: "Not Found"
+          schema:
+            properties:
+              message:
+                type: string
+        "500":
+          description: "Internal Server Error"
+          schema:
+            properties:
+              message:
+                type: string
+      security:
+        - JWT: [apiKey]
+  ###########
+  #
+  ###########
+
+  # - name: questionId
+  #   in: path
+  #   description: suvery's question id
+  #   required: true
+  #   type: string

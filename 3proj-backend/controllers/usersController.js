@@ -35,7 +35,7 @@ const getUserById = async (req, res) => {
       if (user) {
         res.json(user);
       } else {
-        res.status(400).json({ message: "Users : no user found for this id." })
+        res.status(404).json({ message: "Users : no user found for this id." })
       }
     } else {
       res.status(401).json({ message: "Users : You must be an administrator" })

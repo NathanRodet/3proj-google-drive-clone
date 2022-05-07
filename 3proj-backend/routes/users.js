@@ -10,7 +10,7 @@ const driveController = require('../controllers/driveController');
 router
   .get('/', jwt.authenticateToken, usersController.getUsers)
   .get('/specific/user/:userId', jwt.authenticateToken, usersController.getUserById)
-  .get('/count', usersController.getCount)
+  .get('/count', jwt.authenticateToken, usersController.getCount)
   .post('/', usersController.postUser)
   .delete('/specific/user/:userId', jwt.authenticateToken, driveController.deleteUserDocumentsById, usersController.deleteUserById)
   .delete('/self', jwt.authenticateToken, driveController.deleteUserDocuments, usersController.deleteSelfUser)

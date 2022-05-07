@@ -10,7 +10,7 @@ const authLogin = async (req, res) => {
   })
 
   if (joiSchema.validate(req.body).error) {
-    res.status(400).send(joiSchema.validate(req.body).error.details);
+    res.status(400).send(joiSchema.validate(req.body).error.details[0].message);
   } else {
     try {
       const foundUser = await User.findOne({ username: req.body.username });
@@ -35,7 +35,7 @@ const authLogin = async (req, res) => {
         res.status(400).json({ message: "Bad login, try again" });
       }
     } catch (error) {
-      res.status(500).json("Failure during authentication process");
+      res.status(500).json({ message: "Failure during authentication process" });
     }
   }
 };

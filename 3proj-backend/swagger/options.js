@@ -11,7 +11,7 @@ const options = {
       },
     ],
   },
-  apis: ["./swagger/docs.yml"],
+  apis: ["./swagger/main.yml"],
 };
 
 module.exports = { options }
