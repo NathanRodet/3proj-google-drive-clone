@@ -79,8 +79,13 @@ const downloadDocumentById = async (req, res) => {
 
 const getUserDocuments = async (req, res) => {
   try {
+    const offset = parseInt(req.query.offset) || 0;
+    const limit = parseInt(req.query.limit) || 0;
     const userJWT = req.user;
-    const files = await gfs.files.find({ 'metadata.owner_id': userJWT._id }).toArray();
+    const files = await gfs.files.find({ 'metadata.owner_id': userJWT._id })
+      .skip(offset)
+      .limit(limit)
+      .toArray();
     if (!files || files === undefined || files.length === 0) {
       res.sendStatus(204);
     } else {
@@ -94,6 +99,7 @@ const getUserDocuments = async (req, res) => {
 
 const getCountUserDocuments = async (req, res) => {
   try {
+
     const userJWT = req.user;
     const files = await gfs.files.find(({ 'metadata.owner_id': userJWT._id })).toArray();
     res.status(200).json(files.length);
