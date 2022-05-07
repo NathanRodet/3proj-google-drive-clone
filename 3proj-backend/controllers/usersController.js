@@ -5,9 +5,15 @@ const jwt = require('../utils/jwt');
 
 const getUsers = async (req, res) => {
   try {
+    const offset = parseInt(req.query.offset) || 0;
+    const limit = parseInt(req.query.limit) || 0;
+
     const userJWT = req.user
     if (userJWT.is_admin) {
-      const users = await User.find().select(['-password', '-is_admin', '-is_blocked', '-__v']);
+      const users = await User.find()
+        .select(['-password', '-is_admin', '-is_blocked', '-__v'])
+        .skip(offset)
+        .limit(limit);
       if (users[0] === undefined) {
         res.sendStatus(204)
       } else {
@@ -76,7 +82,7 @@ const postUser = async (req, res) => {
           mail: req.body.mail
         });
         const savedUser = await newUser.save();
-        res.json(savedUser);
+        res.json({ _id: savedUser._id, username: savedUser.username, first_name: savedUser.first_name, last_name: savedUser.last_name, mail: savedUser.mail });
       }
     } catch (error) {
       console.error(error);
