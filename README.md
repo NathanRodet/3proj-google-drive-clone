@@ -20,15 +20,22 @@ The solution is supposed to run on both web and mobile plateform. You also need 
 
 - **Front-end** : React.js.
 	- **libraries** : 
-		- Ant design, bulma chakra-ui.
+		- Ant design, bulma or chakra-ui.
 - **Back-end** : Express.js.
-	- **librairies** : 
+	- **Main librairies** : 
 		- JSON Web Token.
 		- Mongoose.
-		- Cors.
+		- Dotenv.
+		- Swagger.
+		- GridFS.
+		- Multer.
+		- CookieParser.
+		- BCrypt.
+		- Cors
 - **Database** : MongoDB (NoSQL).
--  **Web-server** : Cloud provided Linux VPS.
-	- **Provider** : 
+	- **Provider** : Altas MongoDB - Azure Cluster.
+-  **Web-server** : Cloud privided.
+	- **Provider** : Azure Cloud Provider.
 
 # Software development features :
 
