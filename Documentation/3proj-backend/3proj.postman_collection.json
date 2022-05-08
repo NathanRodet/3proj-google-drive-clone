@@ -1,0 +1,1535 @@
+{
+	"info": {
+		"_postman_id": "bc408c66-9ef7-413f-9c00-1d69e12ecb9d",
+		"name": "3proj",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Local",
+			"item": [
+				{
+					"name": "index",
+					"item": [
+						{
+							"name": "/teapot",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3001/teapot",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"teapot"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3001/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "login",
+					"item": [
+						{
+							"name": "/auth",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"weac\",\r\n    \"password\": \"testpass\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3001/auth",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"auth"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "users",
+					"item": [
+						{
+							"name": "/users",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3001/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users (Test offset/limit)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY2YThkMDliMmRmNjgzYzI5NmU0YWUiLCJpc19hZG1pbiI6dHJ1ZSwiaXNfYmxvY2tlZCI6ZmFsc2UsImlhdCI6MTY1MTkxMjczNiwiZXhwIjoxNjUxOTE2MzM2fQ.h7pccUTCDoky0PHe3TPo2cR-i-e2nqUbqWL3EdjgOiI",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3001/users?limit=&offset=",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"users"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": ""
+										},
+										{
+											"key": "offset",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users (Test cookie)",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "JSESSIONID=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY2YThkMDliMmRmNjgzYzI5NmU0YWUiLCJpc19hZG1pbiI6dHJ1ZSwiaXNfYmxvY2tlZCI6ZmFsc2UsImlhdCI6MTY1MTkxNTkzNSwiZXhwIjoxNjUxOTE5NTM1fQ.hgm8qoxnqxzBkMGK2kdGpDtVE8ywUkeMQqsAH3sZMT4",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:3001/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users/count",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3001/users/count",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"users",
+										"count"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users/specific/{userId}",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "authToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY2YThkMDliMmRmNjgzYzI5NmU0YWUiLCJpc19hZG1pbiI6dHJ1ZSwiaXNfYmxvY2tlZCI6ZmFsc2UsImlhdCI6MTY1MTkxMjczNiwiZXhwIjoxNjUxOTE2MzM2fQ.h7pccUTCDoky0PHe3TPo2cR-i-e2nqUbqWL3EdjgOiI; Path=/; Expires=Thu, 27 Apr 2023 08:27:29 GMT;",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:3001/users/specific/user/6266a8d09b2df683c296e4ae",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"users",
+										"specific",
+										"user",
+										"6266a8d09b2df683c296e4ae"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"weacspam5\",\r\n    \"first_name\": \"nathan\",\r\n    \"last_name\": \"rodet\",\r\n    \"password\": \"testpass\",\r\n    \"mail\": \"weac.contact@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3001/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users/self",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY2YThkMDliMmRmNjgzYzI5NmU0YWUiLCJpc19hZG1pbiI6dHJ1ZSwiaXNfYmxvY2tlZCI6ZmFsc2UsImlhdCI6MTY1MDk1ODg4MSwiZXhwIjoxNjUwOTYyNDgxfQ.4gr5m1-rQsLh-YqZsQq5f__wZzc73XL7-I1OLUK4ges",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3001/users/self",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"users",
+										"self"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users/specific/user/{userId}",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3001/users/specific/user/627632a8b55f36ec8d361308",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"users",
+										"specific",
+										"user",
+										"627632a8b55f36ec8d361308"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users/username",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY0MmYyNjAzMzJkZGUzNjdjODFhZmUiLCJpc19hZG1pbiI6ZmFsc2UsImlzX2Jsb2NrZWQiOmZhbHNlLCJpYXQiOjE2NTA3MzI5MjcsImV4cCI6MTY1MDczNjUyN30.s1iE2gbKx_b5-ylvNYeqffezig_pwFojVsm0g7RCY8w",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"weac\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3001/users/username",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"users",
+										"username"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users/first_name",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY0MmYyNjAzMzJkZGUzNjdjODFhZmUiLCJpc19hZG1pbiI6ZmFsc2UsImlzX2Jsb2NrZWQiOmZhbHNlLCJpYXQiOjE2NTA3MzI5MjcsImV4cCI6MTY1MDczNjUyN30.s1iE2gbKx_b5-ylvNYeqffezig_pwFojVsm0g7RCY8w",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"first_name\": \"nathan\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3001/users/first_name",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"users",
+										"first_name"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users/last_name",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY0MmYyNjAzMzJkZGUzNjdjODFhZmUiLCJpc19hZG1pbiI6ZmFsc2UsImlzX2Jsb2NrZWQiOmZhbHNlLCJpYXQiOjE2NTA3MzI5MjcsImV4cCI6MTY1MDczNjUyN30.s1iE2gbKx_b5-ylvNYeqffezig_pwFojVsm0g7RCY8w",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"last_name\": \"rodetpatched\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3001/users/last_name",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"users",
+										"last_name"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users/mail",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY0MmYyNjAzMzJkZGUzNjdjODFhZmUiLCJpc19hZG1pbiI6ZmFsc2UsImlzX2Jsb2NrZWQiOmZhbHNlLCJpYXQiOjE2NTA3MzI5MjcsImV4cCI6MTY1MDczNjUyN30.s1iE2gbKx_b5-ylvNYeqffezig_pwFojVsm0g7RCY8w",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"mail\": \"patched@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3001/users/mail",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"users",
+										"mail"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users/password",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY0MmYyNjAzMzJkZGUzNjdjODFhZmUiLCJpc19hZG1pbiI6ZmFsc2UsImlzX2Jsb2NrZWQiOmZhbHNlLCJpYXQiOjE2NTA3MzI5MjcsImV4cCI6MTY1MDczNjUyN30.s1iE2gbKx_b5-ylvNYeqffezig_pwFojVsm0g7RCY8w",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"password\": \"testpass\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3001/users/password",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"users",
+										"password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users/is_blocked/{_id}",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY0MmE1MTQ4MmQwZDE0MDZmYTcyMGUiLCJpc19hZG1pbiI6dHJ1ZSwiaXNfYmxvY2tlZCI6ZmFsc2UsImlhdCI6MTY1MDczNDU5NywiZXhwIjoxNjUwNzM4MTk3fQ.F0Eb4ndGwA7zHs8Ci7yLqBoq6dChal6NX8wv5g9BqYc",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"is_blocked\": \"true\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3001/users/is_blocked/62642f260332dde367c81afe",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"users",
+										"is_blocked",
+										"62642f260332dde367c81afe"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "drive",
+					"item": [
+						{
+							"name": "/drive",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3001/drive?limit=0&offset=0&sort=asc",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"drive"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "0"
+										},
+										{
+											"key": "offset",
+											"value": "0"
+										},
+										{
+											"key": "sort",
+											"value": "asc",
+											"description": "'asc' or 'desc'"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/drive/count",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3001/drive/count",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"drive",
+										"count"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/drive/specific/file/{fileId}",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3001/drive/specific/file/6277fc20c1e0df165c3a9df3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"drive",
+										"specific",
+										"file",
+										"6277fc20c1e0df165c3a9df3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/drive",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/rodet/Downloads/hike (1).jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3001/drive",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"drive"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/drive/specific/file/{fileId}",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3001/drive/specific/file/6277fc20c1e0df165c3a9df3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"drive",
+										"specific",
+										"file",
+										"6277fc20c1e0df165c3a9df3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/drive/specific/file/download/{fileId}",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3001/drive/specific/file/download/62780d7a769dc7daa6dab6a2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"drive",
+										"specific",
+										"file",
+										"download",
+										"62780d7a769dc7daa6dab6a2"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY2ZjhiZjk2ZDhkYjljMmQ3YjIxZmUiLCJpc19hZG1pbiI6ZmFsc2UsImlzX2Jsb2NrZWQiOmZhbHNlLCJpYXQiOjE2NTIwMzIyNTksImV4cCI6MTY1MjAzNTg1OX0.YunluvFRBETy8X--rUMg_6Hw_fAIjUfBj7pK4DfAvbg",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Azure",
+			"item": [
+				{
+					"name": "index",
+					"item": [
+						{
+							"name": "/teapot",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://app-supinfo-3proj-dev.azurewebsites.net/teapot",
+									"protocol": "https",
+									"host": [
+										"app-supinfo-3proj-dev",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"teapot"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://app-supinfo-3proj-dev.azurewebsites.net/",
+									"protocol": "https",
+									"host": [
+										"app-supinfo-3proj-dev",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "login",
+					"item": [
+						{
+							"name": "/auth",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"weac1\",\r\n    \"password\": \"testpass\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://app-supinfo-3proj-dev.azurewebsites.net/auth",
+									"protocol": "https",
+									"host": [
+										"app-supinfo-3proj-dev",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"auth"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "users",
+					"item": [
+						{
+							"name": "/users",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://app-supinfo-3proj-dev.azurewebsites.net/users",
+									"protocol": "https",
+									"host": [
+										"app-supinfo-3proj-dev",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users/count",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY0MmE1MTQ4MmQwZDE0MDZmYTcyMGUiLCJpc19hZG1pbiI6dHJ1ZSwiaXNfYmxvY2tlZCI6ZmFsc2UsImlhdCI6MTY1MDgyMDQ4MCwiZXhwIjoxNjUwODI0MDgwfQ._PzHDKUXD9YnQ-_upEBDLK46t7WDWvYoLbFd8b_MyGo",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://app-supinfo-3proj-dev.azurewebsites.net/users/count",
+									"protocol": "https",
+									"host": [
+										"app-supinfo-3proj-dev",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"users",
+										"count"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users/specific/{userId}",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY2YThkMDliMmRmNjgzYzI5NmU0YWUiLCJpc19hZG1pbiI6dHJ1ZSwiaXNfYmxvY2tlZCI6ZmFsc2UsImlhdCI6MTY1MDk2NzA4NSwiZXhwIjoxNjUwOTcwNjg1fQ.EkfpOT--z43F1LAISE3epUlk_tHjgdvhJPJva76nMKk",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://app-supinfo-3proj-dev.azurewebsites.net/users/specific/user/6266a8d09b2df683c296e4ae",
+									"protocol": "https",
+									"host": [
+										"app-supinfo-3proj-dev",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"users",
+										"specific",
+										"user",
+										"6266a8d09b2df683c296e4ae"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"weac\",\r\n    \"first_name\": \"nathan\",\r\n    \"last_name\": \"rodet\",\r\n    \"password\": \"testpass\",\r\n    \"mail\": \"weac.contact@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://app-supinfo-3proj-dev.azurewebsites.net/users",
+									"protocol": "https",
+									"host": [
+										"app-supinfo-3proj-dev",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users/self",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY2YThkMDliMmRmNjgzYzI5NmU0YWUiLCJpc19hZG1pbiI6dHJ1ZSwiaXNfYmxvY2tlZCI6ZmFsc2UsImlhdCI6MTY1MDk1ODg4MSwiZXhwIjoxNjUwOTYyNDgxfQ.4gr5m1-rQsLh-YqZsQq5f__wZzc73XL7-I1OLUK4ges",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://app-supinfo-3proj-dev.azurewebsites.net/users/self",
+									"protocol": "https",
+									"host": [
+										"app-supinfo-3proj-dev",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"users",
+										"self"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users/specific/user/{userId}",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY2YThkMDliMmRmNjgzYzI5NmU0YWUiLCJpc19hZG1pbiI6dHJ1ZSwiaXNfYmxvY2tlZCI6ZmFsc2UsImlhdCI6MTY1MDk1Nzc1MywiZXhwIjoxNjUwOTYxMzUzfQ.5WBwGx6u_nw27FmKU9ifNJoky-78uIdzEH8ZyyzfY5Q",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://app-supinfo-3proj-dev.azurewebsites.net/users/specific/user/62642f260332dde367c81afe",
+									"protocol": "https",
+									"host": [
+										"app-supinfo-3proj-dev",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"users",
+										"specific",
+										"user",
+										"62642f260332dde367c81afe"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users/username",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY0MmYyNjAzMzJkZGUzNjdjODFhZmUiLCJpc19hZG1pbiI6ZmFsc2UsImlzX2Jsb2NrZWQiOmZhbHNlLCJpYXQiOjE2NTA3MzI5MjcsImV4cCI6MTY1MDczNjUyN30.s1iE2gbKx_b5-ylvNYeqffezig_pwFojVsm0g7RCY8w",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"weacpatched\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://app-supinfo-3proj-dev.azurewebsites.net/users/username",
+									"protocol": "https",
+									"host": [
+										"app-supinfo-3proj-dev",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"users",
+										"username"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users/first_name",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY0MmYyNjAzMzJkZGUzNjdjODFhZmUiLCJpc19hZG1pbiI6ZmFsc2UsImlzX2Jsb2NrZWQiOmZhbHNlLCJpYXQiOjE2NTA3MzI5MjcsImV4cCI6MTY1MDczNjUyN30.s1iE2gbKx_b5-ylvNYeqffezig_pwFojVsm0g7RCY8w",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"first_name\": \"nathanpatched\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://app-supinfo-3proj-dev.azurewebsites.net/users/first_name",
+									"protocol": "https",
+									"host": [
+										"app-supinfo-3proj-dev",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"users",
+										"first_name"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users/last_name",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY0MmYyNjAzMzJkZGUzNjdjODFhZmUiLCJpc19hZG1pbiI6ZmFsc2UsImlzX2Jsb2NrZWQiOmZhbHNlLCJpYXQiOjE2NTA3MzI5MjcsImV4cCI6MTY1MDczNjUyN30.s1iE2gbKx_b5-ylvNYeqffezig_pwFojVsm0g7RCY8w",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"last_name\": \"rodetpatched\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://app-supinfo-3proj-dev.azurewebsites.net/users/last_name",
+									"protocol": "https",
+									"host": [
+										"app-supinfo-3proj-dev",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"users",
+										"last_name"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users/mail",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY0MmYyNjAzMzJkZGUzNjdjODFhZmUiLCJpc19hZG1pbiI6ZmFsc2UsImlzX2Jsb2NrZWQiOmZhbHNlLCJpYXQiOjE2NTA3MzI5MjcsImV4cCI6MTY1MDczNjUyN30.s1iE2gbKx_b5-ylvNYeqffezig_pwFojVsm0g7RCY8w",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"mail\": \"patched@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://app-supinfo-3proj-dev.azurewebsites.net/users/mail",
+									"protocol": "https",
+									"host": [
+										"app-supinfo-3proj-dev",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"users",
+										"mail"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users/password",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY0MmYyNjAzMzJkZGUzNjdjODFhZmUiLCJpc19hZG1pbiI6ZmFsc2UsImlzX2Jsb2NrZWQiOmZhbHNlLCJpYXQiOjE2NTA3MzI5MjcsImV4cCI6MTY1MDczNjUyN30.s1iE2gbKx_b5-ylvNYeqffezig_pwFojVsm0g7RCY8w",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"password\": \"testpass\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://app-supinfo-3proj-dev.azurewebsites.net/users/password",
+									"protocol": "https",
+									"host": [
+										"app-supinfo-3proj-dev",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"users",
+										"password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/users/is_blocked/{_id}",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY0MmE1MTQ4MmQwZDE0MDZmYTcyMGUiLCJpc19hZG1pbiI6dHJ1ZSwiaXNfYmxvY2tlZCI6ZmFsc2UsImlhdCI6MTY1MDczNDU5NywiZXhwIjoxNjUwNzM4MTk3fQ.F0Eb4ndGwA7zHs8Ci7yLqBoq6dChal6NX8wv5g9BqYc",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"is_blocked\": \"true\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://app-supinfo-3proj-dev.azurewebsites.net/users/is_blocked/62642f260332dde367c81afe",
+									"protocol": "https",
+									"host": [
+										"app-supinfo-3proj-dev",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"users",
+										"is_blocked",
+										"62642f260332dde367c81afe"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY2YThkMDliMmRmNjgzYzI5NmU0YWUiLCJpc19hZG1pbiI6dHJ1ZSwiaXNfYmxvY2tlZCI6ZmFsc2UsImlhdCI6MTY1MDk2NzA4NSwiZXhwIjoxNjUwOTcwNjg1fQ.EkfpOT--z43F1LAISE3epUlk_tHjgdvhJPJva76nMKk",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "drive",
+					"item": [
+						{
+							"name": "/drive",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY2YThkMDliMmRmNjgzYzI5NmU0YWUiLCJpc19hZG1pbiI6dHJ1ZSwiaXNfYmxvY2tlZCI6ZmFsc2UsImlhdCI6MTY1MTYwNTU3NywiZXhwIjoxNjUxNjA5MTc3fQ.PgWQHR6mGxG6lpdo6YXIOvw777G44DNDhJyrhlHjoCo",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://app-supinfo-3proj-dev.azurewebsites.net/drive",
+									"protocol": "https",
+									"host": [
+										"app-supinfo-3proj-dev",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"drive"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/drive/count",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY2YThkMDliMmRmNjgzYzI5NmU0YWUiLCJpc19hZG1pbiI6dHJ1ZSwiaXNfYmxvY2tlZCI6ZmFsc2UsImlhdCI6MTY1MDkxODUzMiwiZXhwIjoxNjUwOTIyMTMyfQ.9b8JgIhNT9bHoCE464zXe73dqXsP90KAk3su4cLnDHk",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://app-supinfo-3proj-dev.azurewebsites.net/drive/count",
+									"protocol": "https",
+									"host": [
+										"app-supinfo-3proj-dev",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"drive",
+										"count"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/drive/specific/file/{fileId}",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY2YThkMDliMmRmNjgzYzI5NmU0YWUiLCJpc19hZG1pbiI6dHJ1ZSwiaXNfYmxvY2tlZCI6ZmFsc2UsImlhdCI6MTY1MDkwNjAzNiwiZXhwIjoxNjUwOTA5NjM2fQ.sAqGJDZZ4Ndw0XWvRhpurkYRztXFtB8qBFALoyGbZKA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://app-supinfo-3proj-dev.azurewebsites.net/drive/specific/file/6266d4541bfda393307f9c3d",
+									"protocol": "https",
+									"host": [
+										"app-supinfo-3proj-dev",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"drive",
+										"specific",
+										"file",
+										"6266d4541bfda393307f9c3d"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/drive",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY2YThkMDliMmRmNjgzYzI5NmU0YWUiLCJpc19hZG1pbiI6dHJ1ZSwiaXNfYmxvY2tlZCI6ZmFsc2UsImlhdCI6MTY1MTYwNTU3NywiZXhwIjoxNjUxNjA5MTc3fQ.PgWQHR6mGxG6lpdo6YXIOvw777G44DNDhJyrhlHjoCo",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/rodet/Desktop/test.xml"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://app-supinfo-3proj-dev.azurewebsites.net/drive",
+									"protocol": "https",
+									"host": [
+										"app-supinfo-3proj-dev",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"drive"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/drive/specific/file/{fileId}",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY2YThkMDliMmRmNjgzYzI5NmU0YWUiLCJpc19hZG1pbiI6dHJ1ZSwiaXNfYmxvY2tlZCI6ZmFsc2UsImlhdCI6MTY1MDkwNjAzNiwiZXhwIjoxNjUwOTA5NjM2fQ.sAqGJDZZ4Ndw0XWvRhpurkYRztXFtB8qBFALoyGbZKA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://app-supinfo-3proj-dev.azurewebsites.net/drive/specific/file/62669a5a8efdb76210e45975",
+									"protocol": "https",
+									"host": [
+										"app-supinfo-3proj-dev",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"drive",
+										"specific",
+										"file",
+										"62669a5a8efdb76210e45975"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/drive/download/{fileId}",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY0MmE1MTQ4MmQwZDE0MDZmYTcyMGUiLCJpc19hZG1pbiI6ZmFsc2UsImlzX2Jsb2NrZWQiOmZhbHNlLCJpYXQiOjE2NTA5MDE3MDYsImV4cCI6MTY1MDkwNTMwNn0.ols0NvseM6p7jrHUp3Qfe9Nhv4zkK-UH4FYET2gPuzI",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://app-supinfo-3proj-dev.azurewebsites.net/drive/specific/file/download/6266d4581bfda393307f9c3f\"",
+									"protocol": "https",
+									"host": [
+										"app-supinfo-3proj-dev",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"drive",
+										"specific",
+										"file",
+										"download",
+										"6266d4581bfda393307f9c3f\""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
