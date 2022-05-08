@@ -20,8 +20,6 @@ tags:
     description: "Operations on user documents."
   - name: "Users Admin"
     description: "Operations about users for administrators."
-  - name: "DriveAdmin"
-    description: "Operations on user documents."
 schemes:
   - "https"
   - "http"
@@ -609,6 +607,9 @@ paths:
                 type: string
       security:
         - JWT: [apiKey]
+    ###########
+    #
+    ###########
     delete:
       tags:
         - "Users Admin"
@@ -707,6 +708,322 @@ paths:
   #####################################################
   # Drive
   #####################################################
-  #####################################################
-  # Drive Admin
-  #####################################################
+  /drive:
+    get:
+      tags:
+        - "Drive"
+      summary: "Get the list of files and their informations"
+      description: "It will not download the files, just their informations"
+      operationId: "getUserDocuments"
+      parameters:
+        - in: query
+          name: offset
+          type: integer
+          required: false
+          description: "The number of items to skip before starting to collect the result set"
+        - in: query
+          name: limit
+          type: integer
+          required: false
+          description: "The numbers of items to return"
+        - in: query
+          name: sort
+          type: string
+          required: false
+          description: "Correct value are : 'asc' for ascending and 'desc' for descending."
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            properties:
+              _id:
+                type: string
+              length:
+                type: integer
+              chunkSize:
+                type: integer
+              uploadDate:
+                type: string
+              filename:
+                type: string
+              contentType:
+                type: string
+              metadata:
+                type: object
+                properties:
+                  owner_id:
+                    type: string
+        "204":
+          description: "No Content"
+        "401":
+          description: "Unauthorized"
+          schema:
+            properties:
+              message:
+                type: string
+        "500":
+          description: "Internal Server Error"
+          schema:
+            properties:
+              message:
+                type: string
+      security:
+        - JWT: [apiKey]
+    ###########
+    #
+    ###########
+    post:
+      tags:
+        - "Drive"
+      summary: "Post a new document"
+      description: "Will be accessible only by yourself"
+      consumes:
+        - "multipart/form-data"
+      produces:
+        - "application/json"
+      parameters:
+        - name: file
+          in: formData
+          description: "The uploaded file data"
+          required: true
+          type: file
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            properties:
+              _id:
+                type: string
+              filename:
+                type: string
+              upload_date:
+                type: string
+              size:
+                type: integer
+        "400":
+          description: "Bad request"
+          schema:
+            properties:
+              message:
+                type: string
+        "401":
+          description: "Unauthorized"
+          schema:
+            properties:
+              message:
+                type: string
+        "500":
+          description: "Internal Server Error"
+          schema:
+            properties:
+              message:
+                type: string
+      security:
+        - JWT: [apiKey]
+  ###########
+  #
+  ###########
+  /drive/count:
+    get:
+      tags:
+        - "Drive"
+      summary: "Get the count of list of files"
+      description: "Get the count of list of files for listing and pagination."
+      operationId: "getCountUserDocuments"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            properties:
+              _id:
+                type: string
+              length:
+                type: integer
+              chunkSize:
+                type: integer
+              uploadDate:
+                type: string
+              filename:
+                type: string
+              contentType:
+                type: string
+              metadata:
+                type: object
+                properties:
+                  owner_id:
+                    type: string
+        "401":
+          description: "Unauthorized"
+          schema:
+            properties:
+              message:
+                type: string
+        "404":
+          description: "Not found"
+          schema:
+            properties:
+              message:
+                type: string
+        "500":
+          description: "Internal Server Error"
+          schema:
+            properties:
+              message:
+                type: string
+      security:
+        - JWT: [apiKey]
+  ###########
+  #
+  ###########
+  /drive/specific/file/{fileId}:
+    get:
+      tags:
+        - "Drive"
+      summary: "Get informations for a specific file"
+      description: "Get information for only one file."
+      operationId: "postDocument"
+      parameters:
+        - name: fileId
+          in: path
+          description: "File id"
+          required: true
+          type: string
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            properties:
+              _id:
+                type: string
+              username:
+                type: string
+              first_name:
+                type: string
+              last_name:
+                type: string
+              mail_name:
+                type: string
+        "401":
+          description: "Unauthorized"
+          schema:
+            properties:
+              message:
+                type: string
+        "404":
+          description: "Not Found"
+          schema:
+            properties:
+              message:
+                type: string
+        "500":
+          description: "Internal Server Error"
+          schema:
+            properties:
+              message:
+                type: string
+      security:
+        - JWT: [apiKey]
+    ###########
+    #
+    ###########
+    delete:
+      tags:
+        - "Drive"
+      summary: "Delete By Id for a specific file"
+      description: "Delete one file and its informations, you must be the owner of the file or an administrator."
+      operationId: "DeleteDocumentById"
+      parameters:
+        - name: fileId
+          in: path
+          description: "File id"
+          required: true
+          type: string
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            properties:
+              message:
+                type: string
+        "204":
+          description: "No Content"
+        "400":
+          description: "Bad request"
+          schema:
+            properties:
+              message:
+                type: string
+        "401":
+          description: "Unauthorized"
+          schema:
+            properties:
+              message:
+                type: string
+        "404":
+          description: "Not found"
+          schema:
+            properties:
+              message:
+                type: string
+        "500":
+          description: "Internal Server Error"
+          schema:
+            properties:
+              message:
+                type: string
+      security:
+        - JWT: [apiKey]
+  ###########
+  #
+  ###########
+  /drive/specific/file/download/{fileId}:
+    get:
+      tags:
+        - "Drive"
+      summary: "Download a document"
+      description: "Download a document, you myst be the owner or the administrator."
+      operationId: "getDocument"
+      parameters:
+        - name: fileId
+          in: path
+          description: "File id"
+          required: true
+          type: string
+      produces:
+        - "application/octet-stream"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            properties:
+              file:
+                type: string
+                format: binary
+        "400":
+          description: "Bad request"
+          schema:
+            properties:
+              message:
+                type: string
+        "401":
+          description: "Unauthorized"
+          schema:
+            properties:
+              message:
+                type: string
+        "500":
+          description: "Internal Server Error"
+          schema:
+            properties:
+              message:
+                type: string
+      security:
+        - JWT: [apiKey]

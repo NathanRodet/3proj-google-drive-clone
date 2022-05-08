@@ -26,7 +26,7 @@ const postDocument = async (req, res) => {
     if (!req.file || req.file === undefined || req.file.length === 0) {
       res.status(400).json({ message: "Cannot post the file" });
     } else {
-      res.status(200).json(req.file)
+      res.status(200).json({ _id: req.file.id, filename: req.file.filename, upload_date: req.file.uploadDate, size: req.file.size })
     }
   } catch (error) {
     res.status(500).json({ message: "Failure during the post file process" });
@@ -48,7 +48,7 @@ const getDocumentById = async (req, res) => {
         res.status(401).json({ message: "Cannot get the file, you must be an administrator or the owner of the file" });
       }
     } else {
-      res.status(400).json({ message: "Cannot get the file" });
+      res.status(500).json({ message: "Cannot get the file" });
     }
   } catch (error) {
     res.status(500).json({ message: "Failure fetching file informations" });
@@ -64,6 +64,8 @@ const downloadDocumentById = async (req, res) => {
         var readStream = gfsBucket.openDownloadStream(ObjectId(req.params.fileId));
         readStream.on("error", (error) => {
         });
+        res.setHeader('Content-Type', file[0].contentType);
+        res.setHeader('Content-Disposition', 'attachment; ' + file[0].filename);
         readStream.pipe(res);
       } else {
         res.status(401).json({ message: "Cannot download the file, you must be an administrator or the owner of the file" });
@@ -91,7 +93,6 @@ const getUserDocuments = async (req, res) => {
     } else if (req.query.sort === 'asc') {
       sortQuery = 1;
     }
-    console.log(sortQuery)
     const userJWT = req.user;
     const files = await gfs.files.find({ 'metadata.owner_id': userJWT._id })
       .skip(offset)
@@ -111,7 +112,6 @@ const getUserDocuments = async (req, res) => {
 
 const getCountUserDocuments = async (req, res) => {
   try {
-
     const userJWT = req.user;
     const files = await gfs.files.find(({ 'metadata.owner_id': userJWT._id })).toArray();
     res.status(200).json(files.length);
@@ -127,7 +127,7 @@ const deleteDocumentById = async (req, res) => {
       const userJWT = req.user;
       const file = await gfs.files.find({ _id: ObjectId(req.params.fileId) }).toArray();
       if (!file || file === undefined || file.length === 0) {
-        res.status(400).json({ message: "Remove file failure, no files." });
+        res.status(404).json({ message: "Remove file failure, no files." });
       } else {
         if (userJWT.is_admin || (userJWT._id === file[0].metadata.owner_id)) {
           await gfsBucket.delete(ObjectId(req.params.fileId), (error) => {
