@@ -16,9 +16,11 @@ tags:
     description: "Generate your token with an account to authenticate."
   - name: "Users"
     description: "Operations about users."
+  - name: "Drive"
+    description: "Operations on user documents."
   - name: "Users Admin"
     description: "Operations about users for administrators."
-  - name: "Drive"
+  - name: "DriveAdmin"
     description: "Operations on user documents."
 schemes:
   - "https"
@@ -121,10 +123,6 @@ paths:
             properties:
               message:
                 type: string
-  #####################################################
-  # Users
-  #####################################################
-
   #####################################################
   # Users Admin
   #####################################################
@@ -236,6 +234,293 @@ paths:
             properties:
               message:
                 type: string
+  ###########
+  #
+  ###########
+  /users/username:
+    patch:
+      tags:
+        - "Users"
+      summary: "Update the username"
+      operationId: "UpdateUserUsername"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New username"
+          required: true
+          schema:
+            properties:
+              username:
+                type: string
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            properties:
+              schema:
+                properties:
+                  ascknowledged:
+                    type: boolean
+                  modifiedCount:
+                    type: integer
+                  upsertedId:
+                    type: boolean
+                  upsertedCount:
+                    type: integer
+                  matchedCount:
+                    type: integer
+        "400":
+          description: "Bad request"
+          schema:
+            properties:
+              message:
+                type: string
+        "401":
+          description: "Unauthorized"
+          schema:
+            properties:
+              message:
+                type: string
+        "500":
+          description: "Internal Server Error"
+          schema:
+            properties:
+              message:
+                type: string
+      security:
+        - JWT: [apiKey]
+  ###########
+  #
+  ###########
+  /users/first_name:
+    patch:
+      tags:
+        - "Users"
+      summary: "Update the first_name"
+      operationId: "UpdateUserFirstname"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New first name"
+          required: true
+          schema:
+            properties:
+              first_name:
+                type: string
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            properties:
+              ascknowledged:
+                type: boolean
+              modifiedCount:
+                type: integer
+              upsertedId:
+                type: boolean
+              upsertedCount:
+                type: integer
+              matchedCount:
+                type: integer
+        "400":
+          description: "Bad request"
+          schema:
+            properties:
+              message:
+                type: string
+        "401":
+          description: "Unauthorized"
+          schema:
+            properties:
+              message:
+                type: string
+        "500":
+          description: "Internal Server Error"
+          schema:
+            properties:
+              message:
+                type: string
+      security:
+        - JWT: [apiKey]
+  ###########
+  #
+  ###########
+  /users/last_name:
+    patch:
+      tags:
+        - "Users"
+      summary: "Update the last_name"
+      operationId: "UpdateUserLastname"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New last name"
+          required: true
+          schema:
+            properties:
+              last_name:
+                type: string
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            properties:
+              ascknowledged:
+                type: boolean
+              modifiedCount:
+                type: integer
+              upsertedId:
+                type: boolean
+              upsertedCount:
+                type: integer
+              matchedCount:
+                type: integer
+        "400":
+          description: "Bad request"
+          schema:
+            properties:
+              message:
+                type: string
+        "401":
+          description: "Unauthorized"
+          schema:
+            properties:
+              message:
+                type: string
+        "500":
+          description: "Internal Server Error"
+          schema:
+            properties:
+              message:
+                type: string
+      security:
+        - JWT: [apiKey]
+  ###########
+  #
+  ###########
+  /users/mail:
+    patch:
+      tags:
+        - "Users"
+      summary: "Update the mail"
+      operationId: "UpdateUserMail"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New Mail : must have the format of a mail"
+          required: true
+          schema:
+            properties:
+              mail:
+                type: string
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            properties:
+              ascknowledged:
+                type: boolean
+              modifiedCount:
+                type: integer
+              upsertedId:
+                type: boolean
+              upsertedCount:
+                type: integer
+              matchedCount:
+                type: integer
+        "400":
+          description: "Bad request"
+          schema:
+            properties:
+              message:
+                type: string
+        "401":
+          description: "Unauthorized"
+          schema:
+            properties:
+              message:
+                type: string
+        "500":
+          description: "Internal Server Error"
+          schema:
+            properties:
+              message:
+                type: string
+      security:
+        - JWT: [apiKey]
+  ###########
+  #
+  ###########
+  /users/password:
+    patch:
+      tags:
+        - "Users"
+      summary: "Update the password"
+      operationId: "UpdateUserPassword"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New password : must have more than 8 characters"
+          required: true
+          schema:
+            properties:
+              password:
+                type: string
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            properties:
+              ascknowledged:
+                type: boolean
+              modifiedCount:
+                type: integer
+              upsertedId:
+                type: boolean
+              upsertedCount:
+                type: integer
+              matchedCount:
+                type: integer
+        "400":
+          description: "Bad request"
+          schema:
+            properties:
+              message:
+                type: string
+        "401":
+          description: "Unauthorized"
+          schema:
+            properties:
+              message:
+                type: string
+        "500":
+          description: "Internal Server Error"
+          schema:
+            properties:
+              message:
+                type: string
+      security:
+        - JWT: [apiKey]
   #####################################################
   # Users Admin
   #####################################################
@@ -255,6 +540,12 @@ paths:
             properties:
               message:
                 type: integer
+        "401":
+          description: "Unauthorized"
+          schema:
+            properties:
+              message:
+                type: string
         "500":
           description: "Internal Server Error"
           schema:
@@ -413,6 +704,9 @@ paths:
                 type: string
       security:
         - JWT: [apiKey]
-  ###########
-  #
-  ###########
+  #####################################################
+  # Drive
+  #####################################################
+  #####################################################
+  # Drive Admin
+  #####################################################
