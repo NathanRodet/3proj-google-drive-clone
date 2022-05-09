@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "pm2 start ./bin/www.js -i max --no-daemon",
+    "prod": "pm2 start ./bin/www.js -i max --no-daemon",
     "stop": "pm2 stop 0",
     "dev": "nodemon ./bin/www.js"
   },
