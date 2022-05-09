@@ -67,25 +67,25 @@ jobs:
       ArtifactName: 'Backend'
       publishLocation: 'Container'
 
-# App - Frontend : Create Artefact
+# # App - Frontend : Create Artefact
 
-- job: Frontend
-  steps:
-  - task: Npm@1
-    displayName: 'Install node modules'
-    inputs:
-      command: 'install'
-      workingDir: '3proj-frontend'
+# - job: Frontend
+#   steps:
+#   - task: Npm@1
+#     displayName: 'Install node modules'
+#     inputs:
+#       command: 'install'
+#       workingDir: '3proj-frontend'
 
-  - task: CopyFiles@2
-    displayName: 'Copy Frontend files to artifacts'
-    inputs:
-      SourceFolder: '3proj-frontend'
-      TargetFolder: '$(Build.ArtifactStagingDirectory)/Frontend'
+#   - task: CopyFiles@2
+#     displayName: 'Copy Frontend files to artifacts'
+#     inputs:
+#       SourceFolder: '3proj-frontend'
+#       TargetFolder: '$(Build.ArtifactStagingDirectory)/Frontend'
       
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Frontend Artifacts'
-    inputs: 
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)/Frontend'
-      ArtifactName: 'Frontend'
-      publishLocation: 'Container'
+#   - task: PublishBuildArtifacts@1
+#     displayName: 'Publish Frontend Artifacts'
+#     inputs: 
+#       PathtoPublish: '$(Build.ArtifactStagingDirectory)/Frontend'
+#       ArtifactName: 'Frontend'
+#       publishLocation: 'Container'
