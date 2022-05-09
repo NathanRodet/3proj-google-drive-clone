@@ -26,7 +26,7 @@ jobs:
 
 ## Install prerequisite for App (NodeJS)
 
-- job: Backend
+- job: 'Install_Nodejs'
   steps:
   - task: NodeTool@0
     displayName: 'Install Nodejs'
@@ -35,8 +35,10 @@ jobs:
 
 # App - Backend : Create Artefact
 
+- job: Backend
+  steps:
   - task: Npm@1
-    displayName: 'npm install'
+    displayName: 'Install node modules'
     inputs:
       command: 'install'
       workingDir: '3proj-backend'
@@ -44,6 +46,7 @@ jobs:
 # Create .env with secured variables
 
   - task: file-creator@6
+    displayName: 'Create .env'
     inputs:
       filepath: '$(Build.ArtifactStagingDirectory)/Backend/.env'
       filecontent: |
@@ -66,8 +69,10 @@ jobs:
 
 # App - Frontend : Create Artefact
 
+- job: Frontend
+  steps:
   - task: Npm@1
-    displayName: 'npm install'
+    displayName: 'Install node modules'
     inputs:
       command: 'install'
       workingDir: '3proj-frontend'
