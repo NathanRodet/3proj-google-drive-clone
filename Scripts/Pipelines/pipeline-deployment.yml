@@ -81,7 +81,7 @@ jobs:
     displayName: 'Build React App'
     inputs:
       command: 'custom'
-      customCommand: 'npm build'
+      customCommand: 'build'
       workingDir: '3proj-frontend'
 
   - task: CopyFiles@2
