@@ -33,7 +33,7 @@ jobs:
     inputs:
       versionSpec: '16.x'
 
-# App - Backend : Create Artefact
+# App - Backend : Create Artifact
 
 - job: Backend
   steps:
@@ -67,7 +67,7 @@ jobs:
       ArtifactName: 'Backend'
       publishLocation: 'Container'
 
-# # App - Frontend : Create Artefact
+# # App - Frontend : Create Artifact
 
 - job: Frontend
   steps:
