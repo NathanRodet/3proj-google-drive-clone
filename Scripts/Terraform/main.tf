@@ -16,6 +16,7 @@ resource "azurerm_app_service" "api_supinfo_3proj_XXX" {
   location            = var.location
   resource_group_name = var.resource_group_name
   app_service_plan_id = azurerm_app_service_plan.plan_api_supinfo_3proj_XXX.id
+  https_only          = "true"
 
   site_config {
     always_on                 = "true"
@@ -27,7 +28,7 @@ resource "azurerm_app_service" "api_supinfo_3proj_XXX" {
   }
 
   app_settings = {
-    "WEB_SITE_NODE_DEFAULT_VERSION"         = "16.14.2"
+    "WEB_SITE_NODE_DEFAULT_VERSION" = "16.14.2"
   }
 }
 
@@ -49,6 +50,7 @@ resource "azurerm_app_service" "app_supinfo_3proj_XXX" {
   location            = var.location
   resource_group_name = var.resource_group_name
   app_service_plan_id = azurerm_app_service_plan.plan_app_supinfo_3proj_XXX.id
+  https_only          = "true"
 
   site_config {
     always_on                 = "true"
@@ -59,7 +61,7 @@ resource "azurerm_app_service" "app_supinfo_3proj_XXX" {
     ftps_state                = "Disabled"
   }
 
-  app_settings = {
-    "WEB_SITE_NODE_DEFAULT_VERSION"         = "16.14.2"
-  }
+app_settings = {
+  "WEB_SITE_NODE_DEFAULT_VERSION" = "16.14.2"
+}
 }
