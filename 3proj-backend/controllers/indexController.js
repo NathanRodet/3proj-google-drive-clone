@@ -8,7 +8,7 @@ const indexNoContent = (req, res) => {
 
 const indexTeapot = (req, res) => {
   try {
-    res.status(418).json("I'm a teapot !")
+    res.status(418).json("I'm a super teapot !")
   } catch (error) {
     res.status(500).json({ message: "Error managing the teapot" });
   }

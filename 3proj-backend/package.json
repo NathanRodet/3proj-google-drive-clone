@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "prod": "pm2 start ./bin/www.js -i max --no-daemon",
-    "delete": "pm2 delete all",
     "dev": "nodemon ./bin/www.js"
   },
   "dependencies": {
