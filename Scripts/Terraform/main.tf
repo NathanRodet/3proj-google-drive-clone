@@ -25,7 +25,7 @@ resource "azurerm_app_service" "api_supinfo_3proj_XXX" {
     linux_fx_version          = "NODE|16-lts"
     health_check_path         = "/"
     ftps_state                = "Disabled"
-    app_command_line          = join("", ["pm2 link", var.pm2_monitoring_key, "&& npm run prod"])
+    app_command_line          = join("", ["pm2 link ", var.pm2_monitoring_key, " && npm run prod"])
   }
 
   app_settings = {
