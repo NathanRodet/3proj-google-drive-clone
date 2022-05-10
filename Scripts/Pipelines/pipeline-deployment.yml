@@ -24,24 +24,24 @@ jobs:
       ArtifactName: 'Terraform'
       publishLocation: 'Container'
 
-## Install prerequisite for App (NodeJS)
+# ## Install prerequisite for App (NodeJS)
 
-- job: 'Install_Nodejs'
-  steps:
-  - task: NodeTool@0
-    displayName: 'Install Nodejs'
-    inputs:
-      versionSpec: '16.x'
+# - job: 'Install_Nodejs'
+#   steps:
+#   - task: NodeTool@0
+#     displayName: 'Install Nodejs'
+#     inputs:
+#       versionSpec: '16.x'
 
-# App - Backend : Create Artefact
+# # App - Backend : Create Artefact
 
-- job: Backend
-  steps:
-  - task: Npm@1
-    displayName: 'Install node modules'
-    inputs:
-      command: 'install'
-      workingDir: '3proj-backend'
+# - job: Backend
+#   steps:
+#   - task: Npm@1
+#     displayName: 'Install node modules'
+#     inputs:
+#       command: 'install'
+#       workingDir: '3proj-backend'
 
   # Restore cache.
   # - task: Cache@2
