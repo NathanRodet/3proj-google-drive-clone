@@ -24,33 +24,24 @@ jobs:
       ArtifactName: 'Terraform'
       publishLocation: 'Container'
 
-# ## Install prerequisite for App (NodeJS)
+## Install prerequisite for App (NodeJS)
 
-# - job: 'Install_Nodejs'
-#   steps:
-#   - task: NodeTool@0
-#     displayName: 'Install Nodejs'
-#     inputs:
-#       versionSpec: '16.x'
+- job: 'Install_Nodejs'
+  steps:
+  - task: NodeTool@0
+    displayName: 'Install Nodejs'
+    inputs:
+      versionSpec: '16.x'
 
-# # App - Backend : Create Artefact
+# App - Backend : Create Artefact
 
-# - job: Backend
-#   steps:
-#   - task: Npm@1
-#     displayName: 'Install node modules'
-#     inputs:
-#       command: 'install'
-#       workingDir: '3proj-backend'
-
-  # Restore cache.
-  # - task: Cache@2
-  #   inputs:
-  #     key: 'npm | "$(Agent.OS)" | 3proj-backend/package-lock.json'
-  #     restoreKeys: |
-  #       npm | "$(Agent.OS)"
-  #     path: $(nodeModulesCache)
-  #   displayName: Cache Node modules
+- job: Backend
+  steps:
+  - task: Npm@1
+    displayName: 'Install node modules'
+    inputs:
+      command: 'install'
+      workingDir: '3proj-backend'
 
 # Create .env with secured variables
 
@@ -78,23 +69,30 @@ jobs:
 
 # # App - Frontend : Create Artefact
 
-# - job: Frontend
-#   steps:
-#   - task: Npm@1
-#     displayName: 'Install node modules'
-#     inputs:
-#       command: 'install'
-#       workingDir: '3proj-frontend'
+- job: Frontend
+  steps:
+  - task: Npm@1
+    displayName: 'Install node modules'
+    inputs:
+      command: 'install'
+      workingDir: '3proj-frontend'
 
-#   - task: CopyFiles@2
-#     displayName: 'Copy Frontend files to artifacts'
-#     inputs:
-#       SourceFolder: '3proj-frontend'
-#       TargetFolder: '$(Build.ArtifactStagingDirectory)/Frontend'
+  - task: Npm@1
+    displayName: 'Build React App'
+    inputs:
+      command: 'custom'
+      customCommand: 'npm build'
+      workingDir: '3proj-frontend'
+
+  - task: CopyFiles@2
+    displayName: 'Copy Frontend build to artifacts'
+    inputs:
+      SourceFolder: '3proj-frontend/build'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/Frontend'
       
-#   - task: PublishBuildArtifacts@1
-#     displayName: 'Publish Frontend Artifacts'
-#     inputs: 
-#       PathtoPublish: '$(Build.ArtifactStagingDirectory)/Frontend'
-#       ArtifactName: 'Frontend'
-#       publishLocation: 'Container'
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Frontend Artifacts'
+    inputs: 
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/Frontend'
+      ArtifactName: 'Frontend'
+      publishLocation: 'Container'
