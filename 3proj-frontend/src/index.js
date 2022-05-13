@@ -1,15 +1,24 @@
 import React from 'react';
 import ReactDOM from "react-dom/client";
-import './index.css';
-import App from './App';
+import './style/index.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import Home from './pages/Home';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/SignIn" element={<SignIn />} />
+        <Route path="/SignUp" element={<SignUp />} />
+      </Routes>
+    </BrowserRouter>
+  </React.StrictMode>,
 );
 
 // If you want your app to work offline and load faster, you can change
