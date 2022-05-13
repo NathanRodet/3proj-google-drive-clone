@@ -1,25 +1,27 @@
 {
   "name": "Drive School Project",
   "short_name": "DriveSup",
+  "start_url": "/",
+  "scope": "/",
+  "orientation": "portrait",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff",
   "icons": [
     {
       "src": "./media/favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
+      "sizes": "48x48",
       "type": "image/x-icon"
     },
     {
-      "src": "./media/android-chrome192.png",
+      "src": "./media/android-chrome-192x192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "./media/android-chrome512.png",
+      "src": "./media/android-chrome-512x512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  ]
 }
