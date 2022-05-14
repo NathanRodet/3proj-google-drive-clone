@@ -68,7 +68,7 @@ export default function Home() {
       <ThemeProvider theme={theme}>
         <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
         <CssBaseline />
-        <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 8, pb: 0 }}>
+        <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 8, pb: 0, pl: 2, pr: 2 }}>
           <Typography
             component="h1"
             variant="h2"
@@ -84,7 +84,7 @@ export default function Home() {
             Store files and access them from all your devices : mobile device, tablet, or computer.
           </Typography>
         </Container>
-        <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 8, pb: 6 }}>
+        <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 8, pb: 6, pl: 2, pr: 2 }}>
           <Typography
             component="h1"
             variant="h2"

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "prod": "pm2 start ./bin/www.js -i 3pm --no-daemon",
+    "prod": "pm2 start ./bin/www.js -i 1 --no-daemon",
     "dev": "nodemon ./bin/www.js"
   },
   "dependencies": {
