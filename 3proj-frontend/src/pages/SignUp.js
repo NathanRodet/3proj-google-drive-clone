@@ -29,7 +29,7 @@ export default function SignIn() {
   };
 
   return (
-    <div className="SignIn">
+    <div className="SignUp">
       <header className="navigation">
         <Navigation />
       </header>

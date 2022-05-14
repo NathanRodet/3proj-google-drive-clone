@@ -1,3 +1,15 @@
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+html {
+  height: 100%;
+  /* for the page to take full window height */
+  box-sizing: border-box;
+  /* to have the footer displayed at the bottom of the page without scrolling */
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Roboto';
@@ -5,18 +17,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
 .footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed;
-  height: 70px;
-  /* background-color: red; */
+  height: 10vh;
   bottom: 0px;
   left: 0px;
   right: 0px;
