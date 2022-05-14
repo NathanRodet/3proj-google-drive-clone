@@ -79,7 +79,7 @@ export default function Home() {
             Welcome to DriveSup
           </Typography>
           <Typography variant="h5" align="center" color="text.secondary" component="p">
-            Easy and secure access to your content.
+            Easy and secure online access to your content.
             <br />
             Store files and access them from all your devices : mobile device, tablet, or computer.
           </Typography>
