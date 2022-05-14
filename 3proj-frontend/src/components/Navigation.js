@@ -135,9 +135,8 @@ export default function Navigation() {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Link className="Navigation-link" to={"/" + page}>
+              <Link key={page} className="Navigation-link" to={"/" + page}>
                 <Button
-                  key={page}
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: 'white', display: 'block' }}
                 >
