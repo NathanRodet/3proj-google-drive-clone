@@ -23,7 +23,7 @@ export default function Navigation() {
 
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const isSignedIn = false;
+  const isSignedIn = true;
   // const isAdmin = false;
 
   const pages = ['Home', 'Dashboard']

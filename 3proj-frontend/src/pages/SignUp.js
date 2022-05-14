@@ -12,6 +12,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Footer from '../components/Footer';
 import Navigation from '../components/Navigation';
+import { Link as RouterLink } from 'react-router-dom';
 
 const theme = createTheme();
 
@@ -120,11 +121,13 @@ export default function SignIn() {
                 Sign Up
               </Button>
               <Grid container justifyContent="flex-end">
-                <Grid item>
-                  <Link href="#" variant="body2">
-                    Already have an account? Sign in
-                  </Link>
-                </Grid>
+                <RouterLink className="Navigation-link" to="/SignIn">
+                  <Grid item>
+                    <Link variant="body2">
+                      {"Already have an account? Sign in"}
+                    </Link>
+                  </Grid>
+                </RouterLink>
               </Grid>
             </Box>
           </Box>
