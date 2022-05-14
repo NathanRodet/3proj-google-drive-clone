@@ -86,9 +86,11 @@ export default function SignIn() {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
+                  <RouterLink className="Navigation-link" to="/ForgotPassword">
+                    <Link href="#" variant="body2">
+                      Forgot password?
+                    </Link>
+                  </RouterLink>
                 </Grid>
                 <RouterLink className="Navigation-link" to="/SignUp">
                   <Grid item>

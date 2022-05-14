@@ -148,7 +148,7 @@ export default function Navigation() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" sx={{ bgcolor: avatarColor }} src="/broken-image.jpg" >
+                <Avatar alt="profile" sx={{ bgcolor: avatarColor }}>
                   <AccountCircleIcon sx={{ color: iconColor }} />
                 </Avatar>
               </IconButton>
