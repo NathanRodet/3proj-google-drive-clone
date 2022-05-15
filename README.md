@@ -50,6 +50,11 @@ The solution is supposed to run on both web and mobile plateform. You also need 
  - Upload a new document.
  - Allow copy/past of existing document.
 
+## To-do
+
+- Render preview
+- Copy/Paste
+
 ### Bonus features for customers:
 
  - Delete a document if it belongs to the user.
@@ -63,6 +68,11 @@ The solution is supposed to run on both web and mobile plateform. You also need 
  - See the storage used by an user.
  - Access to users documents.
  - Monitoring informations [resources used, errors...]
+
+## To-do
+
+ - Block an user 1/2
+ - See the storage
 
 ### Bonus features for admin:
 
