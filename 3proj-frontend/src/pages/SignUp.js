@@ -124,7 +124,7 @@ export default function SignIn() {
                 <RouterLink className="Navigation-link" to="/SignIn">
                   <Grid item>
                     <p variant="body2" className="fakeLink">
-                      {"Already have an account? Sign in"}
+                      {"Already have an account?"}
                     </p>
                   </Grid>
                 </RouterLink>
