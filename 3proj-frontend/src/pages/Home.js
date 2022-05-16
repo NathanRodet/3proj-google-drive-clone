@@ -55,7 +55,7 @@ const tiers = [
     ],
     buttonText: 'Contact us',
     buttonVariant: 'outlined',
-    link: 'ContactUs'
+    link: '/ContactUs'
   },
 ];
 
