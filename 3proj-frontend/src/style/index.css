@@ -37,6 +37,17 @@ body {
   text-decoration: inherit;
 }
 
+.fakeLink {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+}
+
+.fakeLink:hover {
+  color: #444444;
+  text-decoration: none;
+}
+
 .footer {
   display: flex;
   justify-content: center;

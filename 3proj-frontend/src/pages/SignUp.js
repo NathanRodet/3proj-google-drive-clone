@@ -3,18 +3,18 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Footer from '../components/Footer';
 import Navigation from '../components/Navigation';
 import { Link as RouterLink } from 'react-router-dom';
+import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 
-const theme = createTheme();
+let theme = createTheme();
+theme = responsiveFontSizes(theme);
 
 export default function SignIn() {
   const handleSubmit = (event) => {
@@ -66,11 +66,11 @@ export default function SignIn() {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
-                    autoComplete="given-name"
-                    name="firstName"
+                    autoComplete="Given-name"
+                    name="first_name"
                     required
                     fullWidth
-                    id="firstName"
+                    id="first_name"
                     label="First Name"
                     autoFocus
                     placeholder="Nathan"
@@ -80,9 +80,9 @@ export default function SignIn() {
                   <TextField
                     required
                     fullWidth
-                    id="lastName"
+                    id="last_name"
                     label="Last Name"
-                    name="lastName"
+                    name="last_name"
                     autoComplete="family-name"
                     placeholder="Rodet"
                   />
@@ -123,16 +123,16 @@ export default function SignIn() {
               <Grid container justifyContent="flex-end">
                 <RouterLink className="Navigation-link" to="/SignIn">
                   <Grid item>
-                    <Link variant="body2">
+                    <p variant="body2" className="fakeLink">
                       {"Already have an account? Sign in"}
-                    </Link>
+                    </p>
                   </Grid>
                 </RouterLink>
               </Grid>
             </Box>
           </Box>
         </Container>
-      </ThemeProvider>
+      </ThemeProvider >
       <footer className="footer">
         <Footer />
       </footer>

@@ -3,7 +3,6 @@ import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -15,8 +14,10 @@ import StarIcon from '@mui/icons-material/StarBorder';
 import Typography from '@mui/material/Typography';
 import GlobalStyles from '@mui/material/GlobalStyles';
 import { Link as RouterLink } from 'react-router-dom';
+import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 
-const theme = createTheme();
+let theme = createTheme();
+theme = responsiveFontSizes(theme);
 
 const tiers = [
   {
@@ -68,7 +69,7 @@ export default function Home() {
       <ThemeProvider theme={theme}>
         <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
         <CssBaseline />
-        <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 8, pb: 0, pl: 2, pr: 2 }}>
+        <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 6, pb: 0, pl: 2, pr: 2 }}>
           <Typography
             component="h1"
             variant="h2"
@@ -84,7 +85,7 @@ export default function Home() {
             Store files and access them from all your devices : mobile device, tablet, or computer.
           </Typography>
         </Container>
-        <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 8, pb: 6, pl: 2, pr: 2 }}>
+        <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 6, pb: 6, pl: 2, pr: 2 }}>
           <Typography
             component="h1"
             variant="h2"
