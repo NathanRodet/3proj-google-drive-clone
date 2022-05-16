@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Grid = require('gridfs-stream');
-const jwt = require('../utils/jwt');
+const { formatBytes } = require('../utils/sizeDocument');
 const { ObjectId } = require('bson');
 require('dotenv/config');
 
@@ -23,10 +23,11 @@ dbConnection.once('open', () => {
 
 const postDocument = async (req, res) => {
   try {
+    const size = formatBytes(req.file.size);
     if (!req.file || req.file === undefined || req.file.length === 0) {
       res.status(400).json({ message: "Cannot post the file" });
     } else {
-      res.status(200).json({ _id: req.file.id, filename: req.file.filename, upload_date: req.file.uploadDate, size: req.file.size })
+      res.status(200).json({ _id: req.file.id, filename: req.file.filename, upload_date: req.file.uploadDate, size: size })
     }
   } catch (error) {
     res.status(500).json({ message: "Failure during the post file process" });
@@ -42,10 +43,39 @@ const getDocumentById = async (req, res) => {
         if (!file || file === undefined || file.length === 0) {
           res.status(404).json({ message: 'File does not exist.' });
         } else {
-          res.send(file)
+          const size = formatBytes(file.length);
+          res.send({ _id: file._id, size: size, upload_date: file.uploadDate, content_type: file.contentType, owner_id: file.metadata.owner_id })
         }
       } else {
         res.status(401).json({ message: "Cannot get the file, you must be an administrator or the owner of the file" });
+      }
+    } else {
+      res.status(500).json({ message: "Cannot get the file" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Failure fetching file informations" });
+  }
+};
+
+const getDocumentByUserId = async (req, res) => {
+  try {
+    if (mongoose.isValidObjectId(req.params.userId)) {
+      const userJWT = req.user;
+      const files = await gfs.files.find({ 'metadata.owner_id': req.params.userId }).toArray();
+      if (userJWT.is_admin) {
+        if (!files || files === undefined || files.length === 0) {
+          res.status(404).json({ message: 'No existing files exist.' });
+        } else {
+          let space = 0
+          const filesUpdated = files.map(obj => {
+            const size = formatBytes(obj.length);
+            space = space + obj.length
+            return { _id: obj._id, size: size, upload_date: obj.uploadDate, filename: obj.filename, content_type: obj.contentType, owner_id: obj.metadata.owner_id };
+          });
+          res.send({ files: filesUpdated, total_space_used: formatBytes(space), count: files.length })
+        }
+      } else {
+        res.status(401).json({ message: "Cannot get files, you must be an administrator" });
       }
     } else {
       res.status(500).json({ message: "Cannot get the file" });
@@ -102,10 +132,15 @@ const getUserDocuments = async (req, res) => {
     if (!files || files === undefined || files.length === 0) {
       res.sendStatus(204);
     } else {
-      res.status(200).json(files);
+      let space = 0
+      const filesUpdated = files.map(obj => {
+        const size = formatBytes(obj.length);
+        space = space + obj.length
+        return { _id: obj._id, size: size, upload_date: obj.uploadDate, filename: obj.filename, content_type: obj.contentType, owner_id: obj.metadata.owner_id };
+      });
+      res.status(200).json({ files: filesUpdated, total_space_used: formatBytes(space) });
     }
   } catch (error) {
-    console.error(error);
     res.status(500).json({ message: "Failure fetching user documents" });
   };
 };
@@ -114,9 +149,12 @@ const getCountUserDocuments = async (req, res) => {
   try {
     const userJWT = req.user;
     const files = await gfs.files.find(({ 'metadata.owner_id': userJWT._id })).toArray();
-    res.status(200).json(files.length);
+    let size = 0
+    files.map(obj => {
+      size = size + obj.length
+    });
+    res.status(200).json({ count: files.length, total_size: formatBytes(size) });
   } catch (error) {
-    console.error(error);
     res.status(500).json({ message: "Failure counting the file " });
   };
 };
@@ -145,7 +183,6 @@ const deleteDocumentById = async (req, res) => {
       res.status(400).json({ message: "Bad request, An argument passed in must be a string of 12 bytes or a string of 24 hex characters or an integer" });
     }
   } catch (error) {
-    console.error(error);
     res.status(500).json({ message: "Failure during delete file process" });
   }
 };
@@ -200,5 +237,5 @@ const deleteUserDocumentsById = async (req, res, next) => {
 };
 
 module.exports = {
-  postDocument, getDocumentById, getDocumentById, getUserDocuments, deleteDocumentById, downloadDocumentById, deleteUserDocuments, getCountUserDocuments, deleteUserDocumentsById
+  postDocument, getDocumentById, getDocumentById, getUserDocuments, deleteDocumentById, downloadDocumentById, deleteUserDocuments, getCountUserDocuments, deleteUserDocumentsById, getDocumentByUserId
 };

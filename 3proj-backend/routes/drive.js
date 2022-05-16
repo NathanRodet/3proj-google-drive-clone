@@ -12,6 +12,7 @@ router
   .get('/count', jwt.authenticateToken, driveController.getCountUserDocuments)
   .get('/specific/file/:fileId', jwt.authenticateToken, driveController.getDocumentById)
   .get('/specific/file/download/:fileId', jwt.authenticateToken, driveController.downloadDocumentById)
+  .get('/specific/files/:userId', jwt.authenticateToken, driveController.getDocumentByUserId)
   .delete('/specific/file/:fileId', jwt.authenticateToken, driveController.deleteDocumentById)
 
 module.exports = router;

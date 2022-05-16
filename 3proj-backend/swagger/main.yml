@@ -526,8 +526,8 @@ paths:
     get:
       tags:
         - "Users Admin"
-      summary: "Admin - Get the users count"
-      description: "Administrator request to get the total of users"
+      summary: "Admin - Get the users count and total space used"
+      description: "Administrator request to get the total of users and the total space used"
       operationId: "getUsersCount"
       produces:
         - "application/json"
@@ -536,7 +536,7 @@ paths:
           description: "OK"
           schema:
             properties:
-              message:
+              count:
                 type: integer
         "401":
           description: "Unauthorized"
@@ -737,24 +737,25 @@ paths:
         "200":
           description: "OK"
           schema:
+            type: array
+            items:
+              type: object
+              properties:
+                _id:
+                  type: string
+                size:
+                  type: string
+                upload_date:
+                  type: string
+                filename:
+                  type: string
+                content_type:
+                  type: string
+                owner_id:
+                  type: string
             properties:
-              _id:
+              total_space_used:
                 type: string
-              length:
-                type: integer
-              chunkSize:
-                type: integer
-              uploadDate:
-                type: string
-              filename:
-                type: string
-              contentType:
-                type: string
-              metadata:
-                type: object
-                properties:
-                  owner_id:
-                    type: string
         "204":
           description: "No Content"
         "401":
@@ -839,23 +840,10 @@ paths:
           description: "OK"
           schema:
             properties:
-              _id:
-                type: string
-              length:
+              count:
                 type: integer
-              chunkSize:
-                type: integer
-              uploadDate:
+              total_size:
                 type: string
-              filename:
-                type: string
-              contentType:
-                type: string
-              metadata:
-                type: object
-                properties:
-                  owner_id:
-                    type: string
         "401":
           description: "Unauthorized"
           schema:
@@ -901,13 +889,78 @@ paths:
             properties:
               _id:
                 type: string
-              username:
+              size:
                 type: string
-              first_name:
+              upload_date:
                 type: string
-              last_name:
+              filename:
                 type: string
-              mail_name:
+              content_type:
+                type: string
+              owner_id:
+                type: string
+        "401":
+          description: "Unauthorized"
+          schema:
+            properties:
+              message:
+                type: string
+        "404":
+          description: "Not Found"
+          schema:
+            properties:
+              message:
+                type: string
+        "500":
+          description: "Internal Server Error"
+          schema:
+            properties:
+              message:
+                type: string
+      security:
+        - JWT: [apiKey]
+  ###########
+  #
+  ###########
+  /drive/specific/files/{userId}:
+    get:
+      tags:
+        - "Drive"
+      summary: "Get informations for a specific user files."
+      description: "Get informations for a specific user files."
+      operationId: "postDocument"
+      parameters:
+        - name: userId
+          in: path
+          description: "User id"
+          required: true
+          type: string
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                _id:
+                  type: string
+                size:
+                  type: string
+                upload_date:
+                  type: string
+                filename:
+                  type: string
+                content_type:
+                  type: string
+                owner_id:
+                  type: string
+            properties:
+              total_space_used:
+                type: string
+              count:
                 type: string
         "401":
           description: "Unauthorized"
