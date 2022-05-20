@@ -237,5 +237,5 @@ const deleteUserDocumentsById = async (req, res, next) => {
 };
 
 module.exports = {
-  postDocument, getDocumentById, getDocumentById, getUserDocuments, deleteDocumentById, downloadDocumentById, deleteUserDocuments, getCountUserDocuments, deleteUserDocumentsById, getDocumentByUserId
+  postDocument, getDocumentById, getUserDocuments, deleteDocumentById, downloadDocumentById, deleteUserDocuments, getCountUserDocuments, deleteUserDocumentsById, getDocumentByUserId
 };

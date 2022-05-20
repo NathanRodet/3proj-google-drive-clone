@@ -21,6 +21,7 @@ const authLogin = async (req, res) => {
           if (result) {
             try {
               const accessToken = jwt.generateAccessToken(foundUser);
+              res.cookie('JSESSIONID', accessToken, { httpOnly: true, sameSite: 'strict' });
               res.status(200).json({ token: accessToken, duration: process.env.SECRET_TOKEN_DURATION });
             } catch (error) {
               res.status(500).json({ message: "Generate token failure" });

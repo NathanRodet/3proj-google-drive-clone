@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const app = express();
 const bodyParser = require('body-parser');
 const swaggerUI = require("swagger-ui-express");
@@ -15,6 +16,7 @@ const specs = YAML.load('./swagger/main.yml');
 
 app.use(bodyParser.json());
 app.use(cookieParser())
+app.use(cors())
 
 // Routes
 

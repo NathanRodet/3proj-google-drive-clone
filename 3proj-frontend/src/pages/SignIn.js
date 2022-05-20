@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,18 +14,23 @@ import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import { Link as RouterLink } from 'react-router-dom';
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
+import postAuth from '../api/Auth';
 
 let theme = createTheme();
 theme = responsiveFontSizes(theme);
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
+  const [jwt, setJwt] = useState([]);
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      mail: data.get('username'),
+    let data = new FormData(event.currentTarget);
+    data = {
+      username: data.get('username'),
       password: data.get('password'),
-    });
+    };
+    const response = await postAuth(data)
+    console.log(response.data);
   };
 
   return (
