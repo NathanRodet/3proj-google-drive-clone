@@ -14,13 +14,20 @@ import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import { Link as RouterLink } from 'react-router-dom';
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Stack from '@mui/material/Stack';
 import postAuth from '../api/Auth';
 
 let theme = createTheme();
 theme = responsiveFontSizes(theme);
 
+
+
 export default function SignIn() {
   const [jwt, setJwt] = useState([]);
+  const [alert, setAlert] = useState(false);
+  const [alertContent, setAlertContent] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -29,8 +36,21 @@ export default function SignIn() {
       username: data.get('username'),
       password: data.get('password'),
     };
-    const response = await postAuth(data)
-    console.log(response.data);
+    const response = await postAuth(data).then(
+      response => {
+        if (response.request.status === 200) {
+          console.log(response.data)
+          setAlert(false);
+        } else if (response.request.status === 400) {
+          console.log(response.response.data)
+          setAlertContent(response.response.data.message)
+          setAlert(true);
+        } else {
+          setAlertContent("This is an error alert — Please contact the administrator!");
+          setAlert(true);
+        }
+      }
+    )
   };
 
   return (
@@ -39,6 +59,13 @@ export default function SignIn() {
         <Navigation />
       </header>
       <ThemeProvider theme={theme}>
+        {alert ?
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            {alertContent}
+          </Alert>
+          : null}
+
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <Box
