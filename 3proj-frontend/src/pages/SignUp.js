@@ -8,8 +8,6 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Footer from '../components/Footer';
-import Navigation from '../components/Navigation';
 import { Link as RouterLink } from 'react-router-dom';
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 
@@ -19,27 +17,24 @@ theme = responsiveFontSizes(theme);
 export default function SignIn() {
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      username: data.get('username'),
-      password: data.get('password'),
-      first_name: data.get('first_name'),
-      last_name: data.get('last_name'),
-      mail: data.get('email'),
-    });
+    // const data = new FormData(event.currentTarget);
+    // console.log({
+    //   username: data.get('username'),
+    //   password: data.get('password'),
+    //   first_name: data.get('first_name'),
+    //   last_name: data.get('last_name'),
+    //   mail: data.get('email'),
+    // });
   };
 
   return (
     <div className="SignUp">
-      <header className="navigation">
-        <Navigation />
-      </header>
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <Box
             sx={{
-              marginTop: 8,
+              marginTop: 6,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -133,9 +128,6 @@ export default function SignIn() {
           </Box>
         </Container>
       </ThemeProvider >
-      <footer className="footer">
-        <Footer />
-      </footer>
     </div >
   );
 }

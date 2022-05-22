@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,24 +11,20 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Navigation from '../components/Navigation';
-import Footer from '../components/Footer';
 import { Link as RouterLink } from 'react-router-dom';
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
-import Stack from '@mui/material/Stack';
-import postAuth from '../api/Auth';
+import postAuth from '../services/auth/auth';
+import setTokenWithExpiry from '../services/auth/setTokenWithExpiry'
 
 let theme = createTheme();
 theme = responsiveFontSizes(theme);
 
-
-
 export default function SignIn() {
-  const [jwt, setJwt] = useState([]);
   const [alert, setAlert] = useState(false);
   const [alertContent, setAlertContent] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -36,14 +33,15 @@ export default function SignIn() {
       username: data.get('username'),
       password: data.get('password'),
     };
-    const response = await postAuth(data).then(
+    await postAuth(data).then(
       response => {
         if (response.request.status === 200) {
-          console.log(response.data)
           setAlert(false);
+          setTokenWithExpiry(response.data.token);
+          navigate("/Dashboard");
+          window.location.reload();
         } else if (response.request.status === 400) {
-          console.log(response.response.data)
-          setAlertContent(response.response.data.message)
+          setAlertContent(response.response.data.message);
           setAlert(true);
         } else {
           setAlertContent("This is an error alert — Please contact the administrator!");
@@ -55,9 +53,6 @@ export default function SignIn() {
 
   return (
     <div className="SignIn">
-      <header className="navigation">
-        <Navigation />
-      </header>
       <ThemeProvider theme={theme}>
         {alert ?
           <Alert severity="error">
@@ -65,12 +60,11 @@ export default function SignIn() {
             {alertContent}
           </Alert>
           : null}
-
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <Box
             sx={{
-              marginTop: 8,
+              marginTop: 6,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -137,9 +131,6 @@ export default function SignIn() {
           </Box>
         </Container>
       </ThemeProvider>
-      <footer className="footer">
-        <Footer />
-      </footer>
     </div >
   );
 }

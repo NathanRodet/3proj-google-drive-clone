@@ -1,8 +1,3 @@
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Roboto';
@@ -12,6 +7,7 @@ body {
 
 .Navigation-logo {
   height: 4.5vh;
+  width: 4.5vh;
   pointer-events: none;
   margin-right: 1vh;
 }

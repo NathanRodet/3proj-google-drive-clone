@@ -1,6 +1,4 @@
 import React from 'react'
-import Navigation from '../components/Navigation';
-import Footer from '../components/Footer';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
@@ -63,9 +61,6 @@ export default function Home() {
 
   return (
     <div className="Home">
-      <header className="navigation">
-        <Navigation />
-      </header>
       <ThemeProvider theme={theme}>
         <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
         <CssBaseline />
@@ -171,9 +166,6 @@ export default function Home() {
           </Grid>
         </Container>
       </ThemeProvider>
-      <footer className="footer">
-        <Footer />
-      </footer>
     </div >
   )
 }

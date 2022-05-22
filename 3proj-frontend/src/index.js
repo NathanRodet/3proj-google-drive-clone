@@ -1,33 +1,17 @@
 import React from 'react';
 import ReactDOM from "react-dom/client";
 import './style/index.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
-import Home from './pages/Home';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
-import NotFound from './pages/NotFound';
-import ForgotPassword from './pages/ForgotPassword';
-import ContactUs from './pages/ContactUs';
-import Documentation from './pages/Documentation';
-import Dashboard from './pages/Dashboard';
+import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Routes>
-        <Route path={"/"} element={<Home />} />
-        <Route path={"/Home"} element={<Home />} />
-        <Route path={"/Dashboard"} element={<Dashboard />} />
-        <Route path="/SignIn" element={<SignIn />} />
-        <Route path="/SignUp" element={<SignUp />} />
-        <Route path="/ForgotPassword" element={<ForgotPassword />} />
-        <Route path="/ContactUs" element={<ContactUs />} />
-        <Route path="/Documentation" element={<Documentation />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <App />
     </BrowserRouter>
   </React.StrictMode>,
 );

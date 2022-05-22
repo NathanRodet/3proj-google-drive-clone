@@ -8,7 +8,7 @@ function generateAccessToken(user) {
     {
       _id: user._id,
       is_admin: user.is_admin,
-      is_blocked: user.is_blocked
+      is_blocked: user.is_blocked,
     },
     process.env.SECRET_TOKEN,
     { expiresIn: process.env.SECRET_TOKEN_DURATION }

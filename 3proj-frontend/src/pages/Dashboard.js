@@ -1,6 +1,4 @@
 import React from 'react'
-import Navigation from '../components/Navigation';
-import Footer from '../components/Footer';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import GlobalStyles from '@mui/material/GlobalStyles';
@@ -13,9 +11,6 @@ theme = responsiveFontSizes(theme);
 export default function Dashboard() {
   return (
     <div className="ContactUs">
-      <header className="navigation">
-        <Navigation />
-      </header>
       <ThemeProvider theme={theme}>
         <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
         <CssBaseline />
@@ -34,9 +29,6 @@ export default function Dashboard() {
           </Typography>
         </Container>
       </ThemeProvider>
-      <footer className="footer">
-        <Footer />
-      </footer>
     </div >
   )
 }
