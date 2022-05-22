@@ -16,7 +16,7 @@ import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/s
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import postAuth from '../services/auth/auth';
-import setTokenWithExpiry from '../services/auth/setTokenWithExpiry'
+import setTokenWithExpiry from '../services/auth/setToken'
 
 let theme = createTheme();
 theme = responsiveFontSizes(theme);

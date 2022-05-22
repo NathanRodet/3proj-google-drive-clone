@@ -1,4 +1,4 @@
-export default function setTokenWithExpiry(token) {
+export default function setToken(token) {
   const item = {
     token: token,
   };

@@ -130,7 +130,7 @@ export default function Navigation() {
                 {pages.map((page) => (
                   <MenuItem key={page} onClick={handleCloseNavMenu}>
                     <Link className="Navigation-link" to={"/" + page}>
-                      <Typography textAlign="center">{page}</Typography>
+                      <Typography textAlign="center">{(page === "AdminDashboard") ? "Admin Dashboard" : page}</Typography>
                     </Link>
                   </MenuItem>
                 ))}
@@ -165,7 +165,7 @@ export default function Navigation() {
                     onClick={handleCloseNavMenu}
                     sx={{ my: 2, color: 'white', display: 'block' }}
                   >
-                    {page}
+                    {(page === "AdminDashboard") ? "Admin Dashboard" : page}
                   </Button>
                 </Link>
               ))}
