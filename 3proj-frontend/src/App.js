@@ -40,11 +40,11 @@ export default function App() {
         <Route path={"/Home"} element={<Home />} />
         <Route path={"/SignIn"} element={<SignIn />} />
         <Route path={"/SignUp"} element={<SignUp />} />
+        <Route path={"/SignOut"} element={<SignOut />} />
         {
           (isAdmin || isLogged) && (
             <>
               <Route path={"/Dashboard"} element={<Dashboard />} />
-              <Route path={"/SignOut"} element={<SignOut />} />
               <Route path={"/ForgotPassword"} element={<ForgotPassword />} />
             </>
           )
