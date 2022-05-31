@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = "http://localhost:3001";
+const API_URL = "https://api-supinfo-3proj-dev.azurewebsites.net";
 const config = {
   headers: {
     'Authorization': `Bearer ${localStorage.getItem("JSESSIONID")}`
