@@ -6,7 +6,7 @@ export default async function postAuth(data) {
   return axios.post(API_URL + "/auth", data)
     .then(response => {
       // console.log(response)
-      return response.data
+      return response
     })
     .catch(error => {
       // console.log(error.response.data);

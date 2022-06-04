@@ -35,6 +35,7 @@ export default function SignIn() {
     };
     await postAuth(data).then(
       response => {
+        console.log(response)
         if (response.request.status === 200) {
           setAlert(false);
           setTokenWithExpiry(response.data.token);

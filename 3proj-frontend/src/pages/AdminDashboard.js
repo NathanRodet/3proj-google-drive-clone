@@ -213,7 +213,7 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     const getData = async () => {
-      const data = await getUsers();
+      const data = await getUsers(localStorage.getItem("JSESSIONID"));
       setRows(data);
       setIsLoading(false);
     }
