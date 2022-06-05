@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const API_URL = "http://localhost:3001";
 
-export default async function getFiles(storedToken) {
+export default async function postFile(storedToken, data) {
   const objectToken = JSON.parse(storedToken)
   const token = Object.values(objectToken)
   const config = {
@@ -10,7 +10,7 @@ export default async function getFiles(storedToken) {
       'Authorization': `Bearer ${token}`
     }
   };
-  return axios.get(API_URL + "/users", config)
+  return axios.post(API_URL + "/drive", data, config)
     .then(response => {
       // console.log(response.data)
       return response.data
