@@ -211,8 +211,6 @@ export default function AdminDashboard() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  // Handle data
-
   useEffect(() => {
     const getData = async () => {
       const data = await getUsers(localStorage.getItem("JSESSIONID"));
@@ -273,7 +271,7 @@ export default function AdminDashboard() {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   return (
-    <div className="AdminDashboard">
+    <div className="ContactUs">
       <ThemeProvider theme={theme}>
         <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
         <CssBaseline />

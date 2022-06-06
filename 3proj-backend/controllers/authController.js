@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const Joi = require('Joi');
 
 const authLogin = async (req, res) => {
-
+  console.log("0 - START")
   const joiSchema = Joi.object().keys({
     username: Joi.string().required(),
     password: Joi.string().required(),

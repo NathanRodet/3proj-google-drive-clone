@@ -30,7 +30,6 @@ const postDocument = async (req, res) => {
       res.status(200).json({ _id: req.file.id, filename: req.file.filename, upload_date: req.file.uploadDate, size: size })
     }
   } catch (error) {
-    console.log(error)
     res.status(500).json({ message: "Failure during the post file process" });
   }
 };

@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const API_URL = "http://localhost:3001";
+const API_URL = "https://api-supinfo-3proj-dev.azurewebsites.net";
 
-export default async function getFiles(storedToken) {
-  const objectToken = JSON.parse(storedToken)
-  const token = Object.values(objectToken)
+export default async function getFiles(itemStr) {
+  const item = JSON.parse(itemStr)
+  const token = Object.values(item)
   const config = {
     headers: {
       'Authorization': `Bearer ${token}`
