@@ -5,6 +5,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.Dashboard-cursor {
+  cursor: pointer;
+}
+
 .Navigation-logo {
   height: 4.5vh;
   width: 4.5vh;

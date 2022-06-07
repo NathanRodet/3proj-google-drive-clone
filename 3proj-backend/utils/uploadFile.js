@@ -7,6 +7,7 @@ const dbConnectionString = process.env.DB_CONNECTION_STRING;
 const storage = new GridFsStorage({
   url: dbConnectionString,
   file: (req, file) => {
+    console.log(file)
     const userJWT = req.user;
     return new Promise((resolve, reject) => {
       const fileInfo = {

@@ -6,6 +6,7 @@ import GlobalStyles from '@mui/material/GlobalStyles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
+import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 import postFile from '../services/users/postFile';
 
@@ -20,11 +21,11 @@ export default function Dashboard() {
   const onDrop = useCallback(acceptedFiles => {
     // Do something with the files
     const data = {
-      file: acceptedFiles[0]
+      file: acceptedFiles
     }
-    console.log(data.file)
+    console.log(data)
     const handleResponse = async () => {
-      await postFile(localStorage.getItem("JSESSIONID"), data).then(
+      await postFile(localStorage.getItem("JSESSIONID"), acceptedFiles).then(
         response => {
           console.log(response)
           if (response.request.status === 200) {
@@ -42,21 +43,10 @@ export default function Dashboard() {
     }
     handleResponse();
   }, [])
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
-
-  // const handlePostFile = async (event) => {
-  //   event.preventDefault();
-  //   setIsLoading(true);
-  //   const file = new FormData();
-  //   file.append('file', file);
-  //   console.log(file);
-  //   const response = await postFile(localStorage.getItem("JSESSIONID"), file);
-  //   setResponse(response);
-  //   setIsLoading(false);
-  // }
+  const { getRootProps, getInputProps } = useDropzone({ onDrop })
 
   return (
-    <div className="ContactUs">
+    <div className="Dashboard">
       <ThemeProvider theme={theme}>
         {alert ?
           <Alert severity="error">
@@ -67,14 +57,13 @@ export default function Dashboard() {
         <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
         <CssBaseline />
         <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 6, pb: 0, pl: 2, pr: 2 }}>
-          <Box sx={{ mt: 1 }}>
+          <Box sx={{ mt: 0, borderRadius: '16px' }} style={{ "backgroundColor": "lightblue" }} className="Dashboard-cursor">
             <div {...getRootProps()}>
               <input {...getInputProps()} />
-              {
-                isDragActive ?
-                  <p>Drop the files here ...</p> :
-                  <p>Drag 'n' drop some files here, or click to select files</p>
-              }
+
+              <Typography variant="h5" align="center" color="text.secondary" component="p" sx={{ pt: 4, pb: 4 }}>
+                Drop the file here, or click to select files
+              </Typography>
             </div>
           </Box>
         </Container>

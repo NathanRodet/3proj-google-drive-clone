@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_URL = "https://api-supinfo-3proj-dev.azurewebsites.net";
+// const API_URL = "https://api-supinfo-3proj-dev.azurewebsites.net";
+const API_URL = "http://localhost:3001";
 
 export default async function postFile(storedToken, data) {
   const objectToken = JSON.parse(storedToken)

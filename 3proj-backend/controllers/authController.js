@@ -14,19 +14,29 @@ const authLogin = async (req, res) => {
     res.status(400).send(joiSchema.validate(req.body).error.details[0].message);
   } else {
     try {
-      // Check User
+
+      // Find the user in the database
       const user = await User.findOne({ username: req.body.username });
       if (!user) return res.status(400).json({ message: "Bad login, try again" });
 
-      // Password Comparison
-      const isValid = await bcrypt.compare(req.body.password, user.password);
-      if (!isValid) return res.status(400).json({ message: "Bad login, try again" })
+      // Password hash comparison
+      bcrypt.compare(req.body.password, user.password, (err, match) => {
+        if (err) {
+          console.log(err);
+        }
+        if (match) {
+          // Generate access Token
+          const accessToken = jwt.generateAccessToken(user);
 
-      // Send Token
-      const accessToken = jwt.generateAccessToken(user);
-      res.status(200).json({ token: accessToken });
+          // Send Token
+          res.status(200).json({ token: accessToken });
+        } else {
+          return res.status(400).json({ message: "Bad login, try again" })
+        }
+      })
 
     } catch (error) {
+      console.log(error);
       res.status(500).json({ message: "Failure during authentication process" });
     }
   }

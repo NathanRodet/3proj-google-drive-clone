@@ -33,6 +33,7 @@ export default function SignIn() {
       username: data.get('username'),
       password: data.get('password'),
     };
+    console.log(data);
     await postAuth(data).then(
       response => {
         console.log(response)

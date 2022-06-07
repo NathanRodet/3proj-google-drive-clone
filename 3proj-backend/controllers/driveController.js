@@ -21,7 +21,10 @@ dbConnection.once('open', () => {
   });
 })
 
+// Post a document
+
 const postDocument = async (req, res) => {
+  console.log(req[0]);
   try {
     const size = formatBytes(req.file.size);
     if (!req.file || req.file === undefined || req.file.length === 0) {
