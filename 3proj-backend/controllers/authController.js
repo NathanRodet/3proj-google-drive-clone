@@ -15,7 +15,7 @@ const authLogin = async (req, res) => {
   } else {
     try {
 
-      // Find the user in the database
+      // If no user, reject
       const user = await User.findOne({ username: req.body.username });
       if (!user) return res.status(400).json({ message: "Bad login, try again" });
 
@@ -31,6 +31,7 @@ const authLogin = async (req, res) => {
           // Send Token
           res.status(200).json({ token: accessToken });
         } else {
+          // If bad password reject
           return res.status(400).json({ message: "Bad login, try again" })
         }
       })

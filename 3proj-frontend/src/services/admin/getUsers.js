@@ -13,7 +13,7 @@ export default async function getFiles(storedToken) {
   return axios.get(API_URL + "/users", config)
     .then(response => {
       // console.log(response.data)
-      return response.data
+      return response
     })
     .catch(error => {
       // console.log(error.response.data);

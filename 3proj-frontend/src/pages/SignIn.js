@@ -13,17 +13,16 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Link as RouterLink } from 'react-router-dom';
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
 import postAuth from '../services/auth/auth';
-import setTokenWithExpiry from '../services/auth/setToken'
+import setTokenWithExpiry from '../services/auth/setToken';
+import Alert from '../components/WarningAlert';
 
 let theme = createTheme();
 theme = responsiveFontSizes(theme);
 
 export default function SignIn() {
   const [alert, setAlert] = useState(false);
-  const [alertContent, setAlertContent] = useState('');
+  const [statusCode, setStatusCode] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -33,7 +32,6 @@ export default function SignIn() {
       username: data.get('username'),
       password: data.get('password'),
     };
-    console.log(data);
     await postAuth(data).then(
       response => {
         console.log(response)
@@ -42,12 +40,9 @@ export default function SignIn() {
           setTokenWithExpiry(response.data.token);
           navigate("/Dashboard");
           window.location.reload();
-        } else if (response.request.status === 400) {
-          setAlertContent(response.response.data.message);
-          setAlert(true);
         } else {
-          setAlertContent("This is an error alert — Please contact the administrator!");
           setAlert(true);
+          setStatusCode(response.request.status);
         }
       }
     )
@@ -57,10 +52,7 @@ export default function SignIn() {
     <div className="SignIn">
       <ThemeProvider theme={theme}>
         {alert ?
-          <Alert severity="error">
-            <AlertTitle>Error</AlertTitle>
-            {alertContent}
-          </Alert>
+          < Alert statusCode={statusCode} />
           : null}
         <Container component="main" maxWidth="xs">
           <CssBaseline />

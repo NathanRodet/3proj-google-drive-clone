@@ -9,6 +9,12 @@ body {
   cursor: pointer;
 }
 
+.Alert-center-vertical {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .Navigation-logo {
   height: 4.5vh;
   width: 4.5vh;

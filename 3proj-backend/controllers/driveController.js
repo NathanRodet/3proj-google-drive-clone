@@ -24,13 +24,11 @@ dbConnection.once('open', () => {
 // Post a document
 
 const postDocument = async (req, res) => {
-  console.log(req[0]);
   try {
-    const size = formatBytes(req.file.size);
     if (!req.file || req.file === undefined || req.file.length === 0) {
       res.status(400).json({ message: "Cannot post the file" });
     } else {
-      res.status(200).json({ _id: req.file.id, filename: req.file.filename, upload_date: req.file.uploadDate, size: size })
+      res.status(200).json({ _id: req.file.id, filename: req.file.filename, upload_date: req.file.uploadDate, size: req.file.length })
     }
   } catch (error) {
     console.log(error)
@@ -47,8 +45,7 @@ const getDocumentById = async (req, res) => {
         if (!file || file === undefined || file.length === 0) {
           res.status(404).json({ message: 'File does not exist.' });
         } else {
-          const size = formatBytes(file.length);
-          res.send({ _id: file._id, size: size, upload_date: file.uploadDate, content_type: file.contentType, owner_id: file.metadata.owner_id })
+          res.send({ _id: file._id, size: file.size, upload_date: file.uploadDate, content_type: file.contentType, owner_id: file.metadata.owner_id })
         }
       } else {
         res.status(401).json({ message: "Cannot get the file, you must be an administrator or the owner of the file" });
@@ -72,11 +69,10 @@ const getDocumentByUserId = async (req, res) => {
         } else {
           let space = 0
           const filesUpdated = files.map(obj => {
-            const size = formatBytes(obj.length);
             space = space + obj.length
-            return { _id: obj._id, size: size, upload_date: obj.uploadDate, filename: obj.filename, content_type: obj.contentType, owner_id: obj.metadata.owner_id };
+            return { _id: obj._id, size: obj.length, upload_date: obj.uploadDate, filename: obj.filename, content_type: obj.contentType, owner_id: obj.metadata.owner_id };
           });
-          res.send({ files: filesUpdated, total_space_used: formatBytes(space), count: files.length })
+          res.send({ files: filesUpdated, total_space_used: space, file_count: files.length })
         }
       } else {
         res.status(401).json({ message: "Cannot get files, you must be an administrator" });
@@ -85,6 +81,7 @@ const getDocumentByUserId = async (req, res) => {
       res.status(500).json({ message: "Cannot get the file" });
     }
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: "Failure fetching file informations" });
   }
 };
@@ -157,7 +154,7 @@ const getCountUserDocuments = async (req, res) => {
     files.map(obj => {
       size = size + obj.length
     });
-    res.status(200).json({ count: files.length, total_size: formatBytes(size) });
+    res.status(200).json({ count: files.length, total_size: size });
   } catch (error) {
     res.status(500).json({ message: "Failure counting the file " });
   };

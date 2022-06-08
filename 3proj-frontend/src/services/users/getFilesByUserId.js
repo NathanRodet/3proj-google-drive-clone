@@ -1,9 +1,8 @@
 import axios from 'axios';
 
-// const API_URL = "https://api-supinfo-3proj-dev.azurewebsites.net";
 const API_URL = "http://localhost:3001";
 
-export default async function postFile(storedToken, data) {
+export default async function getFiles(storedToken) {
   const objectToken = JSON.parse(storedToken)
   const token = Object.values(objectToken)
   const config = {
@@ -11,7 +10,7 @@ export default async function postFile(storedToken, data) {
       'Authorization': `Bearer ${token}`
     }
   };
-  return axios.post(API_URL + "/drive", data, config)
+  return axios.get(API_URL + "/drive", config)
     .then(response => {
       // console.log(response.data)
       return response
