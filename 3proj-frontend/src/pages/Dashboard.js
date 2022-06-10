@@ -98,7 +98,7 @@ export default function Dashboard() {
 filename: "visits.png"
 owner_id: "6266a8d09b2df683c296e4ae"
 size: "852 KB"
-upload_date: "2022-06-08T13:21:20.481Z"aze
+upload_date: "2022-06-08T13:21:20.481Z"
 _id: "62a0a2503dd6891a9cdbc301" */}
             {
               isLoading ?
@@ -128,11 +128,17 @@ _id: "62a0a2503dd6891a9cdbc301" */}
                           />
                           <CardContent>
                             <Typography gutterBottom variant="h5" component="div">
-                              {item.filename}
+                              {
+                                item.filename.length > 20 ? (item.filename.substring(0, item.filename.lastIndexOf('.')).substring(0, 20).concat("...") || item.filename)
+                                  : (item.filename.substring(0, item.filename.lastIndexOf('.')) || item.filename)
+                              }
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                              Lizards are a widespread group of squamate reptiles, with over 6,000
-                              species, ranging across all continents except Antarctica
+                              <b>Size :</b> {item.size}
+                              <br />
+                              <b>Upload Date :</b> {item.upload_date.substring(0, 10)}
+                              <br />
+                              <b>Content Type :</b> {item.content_type.replace('/', " ")}
                             </Typography>
                           </CardContent>
                           <CardActions>
