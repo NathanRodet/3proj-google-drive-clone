@@ -5,6 +5,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.Margin-auto {
+  margin: auto
+}
+
 .Dashboard-cursor {
   cursor: pointer;
 }

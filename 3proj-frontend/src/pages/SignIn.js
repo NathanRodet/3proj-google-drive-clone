@@ -13,7 +13,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Link as RouterLink } from 'react-router-dom';
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
-import postAuth from '../services/auth/auth';
+import CircularProgress from '@mui/material/CircularProgress';
+import postAuth from '../services/auth/signIn';
 import setTokenWithExpiry from '../services/auth/setToken';
 import Alert from '../components/WarningAlert';
 
@@ -23,10 +24,12 @@ theme = responsiveFontSizes(theme);
 export default function SignIn() {
   const [alert, setAlert] = useState(false);
   const [statusCode, setStatusCode] = useState(null);
+  const [isLoading, setIsLoading] = useState(null)
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
     let data = new FormData(event.currentTarget);
     data = {
       username: data.get('username'),
@@ -40,9 +43,11 @@ export default function SignIn() {
           setTokenWithExpiry(response.data.token);
           navigate("/Dashboard");
           window.location.reload();
+          setIsLoading(false);
         } else {
           setAlert(true);
           setStatusCode(response.request.status);
+          setIsLoading(false);
         }
       }
     )
@@ -105,6 +110,23 @@ export default function SignIn() {
               >
                 Sign In
               </Button>
+              {
+                isLoading ?
+                  <Box
+                    fullWidth
+                    sx={{
+                      marginTop: 1,
+                      marginBottom: 1,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <CircularProgress />
+                  </Box>
+                  :
+                  null
+              }
               <Grid container>
                 <Grid item xs>
                   <RouterLink className="Navigation-link" to="/ForgotPassword">

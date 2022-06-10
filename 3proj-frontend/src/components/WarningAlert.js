@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import { Link } from 'react-router-dom';
@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
-import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
 
 
@@ -25,9 +24,8 @@ const style = {
 
 export default function WarningAlert(props) {
   const [open, setOpen] = React.useState(true);
-  const rootRef = useRef(null);
   const statusCode = props.statusCode;
-  console.log(props.statusCode)
+  const alertMessage = props.alertMessage;
 
   return (
     <div className="Alert">
@@ -56,96 +54,108 @@ export default function WarningAlert(props) {
               You action has been successfully completed.
             </Alert>
           </Collapse>
-          : (statusCode === 400) ?
-            <Collapse in={open}>
-              <Alert severity="error"
-                action={
-                  <IconButton
-                    aria-label="close"
-                    color="inherit"
-                    size="large"
-                    align="center"
-                    onClick={() => {
-                      setOpen(false);
-                    }}
-                  >
-                    <CloseIcon fontSize="inherit" />
-                  </IconButton>
-                }
-                sx={{ mb: 0 }}
-              >
-                <AlertTitle>
-                  Error
-                </AlertTitle>
-                Bad request.
-              </Alert>
-            </Collapse>
-            : (statusCode === 401) ?
-              <Modal
-                keepMounted
-                open
-                aria-labelledby="keep-mounted-modal-title"
-                aria-describedby="keep-mounted-modal-description"
-              >
-                <Link className="Navigation-link" to="/SignIn">
-                  <Box sx={style}>
-                    <Typography id="keep-mounted-modal-title" variant="h6" component="h2" sx={{ color: 'error.main' }}>
-                      Unauthorized
-                    </Typography>
-                    <Typography id="keep-mounted-modal-description" sx={{ mt: 2 }}>
-                      Please click here to log again, your session must have finished.
-                    </Typography>
-                  </Box>
-                </Link>
-              </Modal>
-              : (statusCode === 500) ?
-                <Collapse in={open}>
-                  <Alert severity="error"
-                    action={
-                      <IconButton
-                        aria-label="close"
-                        color="inherit"
-                        size="large"
-                        align="center"
-                        onClick={() => {
-                          setOpen(false);
-                        }}
-                      >
-                        <CloseIcon fontSize="inherit" />
-                      </IconButton>
-                    }
-                    sx={{ mb: 0 }}
-                  >
-                    <AlertTitle>
-                      Internal Server Error
-                    </AlertTitle>
-                    Please contact the support or the administrator.
-                  </Alert>
-                </Collapse>
-                :
-                <Collapse in={open}>
-                  <Alert severity="error"
-                    action={
-                      <IconButton
-                        aria-label="close"
-                        color="inherit"
-                        size="large"
-                        align="center"
-                        onClick={() => {
-                          setOpen(false);
-                        }}
-                      >
-                        <CloseIcon fontSize="inherit" />
-                      </IconButton>
-                    }
-                    sx={{ mb: 0 }}
-                  >
-                    <AlertTitle>
-                      Unknow Error
-                    </AlertTitle>
-                    Please contact the support or the administrator.
-                  </Alert>
-                </Collapse>
+          :
+          (statusCode === 204) ?
+            null
+            : (statusCode === 400) ?
+              <Collapse in={open}>
+                <Alert severity="error"
+                  action={
+                    <IconButton
+                      aria-label="close"
+                      color="inherit"
+                      size="large"
+                      align="center"
+                      onClick={() => {
+                        setOpen(false);
+                      }}
+                    >
+                      <CloseIcon fontSize="inherit" />
+                    </IconButton>
+                  }
+                  sx={{ mb: 0 }}
+                >
+                  <AlertTitle>
+                    Error
+                  </AlertTitle>
+                  {
+                    alertMessage ?
+                      <Typography id="keep-mounted-modal-description">
+                        {alertMessage}
+                      </Typography>
+                      :
+                      <Typography id="keep-mounted-modal-description">
+                        Bad request.
+                      </Typography>
+                  }
+                </Alert>
+              </Collapse>
+              : (statusCode === 401) ?
+                <Modal
+                  keepMounted
+                  open
+                  aria-labelledby="keep-mounted-modal-title"
+                  aria-describedby="keep-mounted-modal-description"
+                >
+                  <Link className="Navigation-link" to="/SignIn">
+                    <Box sx={style}>
+                      <Typography id="keep-mounted-modal-title" variant="h6" component="h2" sx={{ color: 'error.main' }}>
+                        Unauthorized
+                      </Typography>
+                      <Typography id="keep-mounted-modal-description" sx={{ mt: 2 }}>
+                        Please click here to log again, your session must have finished.
+                      </Typography>
+                    </Box>
+                  </Link>
+                </Modal>
+                : (statusCode === 500) ?
+                  <Collapse in={open}>
+                    <Alert severity="error"
+                      action={
+                        <IconButton
+                          aria-label="close"
+                          color="inherit"
+                          size="large"
+                          align="center"
+                          onClick={() => {
+                            setOpen(false);
+                          }}
+                        >
+                          <CloseIcon fontSize="inherit" />
+                        </IconButton>
+                      }
+                      sx={{ mb: 0 }}
+                    >
+                      <AlertTitle>
+                        Internal Server Error
+                      </AlertTitle>
+                      Please contact the support or the administrator.
+                    </Alert>
+                  </Collapse>
+                  :
+                  <Collapse in={open}>
+                    <Alert severity="error"
+                      action={
+                        <IconButton
+                          aria-label="close"
+                          color="inherit"
+                          size="large"
+                          align="center"
+                          onClick={() => {
+                            setOpen(false);
+                          }}
+                        >
+                          <CloseIcon fontSize="inherit" />
+                        </IconButton>
+                      }
+                      sx={{ mb: 0 }}
+                    >
+                      <AlertTitle>
+                        Unknow Error
+                      </AlertTitle>
+                      Please contact the support or the administrator.
+                    </Alert>
+                  </Collapse>
       }
     </div >
   )

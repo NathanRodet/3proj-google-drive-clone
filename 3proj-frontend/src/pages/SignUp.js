@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,26 +11,54 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Link as RouterLink } from 'react-router-dom';
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
+import CircularProgress from '@mui/material/CircularProgress';
+import postUser from '../services/auth/signUp'
+import Alert from '../components/WarningAlert';
 
 let theme = createTheme();
 theme = responsiveFontSizes(theme);
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
+  const [alert, setAlert] = useState(false);
+  const [statusCode, setStatusCode] = useState(null);
+  const [alertMessage, setAlertMessage] = useState(null);
+  const [isLoading, setIsLoading] = useState(null)
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // const data = new FormData(event.currentTarget);
-    // console.log({
-    //   username: data.get('username'),
-    //   password: data.get('password'),
-    //   first_name: data.get('first_name'),
-    //   last_name: data.get('last_name'),
-    //   mail: data.get('email'),
-    // });
+    setIsLoading(true);
+    let data = new FormData(event.currentTarget);
+    data = {
+      username: data.get('username'),
+      password: data.get('password'),
+      first_name: data.get('first_name'),
+      last_name: data.get('last_name'),
+      mail: data.get('email')
+    };
+    await postUser(data).then(
+      response => {
+        if (response.request.status === 200) {
+          navigate("/SignIn");
+          window.location.reload();
+          setIsLoading(false);
+        } else {
+          setAlert(true);
+          setStatusCode(response.request.status);
+          setAlertMessage(response.response.data[0].message);
+          setIsLoading(false);
+        }
+      }
+    )
+
   };
 
   return (
     <div className="SignUp">
       <ThemeProvider theme={theme}>
+        {alert ?
+          < Alert statusCode={statusCode} alertMessage={alertMessage} />
+          : null}
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <Box
@@ -107,6 +136,23 @@ export default function SignIn() {
                 </Grid>
 
               </Grid>
+              {
+                isLoading ?
+                  <Box
+                    fullWidth
+                    sx={{
+                      marginTop: 3,
+                      marginBottom: 1,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <CircularProgress />
+                  </Box>
+                  :
+                  null
+              }
               <Button
                 type="submit"
                 fullWidth
