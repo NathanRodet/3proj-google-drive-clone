@@ -15,8 +15,9 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import postFile from '../services/users/postFile';
 import getFiles from '../services/users/getFiles';
-import placeholder from '../media/placeholder.png'
-import fake from '../media/logo-black.svg'
+import imagePlaceholder from '../media/image-placeholder.png';
+import videoPlaceholder from '../media/video-placeholder.png';
+import filePlaceholder from '../media/file-placeholder.png';
 
 let theme = createTheme();
 theme = responsiveFontSizes(theme);
@@ -50,8 +51,8 @@ export default function Dashboard() {
       const response = await getFiles(localStorage.getItem("JSESSIONID"))
       if (response.request.status === 200) {
         setCards(response.data.files)
+        console.log(response.data.files)
         setTotalSpace(response.data.total_space_used)
-        console.log(response.data)
         setIsLoading(false);
       } else {
         setAlert(true);
@@ -92,16 +93,7 @@ export default function Dashboard() {
             </Box>
           </Box>
           <Box sx={{ width: '100%', pt: 4, pb: 0 }}>
-            <Typography
-              component="h1"
-              variant="h4"
-              align="center"
-              color="text.primary"
-              gutterBottom
-              sx={{ pb: 4 }}
-            >
-              Browse your files
-            </Typography>
+
             {/* content_type: "image/png"
 filename: "visits.png"
 owner_id: "6266a8d09b2df683c296e4ae"
@@ -112,34 +104,46 @@ _id: "62a0a2503dd6891a9cdbc301" */}
               isLoading ?
                 null
                 :
-                <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                  {cards.map(item => (
-                    <Grid item xs key={item._id}>
-                      <Card sx={{ minWidth: 200 }} >
-                        <CardMedia
-                          component="img"
-                          alt={item.filename}
-                          sx={{ minWidth: 200, maxWidth: 200, minHeight: 200, maxHeight: 200 }}
-                          className="Margin-auto"
-                          image={("image".includes(item.content_type.substring(0, 5))) ? fake : placeholder}
-                        />
-                        <CardContent>
-                          <Typography gutterBottom variant="h5" component="div">
-                            {item.filename}
-                          </Typography>
-                          <Typography variant="body2" color="text.secondary">
-                            Lizards are a widespread group of squamate reptiles, with over 6,000
-                            species, ranging across all continents except Antarctica
-                          </Typography>
-                        </CardContent>
-                        <CardActions>
-                          <Button size="small">Download</Button>
-                          <Button size="small" sx={{ color: 'error.main' }} > Delete File</Button>
-                        </CardActions>
-                      </Card>
-                    </Grid>
-                  ))}
-                </Grid>
+                <Box>
+                  <Typography
+                    component="h1"
+                    variant="h4"
+                    align="center"
+                    color="text.primary"
+                    gutterBottom
+                    sx={{ pb: 3 }}
+                  >
+                    Browse your files
+                  </Typography>
+                  <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                    {cards.map(item => (
+                      <Grid item xs key={item._id}>
+                        <Card sx={{ minWidth: 200 }} >
+                          <CardMedia
+                            component="img"
+                            alt={item.filename}
+                            sx={{ minWidth: 200, maxWidth: 200, minHeight: 200, maxHeight: 200 }}
+                            className="Margin-auto"
+                            image={("image".includes(item.content_type.substring(0, 5))) ? imagePlaceholder : ("video".includes(item.content_type.substring(0, 5))) ? videoPlaceholder : filePlaceholder}
+                          />
+                          <CardContent>
+                            <Typography gutterBottom variant="h5" component="div">
+                              {item.filename}
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                              Lizards are a widespread group of squamate reptiles, with over 6,000
+                              species, ranging across all continents except Antarctica
+                            </Typography>
+                          </CardContent>
+                          <CardActions>
+                            <Button size="small">Download</Button>
+                            <Button size="small" sx={{ color: 'error.main' }} > Delete File</Button>
+                          </CardActions>
+                        </Card>
+                      </Grid>
+                    ))}
+                  </Grid>
+                </Box>
             }
             {
               isLoading ?
