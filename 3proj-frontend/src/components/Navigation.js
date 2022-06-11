@@ -39,10 +39,10 @@ export default function Navigation() {
       const valueIsAdmin = getAdminStatus()
 
       if ((valueIsLogged === true) && (valueIsAdmin === true)) {
-        setPages(['Home', 'Dashboard', 'AdminDashboard', 'Documentation']);
+        setPages(['Dashboard', 'AdminDashboard', 'Documentation']);
         setSettings(['Profile', 'SignOut']);
       } else if ((valueIsLogged === true)) {
-        setPages(['Home', 'Dashboard', 'Documentation']);
+        setPages(['Dashboard', 'Documentation']);
         setSettings(['Profile', 'SignOut']);
       } else {
         setPages(['Home', 'Documentation']);

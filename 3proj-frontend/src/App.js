@@ -14,6 +14,7 @@ import Navigation from './components/Navigation';
 import Footer from './components/Footer';
 import getUserStatus from './services/auth/getUserStatus';
 import getAdminStatus from './services/auth/getAdminStatus';
+import FileDetails from './pages/FileDetails';
 
 export default function App() {
   const [isLogged, setIsLogged] = useState(false)
@@ -29,23 +30,29 @@ export default function App() {
     checkUser();
   }, []);
 
-
   return (
     <div className="App">
       <header className="navigation">
         <Navigation />
       </header>
       <Routes>
-        <Route path={"/"} element={<Home />} />
-        <Route path={"/Home"} element={<Home />} />
-        <Route path={"/SignIn"} element={<SignIn />} />
-        <Route path={"/SignUp"} element={<SignUp />} />
-        <Route path={"/SignOut"} element={<SignOut />} />
+        {
+          (!isLogged) && (
+            <>
+              <Route path={"/"} element={<Home />} />
+              <Route path={"/Home"} element={<Home />} />
+              <Route path={"/SignIn"} element={<SignIn />} />
+              <Route path={"/SignUp"} element={<SignUp />} />
+            </>
+          )
+        }
         {
           (isAdmin || isLogged) && (
             <>
               <Route path={"/Dashboard"} element={<Dashboard />} />
+              <Route path="/Dashboard/:fileId" element={<FileDetails />} />
               <Route path={"/ForgotPassword"} element={<ForgotPassword />} />
+              <Route path={"/SignOut"} element={<SignOut />} />
             </>
           )
         }
