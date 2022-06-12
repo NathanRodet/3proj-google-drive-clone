@@ -108,7 +108,7 @@ export default function WarningAlert(props) {
                     </Box>
                   </Link>
                 </Modal>
-                : (statusCode === 500) ?
+                : (statusCode === 404) ?
                   <Collapse in={open}>
                     <Alert severity="error"
                       action={
@@ -127,35 +127,68 @@ export default function WarningAlert(props) {
                       sx={{ mb: 0 }}
                     >
                       <AlertTitle>
-                        Internal Server Error
+                        Error
                       </AlertTitle>
-                      Please contact the support or the administrator.
-                    </Alert>
-                  </Collapse>
-                  :
-                  <Collapse in={open}>
-                    <Alert severity="error"
-                      action={
-                        <IconButton
-                          aria-label="close"
-                          color="inherit"
-                          size="large"
-                          align="center"
-                          onClick={() => {
-                            setOpen(false);
-                          }}
-                        >
-                          <CloseIcon fontSize="inherit" />
-                        </IconButton>
+                      {
+                        alertMessage ?
+                          <Typography id="keep-mounted-modal-description">
+                            {alertMessage}
+                          </Typography>
+                          :
+                          <Typography id="keep-mounted-modal-description">
+                            Not found.
+                          </Typography>
                       }
-                      sx={{ mb: 0 }}
-                    >
-                      <AlertTitle>
-                        Unknow Error
-                      </AlertTitle>
-                      Please contact the support or the administrator.
                     </Alert>
                   </Collapse>
+                  : (statusCode === 500) ?
+                    <Collapse in={open}>
+                      <Alert severity="error"
+                        action={
+                          <IconButton
+                            aria-label="close"
+                            color="inherit"
+                            size="large"
+                            align="center"
+                            onClick={() => {
+                              setOpen(false);
+                            }}
+                          >
+                            <CloseIcon fontSize="inherit" />
+                          </IconButton>
+                        }
+                        sx={{ mb: 0 }}
+                      >
+                        <AlertTitle>
+                          Internal Server Error
+                        </AlertTitle>
+                        Please contact the support or the administrator.
+                      </Alert>
+                    </Collapse>
+                    :
+                    <Collapse in={open}>
+                      <Alert severity="error"
+                        action={
+                          <IconButton
+                            aria-label="close"
+                            color="inherit"
+                            size="large"
+                            align="center"
+                            onClick={() => {
+                              setOpen(false);
+                            }}
+                          >
+                            <CloseIcon fontSize="inherit" />
+                          </IconButton>
+                        }
+                        sx={{ mb: 0 }}
+                      >
+                        <AlertTitle>
+                          Unknow Error
+                        </AlertTitle>
+                        Please contact the support or the administrator.
+                      </Alert>
+                    </Collapse>
       }
     </div >
   )

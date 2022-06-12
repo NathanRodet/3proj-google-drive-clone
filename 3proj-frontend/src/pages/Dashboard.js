@@ -32,19 +32,33 @@ export default function Dashboard() {
   const [cards, setCards] = useState([]);
   const [totalSpace, setTotalSpace] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [file, setFile] = useState(null);
+
+  const getData = async () => {
+    const response = await getFiles(localStorage.getItem("JSESSIONID"))
+    if (response.request.status === 200) {
+      setCards(response.data.files)
+      setTotalSpace(response.data.total_space_used)
+      setIsLoading(false);
+    } else {
+      setAlert(true);
+      setStatusCode(response.request.status);
+    }
+  }
 
   const onDrop = useCallback(acceptedFiles => {
     // Upload the file
     var data = new FormData();
     data.append("file", acceptedFiles[0]);
     const handleResponse = async () => {
-      await postFile(localStorage.getItem("JSESSIONID"), data).then(
-        response => {
-          setAlert(true);
-          setStatusCode(response.request.status);
-        }
-      )
+      const response = await postFile(localStorage.getItem("JSESSIONID"), data)
+      if (response.request.status === 200) {
+        setAlert(true);
+        setStatusCode(response.request.status);
+        getData();
+      } else {
+        setAlert(true);
+        setStatusCode(response.request.status);
+      }
     }
     handleResponse();
   }, [])
@@ -58,6 +72,7 @@ export default function Dashboard() {
       // var blob = new Blob([file.data], { type: Object.values(response.headers)[0] })
       // console.log(blob)
       setIsLoading(false);
+
       return response
     } else {
       setAlert(true);
@@ -69,6 +84,7 @@ export default function Dashboard() {
     const response = await deleteFile(localStorage.getItem("JSESSIONID"), fileId);
     if (response.request.status === 200) {
       setIsLoading(false);
+      getData();
       return response
     } else {
       setAlert(true);
@@ -77,17 +93,6 @@ export default function Dashboard() {
   }
 
   useEffect(() => {
-    const getData = async () => {
-      const response = await getFiles(localStorage.getItem("JSESSIONID"))
-      if (response.request.status === 200) {
-        setCards(response.data.files)
-        setTotalSpace(response.data.total_space_used)
-        setIsLoading(false);
-      } else {
-        setAlert(true);
-        setStatusCode(response.request.status);
-      }
-    }
     getData();
   }, []);
 
