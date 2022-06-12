@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = "http://localhost:3001";
+const API_URL = process.env.API_URL || "http://localhost:3001";
 
 export default async function getBinaryFile(storedToken, fileId) {
   const objectToken = JSON.parse(storedToken)
