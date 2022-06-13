@@ -47,6 +47,9 @@ export default function App() {
           <Navigation />
         </header>
         <Routes>
+          <>
+            <Route path={"/SignOut"} element={<SignOut />} />
+          </>
           {
             (!isLogged) && (
               <>
@@ -55,7 +58,6 @@ export default function App() {
                 <Route path={"/SignIn"} element={<SignIn />} />
                 <Route path={"/SignUp"} element={<SignUp />} />
                 <Route path={"/ForgotPassword"} element={<ForgotPassword />} />
-                <Route path={"/SignOut"} element={<SignOut />} />
               </>
             )
           }
