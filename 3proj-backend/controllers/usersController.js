@@ -167,7 +167,7 @@ const patchLastName = async (req, res) => {
   const joiSchema = Joi.object().keys({
     last_name: Joi.string().required()
   })
-
+  console.log(req.body)
   const userJWT = req.user
   if (joiSchema.validate(req.body).error) {
     res.status(400).send(joiSchema.validate(req.body).error.details);

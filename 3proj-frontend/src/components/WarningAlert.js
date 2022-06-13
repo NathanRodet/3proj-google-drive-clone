@@ -51,7 +51,7 @@ export default function WarningAlert(props) {
               <AlertTitle>
                 Success
               </AlertTitle>
-              You action has been successfully completed.
+              Your actions has been successfully completed.
             </Alert>
           </Collapse>
           :

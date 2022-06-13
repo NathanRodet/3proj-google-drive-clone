@@ -19,6 +19,7 @@ import FileDetails from './pages/FileDetails';
 import GlobalStyles from '@mui/material/GlobalStyles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
+import Profile from './pages/Profile';
 
 let theme = createTheme();
 theme = responsiveFontSizes(theme);
@@ -54,6 +55,7 @@ export default function App() {
                 <Route path={"/SignIn"} element={<SignIn />} />
                 <Route path={"/SignUp"} element={<SignUp />} />
                 <Route path={"/ForgotPassword"} element={<ForgotPassword />} />
+                <Route path={"/SignOut"} element={<SignOut />} />
               </>
             )
           }
@@ -62,7 +64,7 @@ export default function App() {
               <>
                 <Route path={"/Dashboard"} element={<Dashboard />} />
                 <Route path="/Dashboard/:fileId" element={<FileDetails />} />
-                <Route path={"/SignOut"} element={<SignOut />} />
+                <Route path={"/Profile"} element={<Profile />} />
               </>
             )
           }
