@@ -63,9 +63,9 @@ export default function FileDetails() {
               null
               :
               (contentType.split("/")[0] === "image") ?
-                <img src={`${previewFile}`} alt="Preview" />
+                <img src={`${previewFile}`} alt="Preview" width="200" height="200" />
                 : (contentType.split("/")[0] === "video") ?
-                  <video autoPlay loop >
+                  <video autoPlay loop muted width="200" height="200">
                     <source src={`${previewFile}`} type={contentType} />
                   </video>
                   : null

@@ -93,9 +93,7 @@ export default function Navigation() {
                 textDecoration: 'none',
               }}
             >
-              <Link className="Navigation-link" to={"/Home"}>
-                DriveSup
-              </Link>
+              DriveSup
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
