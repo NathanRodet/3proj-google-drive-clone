@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useParams } from 'react-router-dom';
 import getBinaryFile from '../services/users/getBinaryFile';
 import Alert from '../components/WarningAlert';
@@ -60,7 +61,7 @@ export default function FileDetails() {
         >
           {
             isLoading ?
-              null
+              <CircularProgress />
               :
               (contentType.split("/")[0] === "image") ?
                 <img src={`${previewFile}`} alt="Preview" width="200" height="200" />
@@ -68,7 +69,8 @@ export default function FileDetails() {
                   <video autoPlay loop muted width="200" height="200">
                     <source src={`${previewFile}`} type={contentType} />
                   </video>
-                  : null
+                  :
+                  < Alert statusCode={statusCode} />
           }
         </Box>
         <Box
