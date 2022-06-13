@@ -14,12 +14,14 @@ export default function FileDetails() {
   const [statusCode, setStatusCode] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [previewFile, setPreviewFile] = useState(null);
+  const [contentType, setContentType] = useState(null);
   const { fileId } = useParams();
 
   useEffect(() => {
     const getBinary = async () => {
       const response = await getBinaryFile(localStorage.getItem("JSESSIONID"), fileId);
       if (response.request.status === 200) {
+        setContentType(response.data.type);
         setPreviewFile(URL.createObjectURL(response.data));
         setIsLoading(false);
       } else {
@@ -54,15 +56,19 @@ export default function FileDetails() {
           display="flex"
           justifyContent="center"
           alignItems="center"
-          sx={{ mt: 3, mb: 3, maxHeight: 500, maxWidth: 500 }}
+          sx={{ mt: 3, mb: 3 }}
         >
           {
             isLoading ?
               null
               :
-              <Box>
+              (contentType.split("/")[0] === "image") ?
                 <img src={`${previewFile}`} alt="Preview" />
-              </Box>
+                : (contentType.split("/")[0] === "video") ?
+                  <video autoPlay loop >
+                    <source src={`${previewFile}`} type={contentType} />
+                  </video>
+                  : null
           }
         </Box>
         <Box
