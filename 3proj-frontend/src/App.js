@@ -16,6 +16,13 @@ import getUserStatus from './services/auth/getUserStatus';
 import getAdminStatus from './services/auth/getAdminStatus';
 import FileDetails from './pages/FileDetails';
 
+import GlobalStyles from '@mui/material/GlobalStyles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
+
+let theme = createTheme();
+theme = responsiveFontSizes(theme);
+
 export default function App() {
   const [isLogged, setIsLogged] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
@@ -32,44 +39,48 @@ export default function App() {
 
   return (
     <div className="App">
-      <header className="navigation">
-        <Navigation />
-      </header>
-      <Routes>
-        {
-          (!isLogged) && (
-            <>
-              <Route path={"/"} element={<Home />} />
-              <Route path={"/Home"} element={<Home />} />
-              <Route path={"/SignIn"} element={<SignIn />} />
-              <Route path={"/SignUp"} element={<SignUp />} />
-            </>
-          )
-        }
-        {
-          (isAdmin || isLogged) && (
-            <>
-              <Route path={"/Dashboard"} element={<Dashboard />} />
-              <Route path="/Dashboard/:fileId" element={<FileDetails />} />
-              <Route path={"/ForgotPassword"} element={<ForgotPassword />} />
-              <Route path={"/SignOut"} element={<SignOut />} />
-            </>
-          )
-        }
-        {
-          (isAdmin) && (
-            <>
-              <Route path={"/AdminDashboard"} element={<AdminDashboard />} />
-            </>
-          )
-        }
-        <Route path={"/ContactUs"} element={<ContactUs />} />
-        <Route path={"/Documentation"} element={<Documentation />} />
-        <Route path={"*"} element={<NotFound />} />
-      </Routes>
-      <footer className="footer">
-        <Footer />
-      </footer>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
+        <CssBaseline />
+        <header className="navigation">
+          <Navigation />
+        </header>
+        <Routes>
+          {
+            (!isLogged) && (
+              <>
+                <Route path={"/"} element={<Home />} />
+                <Route path={"/Home"} element={<Home />} />
+                <Route path={"/SignIn"} element={<SignIn />} />
+                <Route path={"/SignUp"} element={<SignUp />} />
+                <Route path={"/ForgotPassword"} element={<ForgotPassword />} />
+              </>
+            )
+          }
+          {
+            (isAdmin || isLogged) && (
+              <>
+                <Route path={"/Dashboard"} element={<Dashboard />} />
+                <Route path="/Dashboard/:fileId" element={<FileDetails />} />
+                <Route path={"/SignOut"} element={<SignOut />} />
+              </>
+            )
+          }
+          {
+            (isAdmin) && (
+              <>
+                <Route path={"/AdminDashboard"} element={<AdminDashboard />} />
+              </>
+            )
+          }
+          <Route path={"/ContactUs"} element={<ContactUs />} />
+          <Route path={"/Documentation"} element={<Documentation />} />
+          <Route path={"*"} element={<NotFound />} />
+        </Routes>
+        <footer className="footer">
+          <Footer />
+        </footer>
+      </ThemeProvider>
     </div>
   )
 }

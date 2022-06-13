@@ -2,9 +2,9 @@ import React from 'react'
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
-export default function NotFound() {
+export default function Unavailable() {
   return (
-    <div className="NotFound">
+    <div className="Unavailable">
       <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 6, pb: 0, pl: 2, pr: 2 }}>
         <Typography
           component="h1"
@@ -13,12 +13,12 @@ export default function NotFound() {
           color="text.primary"
           gutterBottom
         >
-          404: Page Not Found
+          Page not available
         </Typography>
         <Typography variant="h5" align="center" color="text.secondary" component="p">
-          We encountered an error while loading the page your searched for. Please make sure the page is already available on our website.
+          The page you're looking for is not available. She might be available is the future version of the app.
         </Typography>
       </Container>
-    </div >
+    </div>
   )
 }
