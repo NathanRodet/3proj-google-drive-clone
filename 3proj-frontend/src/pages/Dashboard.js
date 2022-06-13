@@ -157,10 +157,7 @@ export default function Dashboard() {
                               />
                               <CardContent>
                                 <Typography gutterBottom variant="h5" component="div">
-                                  {
-                                    item.filename.length > 20 ? (item.filename.substring(0, item.filename.lastIndexOf('.')).substring(0, 20).concat("...") || item.filename)
-                                      : (item.filename.substring(0, item.filename.lastIndexOf('.')) || item.filename)
-                                  }
+                                  {item.filename.substring(0, item.filename.lastIndexOf('.'))}
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
                                   <b>Size :</b> {item.size}

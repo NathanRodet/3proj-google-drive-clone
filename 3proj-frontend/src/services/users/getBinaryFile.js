@@ -6,13 +6,14 @@ export default async function getBinaryFile(storedToken, fileId) {
   const objectToken = JSON.parse(storedToken)
   const token = Object.values(objectToken)
   const config = {
+    responseType: 'blob',
     headers: {
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${token}`,
     }
   };
   return axios.get(API_URL + `/drive/specific/file/download/${fileId}`, config)
     .then(response => {
-      // console.log(response.data)
+      console.log(response)
       return response
     })
     .catch(error => {
@@ -20,3 +21,4 @@ export default async function getBinaryFile(storedToken, fileId) {
       return error
     });
 }
+
