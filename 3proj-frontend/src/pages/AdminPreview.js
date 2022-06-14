@@ -9,6 +9,7 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import CircularProgress from '@mui/material/CircularProgress';
 import Grid from '@mui/material/Grid';
 import imagePlaceholder from '../media/image-placeholder.png';
 import videoPlaceholder from '../media/video-placeholder.png';
@@ -38,6 +39,7 @@ export default function AdminPreview() {
       setAlert(true);
       setStatusCode(response.request.status);
       setAlertMessage("No files were found");
+      setIsLoading(false);
     } else {
       setAlert(true);
       setStatusCode(response.request.status);
@@ -77,10 +79,10 @@ export default function AdminPreview() {
         < Alert statusCode={statusCode} alertMessage={alertMessage} />
         : null}
       <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 4, pb: 0, pl: 2, pr: 2 }}>
-        <Box sx={{ width: '100%', pt: 4, pb: 0 }}>
+        <Box sx={{ width: '100%', pt: 2, pb: 0 }}>
           {
             isLoading ?
-              null
+              <CircularProgress />
               :
               <Box>
                 <Typography
@@ -91,7 +93,7 @@ export default function AdminPreview() {
                   gutterBottom
                   sx={{ pb: 3 }}
                 >
-                  Browse your files
+                  Browse users files
                 </Typography>
                 <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                   {cards.map(item => (
@@ -147,7 +149,7 @@ export default function AdminPreview() {
           }
           {
             isLoading ?
-              null
+              <CircularProgress />
               :
               <Typography variant="h5" align="center" color="text.secondary" component="p" sx={{ pt: 4, pb: 0 }}>
                 {totalSpace} is the total space used for your {cards.length} files.

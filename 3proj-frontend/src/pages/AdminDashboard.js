@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-
+import CircularProgress from '@mui/material/CircularProgress';
 import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -23,23 +23,23 @@ export default function AdminDashboard() {
   const [alert, setAlert] = useState(false);
   const [statusCode, setStatusCode] = useState(null);
 
-  async function handleDeleteUser(userId) {
-    const response = await deleteUser(localStorage.getItem("JSESSIONID"), userId);
+  const getData = async () => {
+    const response = await getUsers(localStorage.getItem("JSESSIONID"))
+    setIsLoading(false);
     if (response.request.status === 200) {
-      setIsLoading(false);
-      getData();
-      return response
+      setRows(response.data)
     } else {
       setAlert(true);
       setStatusCode(response.request.status);
     }
   }
 
-  const getData = async () => {
-    const response = await getUsers(localStorage.getItem("JSESSIONID"))
-    setIsLoading(false);
+  async function handleDeleteUser(userId) {
+    const response = await deleteUser(localStorage.getItem("JSESSIONID"), userId);
     if (response.request.status === 200) {
-      setRows(response.data)
+      setIsLoading(false);
+      getData();
+      return response
     } else {
       setAlert(true);
       setStatusCode(response.request.status);
@@ -58,7 +58,7 @@ export default function AdminDashboard() {
         <Box sx={{ width: '100%' }}>
           {
             isLoading ?
-              null
+              <CircularProgress />
               :
               alert ?
                 < Alert statusCode={statusCode} />

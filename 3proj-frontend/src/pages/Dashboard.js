@@ -20,7 +20,6 @@ import imagePlaceholder from '../media/image-placeholder.png';
 import videoPlaceholder from '../media/video-placeholder.png';
 import filePlaceholder from '../media/file-placeholder.png';
 
-
 export default function Dashboard() {
   const [alert, setAlert] = useState(false);
   const [statusCode, setStatusCode] = useState(null);
@@ -212,7 +211,7 @@ export default function Dashboard() {
           }
           {
             isLoading ?
-              null
+              <CircularProgress />
               :
               <Typography variant="h5" align="center" color="text.secondary" component="p" sx={{ pt: 4, pb: 0 }}>
                 {totalSpace} is the total space used for your {cards.length} files.
