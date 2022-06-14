@@ -67,12 +67,7 @@ export default function Dashboard() {
   async function handleDownloadFile(fileId) {
     const response = await getBinaryFile(localStorage.getItem("JSESSIONID"), fileId);
     if (response.request.status === 200) {
-      // Set File 
-      // console.log(response)
-      // var blob = new Blob([file.data], { type: Object.values(response.headers)[0] })
-      // console.log(blob)
       setIsLoading(false);
-
       return response
     } else {
       setAlert(true);

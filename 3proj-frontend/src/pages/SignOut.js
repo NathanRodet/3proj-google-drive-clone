@@ -6,7 +6,6 @@ import Container from '@mui/material/Container';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
-
 export default function SignOut() {
   const navigate = useNavigate();
   const [alert, setAlert] = useState(false);

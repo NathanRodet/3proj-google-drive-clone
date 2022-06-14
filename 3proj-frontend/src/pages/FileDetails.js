@@ -9,7 +9,6 @@ import { useParams } from 'react-router-dom';
 import getBinaryFile from '../services/users/getBinaryFile';
 import Alert from '../components/WarningAlert';
 
-
 export default function FileDetails() {
   const [alert, setAlert] = useState(false);
   const [statusCode, setStatusCode] = useState(null);
