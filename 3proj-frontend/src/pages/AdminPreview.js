@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
@@ -29,7 +29,7 @@ export default function AdminPreview() {
   const [totalSpace, setTotalSpace] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const getData = async () => {
+  const getData = useCallback(async () => {
     const response = await getUserFiles(localStorage.getItem("JSESSIONID"), userId)
     if (response.request.status === 200) {
       setCards(response.data.files)
@@ -44,7 +44,7 @@ export default function AdminPreview() {
       setAlert(true);
       setStatusCode(response.request.status);
     }
-  }
+  }, [userId])
 
   async function handleDownloadFile(fileId) {
     const response = await getBinaryFile(localStorage.getItem("JSESSIONID"), fileId);
@@ -71,7 +71,7 @@ export default function AdminPreview() {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [getData]);
 
   return (
     <div className="AdminPreview">
