@@ -10,12 +10,42 @@ import Container from '@mui/material/Container';
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '../components/WarningAlert';
 import patchUser from '../services/users/patchUser';
+import { useNavigate } from "react-router-dom";
+import deleteAccount from '../services/users/deleteAccount';
+import clearToken from '../services/auth/clearToken'
 
 export default function Profile() {
+  const navigate = useNavigate();
   const [alert, setAlert] = useState(false);
   const [statusCode, setStatusCode] = useState(null);
   const [alertMessage, setAlertMessage] = useState(null);
-  const [isLoading, setIsLoading] = useState(null)
+  const [isLoading, setIsLoading] = useState(null);
+  const [deleteLoading, setDeleteLoading] = useState(null);
+
+  const handleDeleteAccount = async (event) => {
+    event.preventDefault();
+    setDeleteLoading(true);
+    await deleteAccount(localStorage.getItem("JSESSIONID")).then(
+      response => {
+        if (response.request.status === 200) {
+          setStatusCode(response.request.status);
+          setAlert(true);
+          const valueIsCleared = clearToken();
+          if (valueIsCleared) {
+            navigate("/SignIn");
+            window.location.reload();
+          } else {
+            setAlert(true);
+          }
+          setDeleteLoading(false);
+        } else {
+          setAlert(true);
+          setStatusCode(response.request.status);
+          setAlertMessage(response.response.data[0].message);
+          setDeleteLoading(false);
+        }
+      })
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -154,17 +184,39 @@ export default function Profile() {
                 :
                 null
             }
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
             >
-              Update
-            </Button>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 2, mb: 2 }}
+              >
+                Update Account
+              </Button>
+              <Button
+                fullWidth
+                color='error'
+                variant="contained"
+                onClick={handleDeleteAccount}
+              >
+                Delete Account
+              </Button>
+            </Box>
+            {
+              deleteLoading ?
+                <CircularProgress />
+                : null
+            }
+
           </Box>
         </Box>
-      </Container>
-    </div>
+      </Container >
+    </div >
   )
 }

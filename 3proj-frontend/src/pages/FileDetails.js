@@ -64,9 +64,9 @@ export default function FileDetails() {
               <CircularProgress />
               :
               (contentType.split("/")[0] === "image") ?
-                <img src={`${previewFile}`} alt="Preview" width="200" height="200" />
+                <img src={`${previewFile}`} alt="Preview" width="100%" height="100%" />
                 : (contentType.split("/")[0] === "video") ?
-                  <video autoPlay loop muted width="200" height="200">
+                  <video autoPlay loop controls width="100%" height="100%">
                     <source src={`${previewFile}`} type={contentType} />
                   </video>
                   :
