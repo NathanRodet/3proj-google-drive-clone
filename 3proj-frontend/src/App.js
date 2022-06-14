@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Routes, Route } from 'react-router-dom';
+import GlobalStyles from '@mui/material/GlobalStyles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
@@ -15,11 +18,8 @@ import Footer from './components/Footer';
 import getUserStatus from './services/auth/getUserStatus';
 import getAdminStatus from './services/auth/getAdminStatus';
 import FileDetails from './pages/FileDetails';
-
-import GlobalStyles from '@mui/material/GlobalStyles';
-import CssBaseline from '@mui/material/CssBaseline';
-import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 import Profile from './pages/Profile';
+import AdminPreview from './pages/AdminPreview';
 
 let theme = createTheme();
 theme = responsiveFontSizes(theme);
@@ -74,6 +74,7 @@ export default function App() {
             (isAdmin) && (
               <>
                 <Route path={"/AdminDashboard"} element={<AdminDashboard />} />
+                <Route path={"/AdminDashboard/:userId"} element={<AdminPreview />} />
               </>
             )
           }

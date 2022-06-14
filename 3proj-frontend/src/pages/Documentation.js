@@ -3,7 +3,7 @@ import Unavailable from '../components/Unavailable';
 
 export default function Documentation() {
   return (
-    <div className="ContactUs">
+    <div className="Documentation">
       <Unavailable />
     </div >
   )

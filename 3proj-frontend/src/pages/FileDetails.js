@@ -27,6 +27,7 @@ export default function FileDetails() {
       } else {
         setAlert(true);
         setStatusCode(response.request.status);
+        setIsLoading(false);
       }
     }
     getBinary();

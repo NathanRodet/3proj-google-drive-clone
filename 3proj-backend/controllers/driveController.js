@@ -43,7 +43,7 @@ const getDocumentById = async (req, res) => {
       const file = await gfs.files.findOne({ _id: ObjectId(req.params.fileId) })
       if (userJWT.is_admin || (userJWT._id === file.metadata.owner_id)) {
         if (!file || file === undefined || file.length === 0) {
-          res.status(404).json({ message: 'File does not exist.' });
+          res.status(204).json({ message: 'File does not exist.' });
         } else {
           res.send({ _id: file._id, size: file.size, upload_date: file.uploadDate, content_type: file.contentType, owner_id: file.metadata.owner_id })
         }
@@ -65,7 +65,7 @@ const getDocumentByUserId = async (req, res) => {
       const files = await gfs.files.find({ 'metadata.owner_id': req.params.userId }).toArray();
       if (userJWT.is_admin) {
         if (!files || files === undefined || files.length === 0) {
-          res.status(404).json({ message: 'No existing files exist.' });
+          res.status(204).json({ message: 'No existing files exist.' });
         } else {
           let space = 0
           const filesUpdated = files.map(obj => {
@@ -166,12 +166,12 @@ const deleteDocumentById = async (req, res) => {
       const userJWT = req.user;
       const file = await gfs.files.find({ _id: ObjectId(req.params.fileId) }).toArray();
       if (!file || file === undefined || file.length === 0) {
-        res.status(404).json({ message: "Remove file failure, no files." });
+        res.status(204).json({ message: "Remove file failure, no files." });
       } else {
         if (userJWT.is_admin || (userJWT._id === file[0].metadata.owner_id)) {
           await gfsBucket.delete(ObjectId(req.params.fileId), (error) => {
             if (error) {
-              res.status(404).json({ message: "Cannot remove the file" });
+              res.status(204).json({ message: "Cannot remove the file" });
             } else {
               res.status(200).json({ message: "The file has been removed" });
             }
@@ -223,7 +223,7 @@ const deleteUserDocumentsById = async (req, res, next) => {
         files.forEach(item => {
           gfsBucket.delete(ObjectId(item._id), (error) => {
             if (error) {
-              res.status(404).json({ message: "Remove files failure. " });
+              res.status(204).json({ message: "Remove files failure. " });
             }
           });
         })

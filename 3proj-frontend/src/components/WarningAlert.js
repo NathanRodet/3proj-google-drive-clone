@@ -9,7 +9,6 @@ import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
 
-
 const style = {
   position: 'absolute',
   top: '50%',
@@ -56,7 +55,31 @@ export default function WarningAlert(props) {
           </Collapse>
           :
           (statusCode === 204) ?
-            null
+            (alertMessage) ?
+              <Collapse in={open}>
+                <Alert severity="info"
+                  action={
+                    <IconButton
+                      aria-label="close"
+                      color="inherit"
+                      size="large"
+                      align="center"
+                      onClick={() => {
+                        setOpen(false);
+                      }}
+                    >
+                      <CloseIcon fontSize="inherit" />
+                    </IconButton>
+                  }
+                  sx={{ mb: 0 }}
+                >
+                  <AlertTitle>
+                    Information
+                  </AlertTitle>
+                  {alertMessage}
+                </Alert>
+              </Collapse>
+              : null
             : (statusCode === 400) ?
               <Collapse in={open}>
                 <Alert severity="error"

@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+
+import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Alert from '../components/WarningAlert';
@@ -76,6 +78,7 @@ export default function AdminDashboard() {
                     </TableHead>
                     <TableBody>
                       {rows.map((row) => (
+
                         <TableRow
                           key={row._id}
                           sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -88,9 +91,11 @@ export default function AdminDashboard() {
                             </Button>
                           </TableCell>
                           <TableCell align="center">
-                            <Button color="secondary">
-                              <AccountCircleIcon color="primary" />
-                            </Button>
+                            <Link className="Navigation-link" to={`/AdminDashboard/${row._id}`}>
+                              <Button color="secondary">
+                                <AccountCircleIcon color="primary" />
+                              </Button>
+                            </Link>
                           </TableCell>
                           <TableCell component="th" scope="row">{row._id}</TableCell>
                           <TableCell align="left">{row.username}</TableCell>

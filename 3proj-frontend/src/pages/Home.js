@@ -11,7 +11,6 @@ import StarIcon from '@mui/icons-material/StarBorder';
 import Typography from '@mui/material/Typography';
 import { Link as RouterLink } from 'react-router-dom';
 
-
 const tiers = [
   {
     title: 'Pro',
