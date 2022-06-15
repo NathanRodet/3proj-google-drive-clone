@@ -69,10 +69,6 @@ The solution is supposed to run on both web and mobile plateform. You also need 
  - Access to users documents.
  - Monitoring informations [resources used, errors...]
 
-## To-do
-
- - Block an user 1/2
- - See the storage
 
 ### Bonus features for admin:
 

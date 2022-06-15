@@ -13,7 +13,7 @@ export default async function getBinaryFile(storedToken, fileId) {
   };
   return axios.get(API_URL + `/drive/specific/file/download/${fileId}`, config)
     .then(response => {
-      console.log(response)
+      // console.log(response)
       return response
     })
     .catch(error => {

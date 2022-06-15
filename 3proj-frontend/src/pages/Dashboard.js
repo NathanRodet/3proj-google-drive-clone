@@ -35,6 +35,7 @@ export default function Dashboard() {
     const response = await getFiles(localStorage.getItem("JSESSIONID"))
     if (response.request.status === 200) {
       setCards(response.data.files)
+      console.log(response.data.files)
       setTotalSpace(response.data.total_space_used)
       setIsLoading(false);
     } else {
@@ -45,10 +46,12 @@ export default function Dashboard() {
 
   const onDrop = useCallback(acceptedFiles => {
     // Upload the file
+
     var data = new FormData();
     data.append("file", acceptedFiles[0]);
     const handleResponse = async () => {
       const response = await postFile(localStorage.getItem("JSESSIONID"), data)
+      console.log(acceptedFiles[0])
       if (response.request.status === 200) {
         setAlert(true);
         setStatusCode(response.request.status);
@@ -61,6 +64,33 @@ export default function Dashboard() {
     handleResponse();
   }, [])
   const { getRootProps, getInputProps } = useDropzone({ onDrop })
+
+  async function handleDuplicateFile(fileId, fileName) {
+    // Get file
+    const responseDownload = await getBinaryFile(localStorage.getItem("JSESSIONID"), fileId);
+    if (responseDownload.request.status === 200) {
+      // If file, upload file for user to duplicate it
+      var file = new File([responseDownload.data], fileName, { type: responseDownload.data.type });
+      var data = new FormData();
+      data.append("file", file);
+      const handleResponseUpload = async () => {
+        const responseUpload = await postFile(localStorage.getItem("JSESSIONID"), data)
+        if (responseUpload.request.status === 200) {
+          setAlert(true);
+          setStatusCode(responseUpload.request.status);
+          getData();
+        } else {
+          setAlert(true);
+          setStatusCode(responseUpload.request.status);
+        }
+      }
+      handleResponseUpload();
+      setIsLoading(false);
+    } else {
+      setAlert(true);
+      setStatusCode(responseDownload.request.status);
+    }
+  }
 
   async function handleDownloadFile(fileId) {
     const response = await getBinaryFile(localStorage.getItem("JSESSIONID"), fileId);
@@ -191,7 +221,6 @@ export default function Dashboard() {
                         <CardActions>
                           <Button size="small" onClick={async () => {
                             const file = await handleDownloadFile(item._id)
-                            console.log(file)
                             const url = window.URL.createObjectURL(new Blob([file.data]));
                             const link = document.createElement('a');
                             link.href = url;
@@ -210,7 +239,7 @@ export default function Dashboard() {
                             Delete
                           </Button>
                           <Button size="small" onClick={async () => {
-                            await handleDeleteFile(item._id)
+                            await handleDuplicateFile(item._id, item.filename)
                           }} sx={{ color: 'information' }} >
                             <ContentCopyIcon />
                             Duplicate

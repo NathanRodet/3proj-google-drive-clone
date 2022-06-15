@@ -20,7 +20,6 @@ import deleteFile from '../services/users/deleteFile';
 import getUserFiles from '../services/admin/getUserFiles'
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 export default function AdminPreview() {
   const { userId } = useParams();
@@ -146,12 +145,6 @@ export default function AdminPreview() {
                           }} sx={{ color: 'error.main' }} >
                             <DeleteForeverRoundedIcon />
                             Delete
-                          </Button>
-                          <Button size="small" onClick={async () => {
-                            await handleDeleteFile(item._id)
-                          }} sx={{ color: 'information' }} >
-                            <ContentCopyIcon />
-                            Duplicate
                           </Button>
                         </CardActions>
                       </Card>
