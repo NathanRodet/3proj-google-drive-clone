@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = process.env.REACT_APP_BASEURL || "http://localhost:3001";
+const API_URL = "https://app-supinfo-3proj-dev.azurewebsites.net";
 
 export default async function deleteAccount(storedToken) {
   const objectToken = JSON.parse(storedToken)
