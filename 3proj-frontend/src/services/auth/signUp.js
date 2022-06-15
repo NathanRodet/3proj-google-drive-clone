@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = "https://api-supinfo-3proj-dev.azurewebsites.net";
+const API_URL = process.env.REACT_APP_BASEURL;
 
 export default async function postUser(data) {
   return axios.post(API_URL + "/users", data)
