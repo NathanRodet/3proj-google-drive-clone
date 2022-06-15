@@ -30,6 +30,7 @@ export default function Dashboard() {
   const [cards, setCards] = useState([]);
   const [totalSpace, setTotalSpace] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [alertMessage, setAlertMessage] = useState(null);
 
   const getData = async () => {
     const response = await getFiles(localStorage.getItem("JSESSIONID"))
@@ -41,12 +42,12 @@ export default function Dashboard() {
     } else {
       setAlert(true);
       setStatusCode(response.request.status);
+      setIsLoading(false);
     }
   }
 
   const onDrop = useCallback(acceptedFiles => {
     // Upload the file
-
     var data = new FormData();
     data.append("file", acceptedFiles[0]);
     const handleResponse = async () => {
@@ -109,6 +110,11 @@ export default function Dashboard() {
       setIsLoading(false);
       getData();
       return response
+    } else if (response.request.status === 204) {
+      setAlert(true);
+      setStatusCode(response.request.status);
+      setAlertMessage("No files were found");
+      setIsLoading(false);
     } else {
       setAlert(true);
       setStatusCode(response.request.status);
@@ -122,7 +128,7 @@ export default function Dashboard() {
   return (
     <div className="Dashboard">
       {alert ?
-        < Alert statusCode={statusCode} />
+        < Alert statusCode={statusCode} alertMessage={alertMessage} />
         : null}
 
       <Container disableGutters maxWidth="md" component="main" sx={{ pt: 4, pb: 0, pl: 2, pr: 2 }}>
