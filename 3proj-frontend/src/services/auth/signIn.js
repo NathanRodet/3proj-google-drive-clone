@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = "https://app-supinfo-3proj-dev.azurewebsites.net";
+const API_URL = "https://api-supinfo-3proj-dev.azurewebsites.net";
 console.log(API_URL);
 console.log(process.env.REACT_APP_BASEURL);
 

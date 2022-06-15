@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = "https://app-supinfo-3proj-dev.azurewebsites.net";
+const API_URL = "https://api-supinfo-3proj-dev.azurewebsites.net";
 
 export default async function deleteUser(storedToken, userId) {
   const objectToken = JSON.parse(storedToken)
