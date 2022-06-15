@@ -64,6 +64,7 @@ export default function App() {
           {
             (isAdmin || isLogged) && (
               <>
+                <Route path={"/"} element={<Dashboard />} />
                 <Route path={"/Dashboard"} element={<Dashboard />} />
                 <Route path="/Dashboard/:fileId" element={<FileDetails />} />
                 <Route path={"/Profile"} element={<Profile />} />
