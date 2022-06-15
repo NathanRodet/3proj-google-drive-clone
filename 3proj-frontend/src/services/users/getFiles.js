@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = process.env.BASEURL || "http://localhost:3001";
+const API_URL = process.env.REACT_APP_BASEURL || "http://localhost:3001";
 
 export default async function getFiles(storedToken) {
   const objectToken = JSON.parse(storedToken)

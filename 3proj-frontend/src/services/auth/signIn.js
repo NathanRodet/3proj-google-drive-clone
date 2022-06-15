@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const API_URL = process.env.BASEURL || "http://localhost:3001";
+const API_URL = process.env.REACT_APP_BASEURL || "http://localhost:3001";
 console.log(API_URL);
-console.log(process.env.BASEURL);
+console.log(process.env.REACT_APP_BASEURL);
 
 export default async function postAuth(data) {
   return axios.post(API_URL + "/auth", data)
