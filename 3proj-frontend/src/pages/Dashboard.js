@@ -22,6 +22,7 @@ import filePlaceholder from '../media/file-placeholder.png';
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline';
 
 export default function Dashboard() {
   const [alert, setAlert] = useState(false);
@@ -42,7 +43,7 @@ export default function Dashboard() {
     } else {
       setAlert(true);
       setStatusCode(response.request.status);
-      setIsLoading(false);
+
     }
   }
 
@@ -148,7 +149,7 @@ export default function Dashboard() {
               <input {...getInputProps()} />
 
               <Typography variant="h5" align="center" color="text.secondary" component="p" sx={{ pt: 4, pb: 4 }}>
-                Drop the file here, or click to select file
+                <DownloadForOfflineIcon sx={{ fontSize: "60px" }} />
               </Typography>
             </div>
           </Box>
@@ -156,7 +157,14 @@ export default function Dashboard() {
         <Box sx={{ width: '100%', pt: 4, pb: 0 }}>
           {
             isLoading ?
-              <CircularProgress />
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                }}>
+                <CircularProgress />
+              </Box>
               :
               <Box>
                 <Typography
