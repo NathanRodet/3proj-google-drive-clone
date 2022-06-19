@@ -2,7 +2,8 @@
 	"info": {
 		"_postman_id": "bc408c66-9ef7-413f-9c00-1d69e12ecb9d",
 		"name": "3proj",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14361672"
 	},
 	"item": [
 		{
@@ -61,7 +62,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"username\": \"weac\",\r\n    \"password\": \"testpass\"\r\n}",
+									"raw": "{\r\n    \"username\": \"weac1\",\r\n    \"password\": \"testpass\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -611,7 +612,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:3001/drive/specific/file/6277fc20c1e0df165c3a9df3",
+									"raw": "http://localhost:3001/drive/specific/file/62a2447c9a9b3fb017c14406",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -621,7 +622,39 @@
 										"drive",
 										"specific",
 										"file",
-										"6277fc20c1e0df165c3a9df3"
+										"62a2447c9a9b3fb017c14406"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/drive/specific/files/{userId}",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY2YThkMDliMmRmNjgzYzI5NmU0YWUiLCJpc19hZG1pbiI6dHJ1ZSwiaXNfYmxvY2tlZCI6ZmFsc2UsImlhdCI6MTY1NTIyNDU5NCwiZXhwIjoxNjU1MjI4MTk0fQ.2lToaYohlHMkohjUDEFfXJZ4awptoTVhVP14524szVc",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3001/drive/specific/files/6266a8d09b2df683c296e4ae",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"drive",
+										"specific",
+										"files",
+										"6266a8d09b2df683c296e4ae"
 									]
 								}
 							},
@@ -630,6 +663,16 @@
 						{
 							"name": "/drive",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY2YThkMDliMmRmNjgzYzI5NmU0YWUiLCJpc19hZG1pbiI6dHJ1ZSwiaXNfYmxvY2tl",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -638,7 +681,7 @@
 										{
 											"key": "file",
 											"type": "file",
-											"src": "/C:/Users/rodet/Downloads/hike (1).jpg"
+											"src": "/C:/Users/rodet/Downloads/message.txt"
 										}
 									]
 								},
@@ -681,10 +724,20 @@
 						{
 							"name": "/drive/specific/file/download/{fileId}",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY2YThkMDliMmRmNjgzYzI5NmU0YWUiLCJpc19hZG1pbiI6dHJ1ZSwiaXNfYmxvY2tlZCI6ZmFsc2UsImlhdCI6MTY1NDk1NDI0NSwiZXhwIjoxNjU0OTU3ODQ1fQ.SLFy3wnsEzq83lYkeNs0YeyUfR5ENfu7Ahb3z4NkCHs",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:3001/drive/specific/file/download/62780d7a769dc7daa6dab6a2",
+									"raw": "http://localhost:3001/drive/specific/file/download/629f159f00aa0b6ff3fe78aa",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -695,13 +748,23 @@
 										"specific",
 										"file",
 										"download",
-										"62780d7a769dc7daa6dab6a2"
+										"629f159f00aa0b6ff3fe78aa"
 									]
 								}
 							},
 							"response": []
 						}
 					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY2YThkMDliMmRmNjgzYzI5NmU0YWUiLCJpc19hZG1pbiI6dHJ1ZSwiaXNfYmxvY2tlZCI6ZmFsc2UsImlhdCI6MTY1NDk1NDI0NSwiZXhwIjoxNjU0OTU3ODQ1fQ.SLFy3wnsEzq83lYkeNs0YeyUfR5ENfu7Ahb3z4NkCHs",
+								"type": "string"
+							}
+						]
+					},
 					"event": [
 						{
 							"listen": "prerequest",
@@ -729,7 +792,7 @@
 				"bearer": [
 					{
 						"key": "token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY2ZjhiZjk2ZDhkYjljMmQ3YjIxZmUiLCJpc19hZG1pbiI6ZmFsc2UsImlzX2Jsb2NrZWQiOmZhbHNlLCJpYXQiOjE2NTIwMzIyNTksImV4cCI6MTY1MjAzNTg1OX0.YunluvFRBETy8X--rUMg_6Hw_fAIjUfBj7pK4DfAvbg",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY2YThkMDliMmRmNjgzYzI5NmU0YWUiLCJpc19hZG1pbiI6dHJ1ZSwiaXNfYmxvY2tlZCI6ZmFsc2UsImlhdCI6MTY1NDg4ODA2MSwiZXhwIjoxNjU0ODkxNjYxfQ.KPZxMEf9xS0XzO1-sPUre9A6IKr2W6VoLQITe66_WKk",
 						"type": "string"
 					}
 				]
@@ -767,10 +830,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "https://app-supinfo-3proj-dev.azurewebsites.net/teapot",
+									"raw": "https://api-supinfo-3proj-dev.azurewebsites.net/teapot",
 									"protocol": "https",
 									"host": [
-										"app-supinfo-3proj-dev",
+										"api-supinfo-3proj-dev",
 										"azurewebsites",
 										"net"
 									],
@@ -813,7 +876,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"username\": \"weac1\",\r\n    \"password\": \"testpass\"\r\n}",
+									"raw": "{\r\n    \"username\": \"weac\",\r\n    \"password\": \"testpass\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -821,15 +884,12 @@
 									}
 								},
 								"url": {
-									"raw": "https://app-supinfo-3proj-dev.azurewebsites.net/auth",
+									"raw": "https://api-supinfo-3proj-dev.azurewebsites.netauth",
 									"protocol": "https",
 									"host": [
-										"app-supinfo-3proj-dev",
+										"api-supinfo-3proj-dev",
 										"azurewebsites",
-										"net"
-									],
-									"path": [
-										"auth"
+										"netauth"
 									]
 								}
 							},
@@ -856,10 +916,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "https://app-supinfo-3proj-dev.azurewebsites.net/users",
+									"raw": "https://api-supinfo-3proj-dev.azurewebsites.net/users",
 									"protocol": "https",
 									"host": [
-										"app-supinfo-3proj-dev",
+										"api-supinfo-3proj-dev",
 										"azurewebsites",
 										"net"
 									],
@@ -886,10 +946,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "https://app-supinfo-3proj-dev.azurewebsites.net/users/count",
+									"raw": "https://api-supinfo-3proj-dev.azurewebsites.net/users/count",
 									"protocol": "https",
 									"host": [
-										"app-supinfo-3proj-dev",
+										"api-supinfo-3proj-dev",
 										"azurewebsites",
 										"net"
 									],
@@ -917,10 +977,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "https://app-supinfo-3proj-dev.azurewebsites.net/users/specific/user/6266a8d09b2df683c296e4ae",
+									"raw": "https://api-supinfo-3proj-dev.azurewebsites.net/users/specific/user/6266a8d09b2df683c296e4ae",
 									"protocol": "https",
 									"host": [
-										"app-supinfo-3proj-dev",
+										"api-supinfo-3proj-dev",
 										"azurewebsites",
 										"net"
 									],
@@ -949,10 +1009,10 @@
 									}
 								},
 								"url": {
-									"raw": "https://app-supinfo-3proj-dev.azurewebsites.net/users",
+									"raw": "https://api-supinfo-3proj-dev.azurewebsites.net/users",
 									"protocol": "https",
 									"host": [
-										"app-supinfo-3proj-dev",
+										"api-supinfo-3proj-dev",
 										"azurewebsites",
 										"net"
 									],
@@ -979,10 +1039,10 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "https://app-supinfo-3proj-dev.azurewebsites.net/users/self",
+									"raw": "https://api-supinfo-3proj-dev.azurewebsites.net/users/self",
 									"protocol": "https",
 									"host": [
-										"app-supinfo-3proj-dev",
+										"api-supinfo-3proj-dev",
 										"azurewebsites",
 										"net"
 									],
@@ -1405,7 +1465,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY2YThkMDliMmRmNjgzYzI5NmU0YWUiLCJpc19hZG1pbiI6dHJ1ZSwiaXNfYmxvY2tlZCI6ZmFsc2UsImlhdCI6MTY1MTYwNTU3NywiZXhwIjoxNjUxNjA5MTc3fQ.PgWQHR6mGxG6lpdo6YXIOvw777G44DNDhJyrhlHjoCo",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY2YThkMDliMmRmNjgzYzI5NmU0YWUiLCJpc19hZG1pbiI6dHJ1ZSwiaXNfYmxvY2tlZCI6ZmFsc2UsImlhdCI6MTY1NDQ0MzY3MSwiZXhwIjoxNjU0NDQ3MjcxfQ.gQVQh8GqeXBFWx4XAc2afZkxWW6JvHgVATbXz_WuRoM",
 											"type": "string"
 										}
 									]
@@ -1418,15 +1478,15 @@
 										{
 											"key": "file",
 											"type": "file",
-											"src": "/C:/Users/rodet/Desktop/test.xml"
+											"src": "/C:/Users/rodet/Downloads/message.txt"
 										}
 									]
 								},
 								"url": {
-									"raw": "https://app-supinfo-3proj-dev.azurewebsites.net/drive",
+									"raw": "https://api-supinfo-3proj-dev.azurewebsites.net/drive",
 									"protocol": "https",
 									"host": [
-										"app-supinfo-3proj-dev",
+										"api-supinfo-3proj-dev",
 										"azurewebsites",
 										"net"
 									],
@@ -1503,6 +1563,36 @@
 								}
 							},
 							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjY2ZjhiZjk2ZDhkYjljMmQ3YjIxZmUiLCJpc19hZG1pbiI6ZmFsc2UsImlzX2Jsb2NrZWQiOmZhbHNlLCJpYXQiOjE2NTQ0NDA2NDQsImV4cCI6MTY1NDQ0NDI0NH0.NzLlIEEpgbT0pTV4CNzvBKCNssdgLgo7Hin8glP-MOs",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
 						}
 					]
 				}
