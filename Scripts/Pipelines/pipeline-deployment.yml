@@ -103,4 +103,4 @@ jobs:
   steps:
   - script: ggshield scan ci
     env:
-      GITGUARDIAN_API_KEY: $(gitguardianApiKey)
+      GITGUARDIAN_API_KEY: $(GITGUARDIAN_API_KEY)
