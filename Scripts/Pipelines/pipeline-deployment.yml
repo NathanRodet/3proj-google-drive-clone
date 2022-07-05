@@ -5,8 +5,8 @@ pool:
   vmImage: 'ubuntu-latest'
 
 # Terraform (Without documentation)
-
 jobs:
+
 - job: Terraform
   steps:
 
@@ -95,3 +95,12 @@ jobs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)/Frontend'
       ArtifactName: 'Frontend'
       publishLocation: 'Container'
+      
+- job: GitGuardianShield
+  pool:
+    vmImage: 'ubuntu-latest'
+  container: gitguardian/ggshield:latest
+  steps:
+  - script: ggshield scan ci
+    env:
+      GITGUARDIAN_API_KEY: $(gitguardianApiKey)
